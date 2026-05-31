@@ -117,7 +117,7 @@
 
     <div id="custom-cursor"></div>
 
-    <div class="border-x brutalist-border mx-auto max-w-[1800px] min-h-screen flex flex-col">
+    <div class="border-x brutalist-border mx-auto max-w-[1800px] min-hScreen flex flex-col">
         
         <header class="border-b brutalist-border w-full overflow-hidden">
             <h1 class="text-[13.8vw] font-[900] tracking-tighter leading-[0.80] brutalist-text w-full text-center whitespace-nowrap pt-5 pb-1 select-none">
@@ -128,11 +128,16 @@
         <nav class="border-b brutalist-border px-8 py-5 flex justify-between items-center text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
             <div class="brutalist-text">POSTED ON: MAY 31st 2026 // ARCHIVE MATRIX</div>
             
-            <!-- Functional Interactive Toggle Hook -->
             <div class="flex items-center gap-3 cursor-pointer group" id="theme-toggle">
-                <span class="brutalist-text">INVERT</span>
-                <div class="w-10 h-5 border brutalist-border brutalist-surface rounded-full p-0.5 flex items-center transition-colors duration-300">
-                    <div id="toggle-knob" class="w-4 h-4 rounded-full transition-transform duration-300 translate-x-0" style="background-color: var(--text-main);"></div>
+                <span id="theme-text" class="brutalist-text">LIGHT</span>
+                <div class="relative w-5 h-5 flex items-center justify-center">
+                    <svg id="theme-sun" class="w-5 h-5 brutalist-text hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg id="theme-moon" class="w-5 h-5 brutalist-text block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
                 </div>
             </div>
         </nav>
@@ -395,95 +400,115 @@
             </div>
         </section>
 
-<section class="border-b brutalist-border brutalist-surface">
-    <div class="grid grid-cols-1 lg:grid-cols-12">
-        <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border flex flex-col justify-between brutalist-bg select-none">
-            <div>
-                <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-4">// EXTERNAL COMPENDIUM</span>
-                <h3 class="text-2xl font-black tracking-tight uppercase leading-none brutalist-text">Academic <br>Cross-References</h3>
+        <section class="border-b brutalist-border brutalist-surface">
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border flex flex-col justify-between brutalist-bg select-none">
+                    <div>
+                        <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-4">// EXTERNAL COMPENDIUM</span>
+                        <h3 class="text-2xl font-black tracking-tight uppercase leading-none brutalist-text">Academic <br>Cross-References</h3>
+                    </div>
+                    <div class="text-[10px] brutalist-text-muted font-mono mt-8 hidden lg:block">
+                        INDEX REL: OAX-2026<br>
+                        TOTAL REFS: 03 LOCATED
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 brutalist-divide divide-y brutalist-surface">
+                    
+                    <a href="https://example.org/paper-1" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                            <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ DEEP-SEA.2025.09 ]</span>
+                            <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
+                                <span>JOURNAL OF MARINE GEOLOGY</span>
+                                <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
+                            </div>
+                        </div>
+                        <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
+                            Anoxic Carbon Sequestration Horizons in Benthic Sub-layers: Decomposition Velocity Ratios
+                        </h4>
+                        <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
+                            Babin, D., Dr. Thorne, E., et al. Evaluating decay behavior of complex raw carbon vectors under elevated lithostatic pressures across continental shelves.
+                        </p>
+                    </a>
+
+                    <a href="https://example.org/paper-2" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                            <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ ECO-INFRA.2026.02 ]</span>
+                            <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
+                                <span>COASTAL ENGINEERING QUARTERLY</span>
+                                <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
+                            </div>
+                        </div>
+                        <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
+                            Organic Slurry Aggregates as Dynamic Barriers Countering Tidal Margin Transgression
+                        </h4>
+                        <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
+                            Vance, S. R. Morphological tracking models of micro-fluidized sub-surface layers under high-energy incoming wave profiles.
+                        </p>
+                    </a>
+
+                    <a href="https://example.org/paper-3" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                            <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ BIO-GEO.2024.11 ]</span>
+                            <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
+                                <span>GLOBAL BIOGEOCHEMICAL CYCLES</span>
+                                <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
+                            </div>
+                        </div>
+                        <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
+                            Long-Term Benthic Bypassing Protocols: Eliminating Atmospheric Gas Effluence Pathways
+                        </h4>
+                        <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
+                            Kim, Y-H., & Ramirez, M. Analysis of continuous gas release dynamics across mixed organic deep deposition zones.
+                        </p>
+                    </a>
+
+                </div>
             </div>
-            <div class="text-[10px] brutalist-text-muted font-mono mt-8 hidden lg:block">
-                INDEX REL: OAX-2026<br>
-                TOTAL REFS: 03 LOCATED
+        </section>
+
+<footer class="w-full border-t brutalist-border brutalist-bg">
+    <div class="p-8 lg:p-16 flex flex-col justify-between min-h-[300px] max-w-xl">
+        <div>
+            <h4 class="text-sm font-black tracking-widest uppercase mb-4 brutalist-text select-none">Get in touch</h4>
+            <p class="text-sm brutalist-text-muted mb-4 leading-relaxed">
+                Explore partnership frameworks, research alignments, or technical deployments.
+            </p>
+            
+            <!-- Vector Social Icon Interface Matrix -->
+            <div class="flex items-center gap-4 mb-8">
+                <!-- GitHub -->
+                <a href="https://github.com" target="_blank" aria-label="GitHub Profile"
+                    class="p-2 border border-transparent hover:border-current transition-all duration-200 brutalist-text cursor-pointer">
+                    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                    </svg>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile"
+                    class="p-2 border border-transparent hover:border-current transition-all duration-200 brutalist-text cursor-pointer">
+                    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+
+                <!-- Codeforces -->
+                <a href="https://codeforces.com" target="_blank" aria-label="Codeforces Profile"
+                    class="p-2 border border-transparent hover:border-current transition-all duration-200 brutalist-text cursor-pointer">
+                    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.5 7.5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 10.5 7.5v15a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 4.5 22.5zm6-4.5A1.5 1.5 0 0 1 12 1.5h3A1.5 1.5 0 0 1 16.5 3v19.5a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5zm6 7.5a1.5 1.5 0 0 1 1.5-1.5h3a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5z"/>
+                    </svg>
+                </a>
             </div>
         </div>
-
-        <div class="lg:col-span-8 brutalist-divide divide-y brutalist-surface">
-            
-            <a href="https://example.org/paper-1" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-                    <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ DEEP-SEA.2025.09 ]</span>
-                    <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
-                        <span>JOURNAL OF MARINE GEOLOGY</span>
-                        <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
-                    </div>
-                </div>
-                <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
-                    Anoxic Carbon Sequestration Horizons in Benthic Sub-layers: Decomposition Velocity Ratios
-                </h4>
-                <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
-                    Babin, D., Dr. Thorne, E., et al. Evaluating decay behavior of complex raw carbon vectors under elevated lithostatic pressures across continental shelves.
-                </p>
-            </a>
-
-            <a href="https://example.org/paper-2" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-                    <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ ECO-INFRA.2026.02 ]</span>
-                    <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
-                        <span>COASTAL ENGINEERING QUARTERLY</span>
-                        <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
-                    </div>
-                </div>
-                <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
-                    Organic Slurry Aggregates as Dynamic Barriers Countering Tidal Margin Transgression
-                </h4>
-                <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
-                    Vance, S. R. Morphological tracking models of micro-fluidized sub-surface layers under high-energy incoming wave profiles.
-                </p>
-            </a>
-
-            <a href="https://example.org/paper-3" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-                    <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ BIO-GEO.2024.11 ]</span>
-                    <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
-                        <span>GLOBAL BIOGEOCHEMICAL CYCLES</span>
-                        <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
-                    </div>
-                </div>
-                <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
-                    Long-Term Benthic Bypassing Protocols: Eliminating Atmospheric Gas Effluence Pathways
-                </h4>
-                <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
-                    Kim, Y-H., & Ramirez, M. Analysis of continuous gas release dynamics across mixed organic deep deposition zones.
-                </p>
-            </a>
-
+        
+        <div class="space-y-2 text-sm font-bold tracking-tight brutalist-text font-mono">
+            <div><a href="mailto:hello@sinkcolabs.com" class="hover:underline">hello@sinkcolabs.com</a></div>
+            <div><a href="tel:+1234567890" class="hover:underline">+1 (234) 567-890</a></div>
         </div>
     </div>
-</section>
-
-        <footer class="grid grid-cols-1 lg:grid-cols-2 brutalist-divide divide-y lg:divide-y-0 lg:divide-x brutalist-bg mt-auto">
-            <div class="p-8 lg:p-16 flex flex-col justify-between min-h-[300px]">
-                <div>
-                    <h4 class="text-sm font-bold tracking-widest uppercase mb-4 brutalist-text select-none">Stay in the loop</h4>
-                    <p class="text-sm brutalist-text-muted max-w-sm mb-6">Join the SinkCo Labs community and stay informed as we work to reduce carbon emissions.</p>
-                </div>
-                <div class="flex border max-w-md brutalist-border brutalist-surface">
-                    <input type="email" placeholder="Your email address" class="p-3 text-sm flex-grow outline-none bg-transparent brutalist-text">
-                    <button class="px-6 text-xs font-bold tracking-widest uppercase transition-colors" style="background-color: var(--text-main); color: var(--bg-surface);">SUBMIT</button>
-                </div>
-            </div>
-            <div class="p-8 lg:p-16 flex flex-col justify-between min-h-[300px]">
-                <div>
-                    <h4 class="text-sm font-bold tracking-widest uppercase mb-4 brutalist-text select-none">Get in touch</h4>
-                    <p class="text-sm brutalist-text-muted max-w-sm mb-6">Explore partnership frameworks, research alignments, or technical deployments.</p>
-                </div>
-                <div class="space-y-2 text-sm font-bold tracking-tight brutalist-text">
-                    <div><a href="mailto:hello@sinkcolabs.com" class="hover:underline">hello@sinkcolabs.com</a></div>
-                    <div><a href="tel:+1234567890" class="hover:underline">+1 (234) 567-890</a></div>
-                </div>
-            </div>
-        </footer>
+</footer>
 
         <div class="border-t brutalist-border p-8 text-center text-[11px] font-bold brutalist-text-muted tracking-widest uppercase brutalist-surface select-none">
             © 2026 SINKCO LABS // RECREATION EDITORIAL ARCHIVE
@@ -493,19 +518,39 @@
     <script>
         const root = document.documentElement;
         const themeToggleBtn = document.getElementById('theme-toggle');
-        const toggleKnob = document.getElementById('toggle-knob');
+        const sunIcon = document.getElementById('theme-sun');
+        const moonIcon = document.getElementById('theme-moon');
+        const themeText = document.getElementById('theme-text');
 
         // Core Theme Orchestration Function
         function setTheme(theme) {
             if (theme === 'dark') {
                 root.classList.remove('theme-light');
                 root.classList.add('theme-dark');
-                toggleKnob.classList.replace('translate-x-0', 'translate-x-5');
+
+                themeText.textContent = 'DARK';
+
+                if (sunIcon && moonIcon) {
+                    sunIcon.classList.remove('hidden');
+                    sunIcon.classList.add('block');
+                    moonIcon.classList.remove('block');
+                    moonIcon.classList.add('hidden');
+                }
+
                 localStorage.setItem('sinkco-theme', 'dark');
             } else {
                 root.classList.remove('theme-dark');
                 root.classList.add('theme-light');
-                toggleKnob.classList.replace('translate-x-5', 'translate-x-0');
+
+                themeText.textContent = 'LIGHT';
+
+                if (sunIcon && moonIcon) {
+                    sunIcon.classList.remove('block');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                    moonIcon.classList.add('block');
+                }
+
                 localStorage.setItem('sinkco-theme', 'light');
             }
         }
@@ -520,10 +565,12 @@
         }
 
         // Interactive Event Binding
-        themeToggleBtn.addEventListener('click', () => {
-            const isDarkActive = root.classList.contains('theme-dark');
-            setTheme(isDarkActive ? 'light' : 'dark');
-        });
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const isDarkActive = root.classList.contains('theme-dark');
+                setTheme(isDarkActive ? 'light' : 'dark');
+            });
+        }
 
         // Custom Mouse Tracker Pipeline (Desktop Only)
         if (window.innerWidth > 1024) {
@@ -553,18 +600,20 @@
         const editorialSections = document.querySelectorAll('.editorial-section');
         const sidebarLinks = document.querySelectorAll('.editorial-nav-item');
 
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const activeID = entry.target.getAttribute('id');
-                    sidebarLinks.forEach(link => link.classList.remove('active'));
-                    const targetingLink = document.querySelector(`.editorial-nav-item[href="#${activeID}"]`);
-                    if (targetingLink) targetingLink.classList.add('active');
-                }
-            });
-        }, { root: null, rootMargin: '-25% 0px -45% 0px', threshold: 0 });
+        if (editorialSections.length > 0 && sidebarLinks.length > 0) {
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const activeID = entry.target.getAttribute('id');
+                        sidebarLinks.forEach(link => link.classList.remove('active'));
+                        const targetingLink = document.querySelector(`.editorial-nav-item[href="#${activeID}"]`);
+                        if (targetingLink) targetingLink.classList.add('active');
+                    }
+                });
+            }, { root: null, rootMargin: '-25% 0px -45% 0px', threshold: 0 });
 
-        editorialSections.forEach(section => sectionObserver.observe(section));
+            editorialSections.forEach(section => sectionObserver.observe(section));
+        }
     </script>
 </body>
 </html>

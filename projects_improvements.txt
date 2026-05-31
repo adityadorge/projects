@@ -1,9 +1,0 @@
-1. change the title to " Research Hub " [check]
-2. change the subtitle to Research Number and date posted or update at [check]
-3. Link to other research papers down below [check]
-4. conclusions [check]
-5. my contacts and info , links like github, linkedin, research repo codeforces etc email contacts, 
-6. let the finding page have various sturcture lile title charts, code , parameters  
-7. link to current research paper/projects at next to the title [check]
-8. change to light to dark mode feature 
-10. drop a message ! 
