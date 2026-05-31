@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SinkCo Labs - Permanent Carbon Dioxide Removal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.038'/%3E%3C/svg%3E");
+        }
+
+        /* Hardware Accelerated Custom Inverting Magic Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 140px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate3d(calc(var(--cursor-x, 0px) - 50%), calc(var(--cursor-y, 0px) - 50%), 0) scale(var(--cursor-scale, 1));
+            z-index: 9999;
+            mix-blend-mode: difference; 
+            transition: transform 0.1s cubic-bezier(0.215, 0.610, 0.355, 1);
+            will-change: transform;
+        }
+
+        @media (max-width: 1024px) {
+            #custom-cursor { display: none; }
+            body { cursor: auto; }
+        }
+
+        @keyframes marquee {
+            0% { transform: translate3d(0%, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+
+        /* Custom Editorial Sidebar Indicators */
+        .editorial-nav-item.active {
+            color: #000000 !important;
+            border-left-color: #000000 !important;
+            padding-left: 1.25rem;
+        }
+        .editorial-nav-item {
+            transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+        }
+
+        /* Chart Animations */
+        .chart-bar {
+            transform-origin: bottom;
+            animation: growUp 1.2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+        .chart-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+        @keyframes growUp {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+</head>
+<body class="bg-[#F6F6F6] text-black antialiased overflow-x-hidden selection:bg-black selection:text-white lg:cursor-none">
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"></div>
+
+    <!-- MAIN STRIP CONTAINER -->
+    <div class="border-x border-black mx-auto max-w-[1800px] min-h-screen flex flex-col">
+        
+        <!-- GIANT HERO BRANDING -->
+        <header class="border-b border-black w-full overflow-hidden">
+            <h1 class="text-[13.8vw] font-[900] tracking-tighter leading-[0.80] text-black w-full text-center whitespace-nowrap pt-5 pb-1 select-none">
+                SINKCO LABS
+            </h1>
+        </header>
+
+        <!-- NAVIGATION CONTROLS -->
+        <nav class="border-b border-black px-8 py-5 flex justify-between items-center text-xs font-bold tracking-widest uppercase bg-[#F6F6F6] select-none">
+            <div>PERMANENT CARBON DIOXIDE REMOVAL // ARCHIVE MATRIX</div>
+            <div class="flex items-center gap-3">
+                <span>INVERT</span>
+                <div class="w-10 h-5 bg-black rounded-full p-0.5 flex items-center justify-end cursor-pointer">
+                    <div class="w-4 h-4 bg-white rounded-full"></div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- SPLIT HERO SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b border-black">
+            <div class="lg:col-span-7 border-b lg:border-b-0 lg:border-r border-black relative overflow-hidden bg-emerald-950 min-h-[500px] lg:min-h-[650px]">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070'); opacity: 0.8; filter: hue-rotate(35deg) saturate(1.4);"></div>
+            </div>
+            <div class="lg:col-span-5 p-8 lg:p-16 flex flex-col justify-center bg-[#F6F6F6]">
+                <h2 class="text-5xl lg:text-[4.5rem] font-normal tracking-tight leading-[1.02] text-black mb-8">
+                    Turning carbon <br>into coastlines.
+                </h2>
+                <p class="text-base lg:text-lg text-gray-800 font-normal leading-relaxed max-w-xl">
+                    Sinkco Labs' novel approach injects biomass into marine sediments, elevating the seabed to counter coastal erosion and achieve durable carbon storage.
+                </p>
+            </div>
+        </section>
+
+        <!-- THE CHALLENGE SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b border-black">
+            <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-black">
+                <span class="text-xs font-bold tracking-widest uppercase text-gray-400 select-none">THE CHALLENGE</span>
+            </div>
+            <div class="lg:col-span-8 p-8 lg:p-12">
+                <h3 class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight max-w-4xl mb-6">
+                    Our coastlines are disappearing – faster than we can rebuild them.
+                </h3>
+                <p class="text-base lg:text-lg text-gray-700 leading-relaxed max-w-3xl">
+                    Rising seas, sinking land, stronger storms, and resource extraction are accelerating erosion, threatening ecosystems, displacing communities, and risking trillions in infrastructure. Conventional defenses are costly, slow, and often harm marine life. As climate threats grow, scalable, sustainable solutions are urgently needed.
+                </p>
+            </div>
+        </section>
+
+        <!-- EDITORIAL WORKSPACE: STICKY SIDEBAR + PRIMARY CONTENT SPLIT -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b border-black relative">
+            
+            <!-- LEFT FIXED EDITORIAL INDEX PANEL -->
+            <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-black p-8 lg:p-12 bg-[#F6F6F6] lg:sticky lg:top-0 lg:h-screen flex flex-col justify-between select-none z-20">
+                <div class="pt-4">
+                    <span class="text-xs font-bold tracking-widest uppercase text-gray-400 block mb-8">// LITIGATION & EVIDENCE MATRIX</span>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="#doc-abstract" class="editorial-nav-item active text-xs font-bold tracking-wider text-gray-400 border-l border-transparent pl-0 hover:text-black block py-1">
+                            01 / RESEARCH ABSTRACT & ANCHOR THESIS
+                        </a>
+                        <a href="#doc-methodology" class="editorial-nav-item text-xs font-bold tracking-wider text-gray-400 border-l border-transparent pl-0 hover:text-black block py-1">
+                            02 / ANCHOR INJECTION METHODOLOGY
+                        </a>
+                        <a href="#doc-metrics" class="editorial-nav-item text-xs font-bold tracking-wider text-gray-400 border-l border-transparent pl-0 hover:text-black block py-1">
+                            03 / DATA MODEL & SEQUESTRATION PERFORMANCE
+                        </a>
+                        <a href="#doc-impact" class="editorial-nav-item text-xs font-bold tracking-wider text-gray-400 border-l border-transparent pl-0 hover:text-black block py-1">
+                            04 / SUBSURFACE RE-ELEVATION VECTOR
+                        </a>
+                    </nav>
+                </div>
+                <div class="hidden lg:block border-t border-black/10 pt-6 text-[10px] font-bold text-gray-400 tracking-widest leading-relaxed">
+                    DATA CLASSIFICATION: UNRESTRICTED CORE DISTRIBUTION<br>
+                    SYSTEM REGISTRY CODE: SL-2026-REV4<br>
+                    SUBTERRANEAN STATUS: STABLE CONTAINMENT
+                </div>
+            </div>
+
+            <!-- RIGHT STREAMING EDITORIAL RESEARCH REPOSITORY -->
+            <div class="lg:col-span-8 bg-white divide-y divide-black">
+                
+                <!-- DOC SECTION 01: ABSTRACT -->
+                <article id="doc-abstract" class="editorial-section p-8 lg:p-20 scroll-mt-0">
+                    <div class="max-w-3xl space-y-8">
+                        <span class="text-[11px] font-bold tracking-widest uppercase text-indigo-600 block">// ARCHIVE LOG 01.A</span>
+                        <h2 class="text-4xl lg:text-6xl font-normal tracking-tight leading-[1.02] text-black">
+                            Research Abstract &<br>Anchor Thesis
+                        </h2>
+                        <div class="w-16 h-[1px] bg-black my-8"></div>
+                        <div class="text-base lg:text-lg text-gray-800 space-y-6 leading-relaxed font-normal">
+                            <p class="text-2xl font-normal tracking-tight border-l-4 border-black pl-6 py-2 my-8 text-black bg-[#F9F9F9] pr-4">
+                                "By depositing dense agricultural biomass derivatives within specialized anoxic sub-layers of marine shelves, degradation rates drop below standard decay baselines by a factor of $10^4$."
+                            </p>
+                            <p>Our long-term research establishes that deep-sediment carbon storage works concurrently as a physical stabilization medium for eroding coastal margins. Traditional techniques prioritize storage in deep open-ocean columns; however, our lab prioritizes the shallow continental margins, turning raw carbon vectors into active geological engineering infrastructure.</p>
+                            <p>By preventing atmospheric methane and carbon gas discharge through immediate sediment encapsulation, the process establishes a highly predictable, verifiable structural carbon net-negative balance zone that addresses structural earth decay and gas containment simultaneously.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- DOC SECTION 02: METHODOLOGY -->
+                <article id="doc-methodology" class="editorial-section p-8 lg:p-20 scroll-mt-0 bg-[#FAFAFA]">
+                    <div class="max-w-3xl space-y-8">
+                        <span class="text-[11px] font-bold tracking-widest uppercase text-indigo-600 block">// ARCHIVE LOG 02.B</span>
+                        <h2 class="text-4xl lg:text-6xl font-normal tracking-tight leading-[1.02] text-black">
+                            Anchor Injection<br>Methodology
+                        </h2>
+                        <div class="w-16 h-[1px] bg-black my-8"></div>
+                        <div class="text-base lg:text-lg text-gray-800 space-y-6 leading-relaxed">
+                            <p>The operational framework requires rigorous phase alignment to execute safely without displacing local benthic microclimates. The strategy relies on bypassing standard open-air storage limitations completely.</p>
+                            
+                            <!-- Asymmetrical Text Grid Block -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12 border-t border-b border-black/10 py-8">
+                                <div class="space-y-2">
+                                    <div class="text-xs font-black tracking-wider uppercase text-black">01 / MICRO-FLUIDIZATION</div>
+                                    <p class="text-sm text-gray-600 leading-relaxed">Raw carbon substrates are mechanically optimized down to standardized granular structures ($\le 4\text{mm}$) to ensure uniform fluid movement underneath soft marine layers without clumping.</p>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="text-xs font-black tracking-wider uppercase text-black">02 / ACOUSTIC GRAIN DISPLACEMENT</div>
+                                    <p class="text-sm text-gray-600 leading-relaxed">Low-frequency acoustic resonance drivers create brief, clean interstitial pathways through sea mud arrays, removing the need for traditional heavy sub-surface digging.</p>
+                                </div>
+                            </div>
+
+                            <p>Real-time telemetry tags track continuous reading matrices across every staging point—analyzing structural gas changes and visual tracking telemetry layers to maintain the continuous security of the upper containment barrier seal.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- DOC SECTION 03: CHARTS AND METRICS -->
+                <article id="doc-metrics" class="editorial-section p-8 lg:p-20 scroll-mt-0">
+                    <div class="max-w-4xl space-y-8">
+                        <span class="text-[11px] font-bold tracking-widest uppercase text-indigo-600 block">// ARCHIVE LOG 03.C</span>
+                        <h2 class="text-4xl lg:text-6xl font-normal tracking-tight leading-[1.02] text-black">
+                            Data Model & Sequestration Performance
+                        </h2>
+                        <div class="w-16 h-[1px] bg-black my-8"></div>
+                        
+                        <p class="text-base lg:text-lg text-gray-700 max-w-2xl leading-relaxed">
+                            Our empirical records detail cross-checked tracking models over continuous trial loops, demonstrating sustained containment stability alongside accelerated topology elevation.
+                        </p>
+
+                        <!-- DATA VISUALIZATIONS SECTION -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+                            
+                            <!-- CHART 01: BAR CHART -->
+                            <div class="border border-black p-6 bg-[#F6F6F6] flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start mb-6">
+                                        <h4 class="text-xs font-black tracking-wider uppercase text-black">// CO2 RECOVERY EFFICIENCY (%)</h4>
+                                        <span class="text-xs font-mono text-gray-400">SL-DATA.01</span>
+                                    </div>
+                                    
+                                    <!-- Native SVG Bar Chart Component -->
+                                    <div class="h-48 w-full flex items-end justify-between px-2 pt-4 border-b border-black">
+                                        <!-- Bar 1 -->
+                                        <div class="w-[18%] flex flex-col items-center h-full justify-end">
+                                            <div class="bg-gray-300 w-full chart-bar" style="height: 42%;"></div>
+                                            <span class="text-[9px] font-bold mt-2 text-gray-400">CTRL</span>
+                                        </div>
+                                        <!-- Bar 2 -->
+                                        <div class="w-[18%] flex flex-col items-center h-full justify-end">
+                                            <div class="bg-gray-400 w-full chart-bar" style="height: 65%;"></div>
+                                            <span class="text-[9px] font-bold mt-2 text-gray-400">PH-01</span>
+                                        </div>
+                                        <!-- Bar 3 -->
+                                        <div class="w-[18%] flex flex-col items-center h-full justify-end">
+                                            <div class="bg-indigo-600 w-full chart-bar" style="height: 94%;"></div>
+                                            <span class="text-[9px] font-bold mt-2 text-black">PH-02</span>
+                                        </div>
+                                        <!-- Bar 4 -->
+                                        <div class="w-[18%] flex flex-col items-center h-full justify-end">
+                                            <div class="bg-black w-full chart-bar" style="height: 99.7%;"></div>
+                                            <span class="text-[9px] font-bold mt-2 text-black">SL-MAX</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-4 leading-relaxed">
+                                    Comparison matrix displays retention stability percentage gains against traditional structural open water deep columns.
+                                </p>
+                            </div>
+
+                            <!-- CHART 02: LINE CHART -->
+                            <div class="border border-black p-6 bg-[#F6F6F6] flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start mb-6">
+                                        <h4 class="text-xs font-black tracking-wider uppercase text-black">// VERTICAL PROFILE VARIATION (MM)</h4>
+                                        <span class="text-xs font-mono text-gray-400">SL-DATA.02</span>
+                                    </div>
+
+                                    <!-- Native SVG Line Chart Component -->
+                                    <div class="h-48 w-full relative pt-4 border-b border-l border-black">
+                                        <svg class="w-full h-full" viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Grid Lines -->
+                                            <line x1="0" y1="37.5" x2="300" y2="37.5" stroke="#E5E5E5" stroke-width="1" />
+                                            <line x1="0" y1="75" x2="300" y2="75" stroke="#E5E5E5" stroke-width="1" />
+                                            <line x1="0" y1="112.5" x2="300" y2="112.5" stroke="#E5E5E5" stroke-width="1" />
+                                            
+                                            <!-- Chart Path Vector -->
+                                            <path d="M0,135 L50,120 L100,110 L150,70 L200,45 L250,25 L300,12" 
+                                                  stroke="#4F46E5" stroke-width="3" stroke-linecap="round" class="chart-line" />
+                                            
+                                            <!-- Accent Nodes -->
+                                            <circle cx="300" cy="12" r="4" fill="#000000" />
+                                        </svg>
+                                        <div class="flex justify-between text-[9px] font-bold text-gray-400 mt-1">
+                                            <span>M0</span><span>M06</span><span>M12</span><span>M18</span><span>M24</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-4 leading-relaxed">
+                                    Aggregated vertical shelf elevation trend vector over a continuous 24-month monitoring envelope.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <!-- Data Callout Boxes -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-black pt-8">
+                            <div class="p-2">
+                                <span class="text-4xl font-black block tracking-tight text-black mb-1">99.74%</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-2">RETENTION PERMANENCE RATIO</span>
+                                <p class="text-xs text-gray-600 leading-relaxed">Continuous deep monitoring verified absolute carbon containment metrics throughout standard test schedules without gas leakage.</p>
+                            </div>
+                            <div class="p-2">
+                                <span class="text-4xl font-black block tracking-tight text-black mb-1">+1420MM</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-2">VERTICAL SEA BED DISPLACEMENT</span>
+                                <p class="text-xs text-gray-600 leading-relaxed">Documented structural expansion across shallow shelf zones, establishing clear architectural platforms to buffer incoming wave energy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- DOC SECTION 04: IMPACT -->
+                <article id="doc-impact" class="editorial-section p-8 lg:p-20 scroll-mt-0 bg-[#FAFAFA]">
+                    <div class="max-w-3xl space-y-8">
+                        <span class="text-[11px] font-bold tracking-widest uppercase text-indigo-600 block">// ARCHIVE LOG 04.D</span>
+                        <h2 class="text-4xl lg:text-6xl font-normal tracking-tight leading-[1.02] text-black">
+                            Subsurface Re-Elevation<br>Vector Analysis
+                        </h2>
+                        <div class="w-16 h-[1px] bg-black my-8"></div>
+                        <div class="text-base lg:text-lg text-gray-800 space-y-6 leading-relaxed">
+                            <p>The final research vector evaluates long-range ecological impacts on adjacent marine habitats. Rather than using rigid artificial sea barriers (like heavy concrete sea walls), our raised organic substrate framework naturally encourages root development for coastal marsh plant species.</p>
+                            <p>By shifting away from traditional static infrastructure models, our approach targets dynamic ecosystems. The underlying organic slurry layer transforms over dynamic multi-year intervals into structured peat layers, supporting high-density carbon anchoring networks across shallow environments.</p>
+                            <p>By blending modern technical precision with existing ecological elements, the method generates a self-maintaining coastal defense shield designed to scale naturally alongside changing ocean levels.</p>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- BENTO CASE STUDY STATS -->
+        <section class="border-b border-black bg-white">
+            <div class="p-8 lg:p-12 border-b border-black">
+                <span class="text-xs font-bold tracking-widest uppercase text-gray-400 select-none">CASE STUDY: THE COST OF EROSION IN LOUISIANA</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3">
+                <div class="p-8 lg:p-12 border-b md:border-b-0 md:border-r border-black flex flex-col justify-between">
+                    <span class="text-6xl lg:text-8xl font-black tracking-tighter block mb-6">$1.9B</span>
+                    <p class="text-sm lg:text-base text-gray-700 font-medium">In infrastructure damage annually.</p>
+                </div>
+                <div class="p-8 lg:p-12 border-b md:border-b-0 md:border-r border-black flex flex-col justify-between">
+                    <span class="text-6xl lg:text-8xl font-black tracking-tighter block mb-6">90 MIN</span>
+                    <p class="text-sm lg:text-base text-gray-700 font-medium">A football field of land disappears every 90 minutes.</p>
+                </div>
+                <div class="p-8 lg:p-12 flex flex-col justify-between">
+                    <span class="text-6xl lg:text-8xl font-black tracking-tighter block mb-6">MANHATTAN</span>
+                    <p class="text-sm lg:text-base text-gray-700 font-medium">An area the size of Manhattan is lost every year.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE SOLUTION SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b border-black">
+            <div class="lg:col-span-6 p-8 lg:p-16 border-b lg:border-b-0 lg:border-r border-black flex flex-col justify-between">
+                <div>
+                    <span class="text-xs font-bold tracking-widest uppercase text-gray-400 block mb-6 select-none">OUR SOLUTION</span>
+                    <h3 class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight mb-8">
+                        Injecting biomass to <span class="text-indigo-600">elevate the seabed</span>, enhance <span class="text-indigo-600">coastal resilience</span>, and enable <span class="text-indigo-600">long-term carbon sequestration</span>.
+                    </h3>
+                </div>
+                <div class="space-y-6 text-sm lg:text-base text-gray-700 max-w-xl border-t border-black/10 pt-6">
+                    <p>Agriculture captures large amounts of carbon each year—but much of its biomass waste, like bark, husks, and shells, decays and releases CO₂. In nature, this material settles on the seafloor, where an anoxic layer beneath coastal sediments can store carbon for millennia.</p>
+                    <p>Sinkco Labs injects agricultural waste into this layer to raise the seabed and permanently store carbon—helping buffer coasts from erosion, stabilize ecosystems, and turn waste into lasting climate impact.</p>
+                </div>
+            </div>
+            <div class="lg:col-span-6 relative overflow-hidden bg-purple-900 min-h-[450px]">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=2026'); opacity: 0.75; filter: hue-rotate(70deg) contrast(1.2);"></div>
+            </div>
+        </section>
+
+        
+        <!-- FOOTER: INTERACTIVE COMMUNITY HOOK -->
+        <footer class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-black bg-[#F6F6F6] mt-auto">
+            <div class="p-8 lg:p-16 flex flex-col justify-between min-h-[300px]">
+                <div>
+                    <h4 class="text-sm font-bold tracking-widest uppercase mb-4 select-none">Stay in the loop</h4>
+                    <p class="text-sm text-gray-600 max-w-sm mb-6">Join the SinkCo Labs community and stay informed as we work to reduce carbon emissions.</p>
+                </div>
+                <div class="flex border border-black max-w-md bg-white">
+                    <input type="email" placeholder="Your email address" class="p-3 text-sm flex-grow outline-none bg-transparent">
+                    <button class="bg-black text-white px-6 text-xs font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors">SUBMIT</button>
+                </div>
+            </div>
+            <div class="p-8 lg:p-16 flex flex-col justify-between min-h-[300px]">
+                <div>
+                    <h4 class="text-sm font-bold tracking-widest uppercase mb-4 select-none">Get in touch</h4>
+                    <p class="text-sm text-gray-600 max-w-sm mb-6">We are always looking for partners who share our passion. Get in touch for more.</p>
+                </div>
+                <div class="space-y-2 text-sm font-bold tracking-tight">
+                    <div><a href="mailto:hello@sinkcolabs.com" class="hover:underline">hello@sinkcolabs.com</a></div>
+                    <div><a href="mailto:sales@sinkcolabs.com" class="hover:underline">sales@sinkcolabs.com</a></div>
+                    <div class="flex items-center gap-2">
+                        <a href="mailto:hiring@sinkcolabs.com" class="hover:underline">hiring@sinkcolabs.com</a>
+                        <span class="text-[10px] bg-black text-white px-1.5 py-0.5 rounded font-black tracking-widest uppercase select-none">We're HIRING</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- LEGAL FOOTNOTE -->
+        <div class="border-t border-black p-8 text-center text-[11px] font-bold text-gray-400 tracking-widest uppercase bg-white select-none">
+            © 2026 SINKCO LABS // RECREATION EDITORIAL ARCHIVE
+        </div>
+
+    </div>
+
+    <!-- PERSISTENT SCROLL MONITOR & COORDINATE LOGIC -->
+    <script>
+        const root = document.documentElement;
+
+        // UNIFIED CURSOR LOADER (Desktop Only)
+        if (window.innerWidth > 1024) {
+            let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function renderCursor() {
+                currentX += (mouseX - currentX) * 0.18;
+                currentY += (mouseY - currentY) * 0.18;
+                root.style.setProperty('--cursor-x', `${currentX}px`);
+                root.style.setProperty('--cursor-y', `${currentY}px`);
+                requestAnimationFrame(renderCursor);
+            }
+            requestAnimationFrame(renderCursor);
+
+            // Set up hover states for all interactive tags safely
+            const hoverTargets = document.querySelectorAll('a, button, input, .cursor-pointer, h1, h2, svg');
+            hoverTargets.forEach(element => {
+                element.addEventListener('mouseenter', () => root.style.setProperty('--cursor-scale', '0.55'));
+                element.addEventListener('mouseleave', () => root.style.setProperty('--cursor-scale', '1'));
+            });
+        }
+
+        // INTERSECTION OBSERVER FOR EDITORIAL SIDEBAR TRACKING
+        const editorialSections = document.querySelectorAll('.editorial-section');
+        const sidebarLinks = document.querySelectorAll('.editorial-nav-item');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-25% 0px -45% 0px',
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeID = entry.target.getAttribute('id');
+                    
+                    // Clear state across links
+                    sidebarLinks.forEach(link => {
+                        link.classList.remove('active', 'text-black');
+                        link.classList.add('text-gray-400');
+                    });
+
+                    // Match current active layout ID
+                    const targetingLink = document.querySelector(`.editorial-nav-item[href="#${activeID}"]`);
+                    if (targetingLink) {
+                        targetingLink.classList.add('active', 'text-black');
+                        targetingLink.classList.remove('text-gray-400');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        editorialSections.forEach(section => sectionObserver.observe(section));
+    </script>
+</body>
+</html>
