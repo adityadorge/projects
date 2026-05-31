@@ -528,7 +528,7 @@
                 root.classList.remove('theme-light');
                 root.classList.add('theme-dark');
 
-                themeText.textContent = 'DARK';
+                if (themeText) themeText.textContent = 'DARK';
 
                 if (sunIcon && moonIcon) {
                     sunIcon.classList.remove('hidden');
@@ -542,7 +542,7 @@
                 root.classList.remove('theme-dark');
                 root.classList.add('theme-light');
 
-                themeText.textContent = 'LIGHT';
+                if (themeText) themeText.textContent = 'LIGHT';
 
                 if (sunIcon && moonIcon) {
                     sunIcon.classList.remove('block');
@@ -555,13 +555,13 @@
             }
         }
 
-        // Initialize from local caching engine or systems preferences
+        // Initialize from local caching engine, defaulting strictly to light mode
         const cachedTheme = localStorage.getItem('sinkco-theme');
         if (cachedTheme) {
             setTheme(cachedTheme);
         } else {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setTheme(prefersDark ? 'dark' : 'light');
+            // Explicitly fallback to light mode, ignoring system settings
+            setTheme('light');
         }
 
         // Interactive Event Binding
@@ -578,7 +578,7 @@
             window.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
-            });
+            }, { passive: true }); // Adding passive flag for improved scroll performance
 
             function renderCursor() {
                 currentX += (mouseX - currentX) * 0.18;
