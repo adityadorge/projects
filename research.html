@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research - Permanent Carbon Dioxide Removal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define Theme Color Maps to prevent mutating layout structures */
+        .theme-light {
+            --bg-main: #F6F6F6;
+            --bg-surface: #FFFFFF;
+            --bg-strip: #FAFAFA;
+            --text-main: #000000;
+            --text-body: #1F2937;
+            --text-muted: #9CA3AF;
+            --border-main: #000000;
+        }
+
+        .theme-dark {
+            --bg-main: #0C0C0C;
+            --bg-surface: #121212;
+            --bg-strip: #181818;
+            --text-main: #FFFFFF;
+            --text-body: #D1D5DB;
+            --text-muted: #4B5563;
+            --border-main: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.038'/%3E%3C/svg%3E");
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Abstract structural mapping overrides */
+        .brutalist-border { border-color: var(--border-main) !important; }
+        .brutalist-bg { background-color: var(--bg-main) !important; }
+        .brutalist-surface { background-color: var(--bg-surface) !important; }
+        .brutalist-strip { background-color: var(--bg-strip) !important; }
+        .brutalist-text { color: var(--text-main) !important; }
+        .brutalist-text-body { color: var(--text-body) !important; }
+        .brutalist-text-muted { color: var(--text-muted) !important; }
+        .brutalist-divide > * + * { border-color: var(--border-main) !important; }
+
+        /* Hardware Accelerated Custom Inverting Magic Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 140px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate3d(calc(var(--cursor-x, 0px) - 50%), calc(var(--cursor-y, 0px) - 50%), 0) scale(var(--cursor-scale, 1));
+            z-index: 9999;
+            mix-blend-mode: difference; 
+            transition: transform 0.1s cubic-bezier(0.215, 0.610, 0.355, 1);
+            will-change: transform;
+        }
+
+        @media (max-width: 1024px) {
+            #custom-cursor { display: none; }
+            body { cursor: auto; }
+        }
+
+        @keyframes marquee {
+            0% { transform: translate3d(0%, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+
+        /* Custom Editorial Sidebar Indicators */
+        .editorial-nav-item.active {
+            color: var(--text-main) !important;
+            border-left-color: var(--text-main) !important;
+            padding-left: 1.25rem;
+        }
+        .editorial-nav-item {
+            transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+        }
+
+        /* Chart Animations */
+        .chart-bar {
+            transform-origin: bottom;
+            animation: growUp 1.2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+        .chart-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+        @keyframes growUp {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-black selection:text-white lg:cursor-none brutalist-bg brutalist-text">
+
+    <div id="custom-cursor"></div>
+
+    <div class="border-x brutalist-border mx-auto max-w-[1800px] min-hScreen flex flex-col">
+        
+        <header class="border-b brutalist-border w-full overflow-hidden">
+            <h1 class="text-[13.8vw] font-[900] tracking-tighter leading-[0.80] brutalist-text w-full text-center whitespace-nowrap pt-5 pb-1 select-none">
+                RESEARCH
+            </h1>
+        </header>
+
+        <nav class="border-b brutalist-border px-8 py-5 flex justify-between items-center text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
+            <div class="brutalist-text">POSTED ON: MAY 31st 2026 // ARCHIVE MATRIX</div>
+            
+            <div class="flex items-center gap-3 cursor-pointer group" id="theme-toggle">
+                <!-- Blog Link -->
+                <a href="/projects"
+                class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">
+                    PROJECTS
+                </a>
+
+                <!-- Divider -->
+                <div class="w-px h-6 brutalist-border border-l"></div>
+                <!-- Blog Link -->
+                <a href="/blog"
+                class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">
+                    BLOG
+                </a>
+
+                <!-- Divider -->
+                <div class="w-px h-6 brutalist-border border-l"></div>
+
+                <span id="theme-text" class="brutalist-text">LIGHT</span>
+                <div class="relative w-5 h-5 flex items-center justify-center">
+                    <svg id="theme-sun" class="w-5 h-5 brutalist-text hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg id="theme-moon" class="w-5 h-5 brutalist-text block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                </div>
+            </div>
+        </nav>
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border group">
+            <div class="lg:col-span-7 border-b lg:border-b-0 lg:border-r brutalist-border relative overflow-hidden bg-emerald-950 min-h-[500px] lg:min-h-[650px]">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070'); opacity: 0.8; filter: hue-rotate(35deg) saturate(1.4);"></div>
+            </div>
+            
+            <a href="https://example.org/documents/current-research-paper.pdf" target="_blank" class="lg:col-span-5 p-8 lg:p-16 flex flex-col justify-center brutalist-bg hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors duration-300 relative">
+                <div class="flex items-center gap-2 mb-6 self-start">
+                    <span class="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold font-mono border brutalist-border brutalist-surface brutalist-text uppercase tracking-wider rounded shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
+                        <svg class="w-3.5 h-3.5 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                        </svg>
+                        VIEW FULL RESEARCH PDF
+                    </span>
+                    <span class="text-xs font-bold transition-transform duration-300 group-hover:translate-x-1 brutalist-text">→</span>
+                </div>
+
+                <h2 class="text-5xl lg:text-[4.5rem] font-normal tracking-tight leading-[1.02] brutalist-text mb-8">
+                    Turning carbon <br>into coastlines.
+                </h2>
+                <p class="text-base lg:text-lg brutalist-text-body font-normal leading-relaxed max-w-xl">
+                    Research Labs' novel approach injects biomass into marine sediments, elevating the seabed to counter coastal erosion and achieve durable carbon storage.
+                </p>
+            </a>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border">
+            <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border">
+                <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted select-none">THE CHALLENGE</span>
+            </div>
+            <div class="lg:col-span-8 p-8 lg:p-12">
+                <h3 class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight max-w-4xl mb-6 brutalist-text">
+                    Our coastlines are disappearing – faster than we can rebuild them.
+                </h3>
+                <p class="text-base lg:text-lg brutalist-text-body leading-relaxed max-w-3xl">
+                    Rising seas, sinking land, stronger storms, and resource extraction are accelerating erosion, threatening ecosystems, displacing communities, and risking trillions in infrastructure. Conventional defenses are costly, slow, and often harm marine life. As climate threats grow, scalable, sustainable solutions are urgently needed.
+                </p>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border relative">
+            
+            <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r brutalist-border p-8 lg:p-12 brutalist-bg lg:sticky lg:top-0 lg:h-screen flex flex-col justify-between select-none z-20">
+                <div class="pt-4">
+                    <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-8">// LITIGATION & EVIDENCE MATRIX</span>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="#doc-abstract" class="editorial-nav-item active text-xs font-bold tracking-wider brutalist-text-muted border-l border-transparent pl-0 hover:text-black dark:hover:text-white block py-1">
+                            01 / RESEARCH ABSTRACT & ANCHOR THESIS
+                        </a>
+                        <a href="#doc-methodology" class="editorial-nav-item text-xs font-bold tracking-wider brutalist-text-muted border-l border-transparent pl-0 hover:text-black dark:hover:text-white block py-1">
+                            02 / ANCHOR INJECTION METHODOLOGY
+                        </a>
+                        <a href="#doc-metrics" class="editorial-nav-item text-xs font-bold tracking-wider brutalist-text-muted border-l border-transparent pl-0 hover:text-black dark:hover:text-white block py-1">
+                            03 / DATA MODEL & SEQUESTRATION PERFORMANCE
+                        </a>
+                        <a href="#doc-impact" class="editorial-nav-item text-xs font-bold tracking-wider brutalist-text-muted border-l border-transparent pl-0 hover:text-black dark:hover:text-white block py-1">
+                            04 / SUBSURFACE RE-ELEVATION VECTOR
+                        </a>
+                    </nav>
+                </div>
+                <div class="hidden lg:block border-t brutalist-border pt-6 text-[10px] font-bold brutalist-text-muted tracking-widest leading-relaxed">
+                    DATA CLASSIFICATION: UNRESTRICTED CORE DISTRIBUTION<br>
+                    SYSTEM REGISTRY CODE: SL-2026-REV4<br>
+                    SUBTERRANEAN STATUS: STABLE CONTAINMENT
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 brutalist-surface brutalist-divide divide-y">
+                
+                <article id="doc-abstract" class="editorial-section p-8 lg:p-20 scroll-mt-0">
+                    <div class="max-w-3xl space-y-8">
+                        <span class="text-[11px] font-bold tracking-widest uppercase text-indigo-600 block">// ARCHIVE LOG 01.A</span>
+                        <h2 class="text-4xl lg:text-6xl font-normal tracking-tight leading-[1.02] brutalist-text">
+                            Research Abstract &<br>Anchor Thesis
+                        </h2>
+                        <div class="w-16 h-[1px] my-8" style="background-color: var(--border-main);"></div>
+                        <div class="text-base lg:text-lg brutalist-text-body space-y-6 leading-relaxed font-normal">
+                            <p class="text-2xl font-normal tracking-tight border-l-4 brutalist-border pl-6 py-2 my-8 brutalist-text brutalist-bg pr-4">
+                                "By depositing dense agricultural biomass derivatives within specialized anoxic sub-layers of marine shelves, degradation rates drop below standard decay baselines by a factor of $10^4$."
+                            </p>
+                            <p>Our long-term research establishes that deep-sediment carbon storage works concurrently as a physical stabilization medium for eroding coastal margins. Traditional techniques prioritize storage in deep open-ocean columns; however, our lab prioritizes the shallow continental margins, turning raw carbon vectors into active geological engineering infrastructure.</p>
+                            <p>By preventing atmospheric methane and carbon gas discharge through immediate sediment encapsulation, the process establishes a highly predictable, verifiable structural carbon net-negative balance zone that addresses structural earth decay and gas containment simultaneously.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article id="doc-methodology" class="editorial-section p-8 lg:p-20 scroll-mt-0 brutalist-strip">
+                    <div class="max-w-3xl space-y-8">
+                        <span class="text-[11px] font-bold tracking-widest uppercase text-indigo-600 block">// ARCHIVE LOG 02.B</span>
+                        <h2 class="text-4xl lg:text-6xl font-normal tracking-tight leading-[1.02] brutalist-text">
+                            Anchor Injection<br>Methodology
+                        </h2>
+                        <div class="w-16 h-[1px] my-8" style="background-color: var(--border-main);"></div>
+                        <div class="text-base lg:text-lg brutalist-text-body space-y-6 leading-relaxed">
+                            <p>The operational framework requires rigorous phase alignment to execute safely without displacing local benthic microclimates. The strategy relies on bypassing standard open-air storage limitations completely.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12 border-t border-b brutalist-border py-8">
+                                <div class="space-y-2">
+                                    <div class="text-xs font-black tracking-wider uppercase brutalist-text">01 / MICRO-FLUIDIZATION</div>
+                                    <p class="text-sm brutalist-text-muted leading-relaxed">Raw carbon substrates are mechanically optimized down to standardized granular structures ($\le 4\text{mm}$) to ensure uniform fluid movement underneath soft marine layers without clumping.</p>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="text-xs font-black tracking-wider uppercase brutalist-text">02 / ACOUSTIC GRAIN DISPLACEMENT</div>
+                                    <p class="text-sm brutalist-text-muted leading-relaxed">Low-frequency acoustic resonance drivers create brief, clean interstitial pathways through sea mud arrays, removing the need for traditional heavy sub-surface digging.</p>
+                                </div>
+                            </div>
+
+                            <p>Real-time telemetry tags track continuous reading matrices across every staging point—analyzing structural gas changes and visual tracking telemetry layers to maintain the continuous security of the upper containment barrier seal.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article id="doc-metrics" class="editorial-section p-8 lg:p-20 scroll-mt-0">
+                    <div class="max-w-4xl space-y-8">
+                        <span class="text-[11px] font-bold tracking-widest uppercase text-indigo-600 block">// ARCHIVE LOG 03.C</span>
+                        <h2 class="text-4xl lg:text-6xl font-normal tracking-tight leading-[1.02] brutalist-text">
+                            Data Model & Sequestration Performance
+                        </h2>
+                        <div class="w-16 h-[1px] my-8" style="background-color: var(--border-main);"></div>
+                        
+                        <p class="text-base lg:text-lg brutalist-text-body max-w-2xl leading-relaxed">
+                            Our empirical records detail cross-checked tracking models over continuous trial loops, demonstrating sustained containment stability alongside accelerated topology elevation.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+                            
+                            <div class="border brutalist-border p-6 brutalist-bg flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start mb-6">
+                                        <h4 class="text-xs font-black tracking-wider uppercase brutalist-text">// CO2 RECOVERY EFFICIENCY (%)</h4>
+                                        <span class="text-xs font-mono brutalist-text-muted">SL-DATA.01</span>
+                                    </div>
+                                    
+                                    <div class="h-48 w-full flex items-end justify-between px-2 pt-4 border-b brutalist-border">
+                                        <div class="w-[18%] flex flex-col items-center h-full justify-end">
+                                            <div class="bg-gray-300 dark:bg-neutral-700 w-full chart-bar" style="height: 42%;"></div>
+                                            <span class="text-[9px] font-bold mt-2 brutalist-text-muted">CTRL</span>
+                                        </div>
+                                        <div class="w-[18%] flex flex-col items-center h-full justify-end">
+                                            <div class="bg-gray-400 dark:bg-neutral-600 w-full chart-bar" style="height: 65%;"></div>
+                                            <span class="text-[9px] font-bold mt-2 brutalist-text-muted">PH-01</span>
+                                        </div>
+                                        <div class="w-[18%] flex flex-col items-center h-full justify-end">
+                                            <div class="bg-indigo-600 w-full chart-bar" style="height: 94%;"></div>
+                                            <span class="text-[9px] font-bold mt-2 brutalist-text">PH-02</span>
+                                        </div>
+                                        <div class="w-[18%] flex flex-col items-center h-full justify-end">
+                                            <div class="bg-black dark:bg-white w-full chart-bar" style="height: 99.7%;"></div>
+                                            <span class="text-[9px] font-bold mt-2 brutalist-text">SL-MAX</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-xs brutalist-text-muted mt-4 leading-relaxed">
+                                    Comparison matrix displays retention stability percentage gains against traditional structural open water deep columns.
+                                </p>
+                            </div>
+
+                            <div class="border brutalist-border p-6 brutalist-bg flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start mb-6">
+                                        <h4 class="text-xs font-black tracking-wider uppercase brutalist-text">// VERTICAL PROFILE VARIATION (MM)</h4>
+                                        <span class="text-xs font-mono brutalist-text-muted">SL-DATA.02</span>
+                                    </div>
+
+                                    <div class="h-48 w-full relative pt-4 border-b border-l brutalist-border">
+                                        <svg class="w-full h-full" viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <line x1="0" y1="37.5" x2="300" y2="37.5" stroke="currentColor" class="text-neutral-200 dark:text-neutral-800" stroke-width="1" />
+                                            <line x1="0" y1="75" x2="300" y2="75" stroke="currentColor" class="text-neutral-200 dark:text-neutral-800" stroke-width="1" />
+                                            <line x1="0" y1="112.5" x2="300" y2="112.5" stroke="currentColor" class="text-neutral-200 dark:text-neutral-800" stroke-width="1" />
+                                            
+                                            <path d="M0,135 L50,120 L100,110 L150,70 L200,45 L250,25 L300,12" 
+                                                  stroke="#4F46E5" stroke-width="3" stroke-linecap="round" class="chart-line" />
+                                            
+                                            <circle cx="300" cy="12" r="4" fill="currentColor" class="brutalist-text" />
+                                        </svg>
+                                        <div class="flex justify-between text-[9px] font-bold brutalist-text-muted mt-1">
+                                            <span>M0</span><span>M06</span><span>M12</span><span>M18</span><span>M24</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-xs brutalist-text-muted mt-4 leading-relaxed">
+                                    Aggregated vertical shelf elevation trend vector over a continuous 24-month monitoring envelope.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-t brutalist-border pt-8">
+                            <div class="p-2">
+                                <span class="text-4xl font-black block tracking-tight brutalist-text mb-1">99.74%</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider brutalist-text-muted block mb-2">RETENTION PERMANENCE RATIO</span>
+                                <p class="text-xs brutalist-text-body leading-relaxed">Continuous deep monitoring verified absolute carbon containment metrics throughout standard test schedules without gas leakage.</p>
+                            </div>
+                            <div class="p-2">
+                                <span class="text-4xl font-black block tracking-tight brutalist-text mb-1">+1420MM</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider brutalist-text-muted block mb-2">VERTICAL SEA BED DISPLACEMENT</span>
+                                <p class="text-xs brutalist-text-body leading-relaxed">Documented structural expansion across shallow shelf zones, establishing clear architectural platforms to buffer incoming wave energy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article id="doc-impact" class="editorial-section p-8 lg:p-20 scroll-mt-0 brutalist-strip">
+                    <div class="max-w-3xl space-y-8">
+                        <span class="text-[11px] font-bold tracking-widest uppercase text-indigo-600 block">// ARCHIVE LOG 04.D</span>
+                        <h2 class="text-4xl lg:text-6xl font-normal tracking-tight leading-[1.02] brutalist-text">
+                            Subsurface Re-Elevation<br>Vector Analysis
+                        </h2>
+                        <div class="w-16 h-[1px] my-8" style="background-color: var(--border-main);"></div>
+                        <div class="text-base lg:text-lg brutalist-text-body space-y-6 leading-relaxed">
+                            <p>The final research vector evaluates long-range ecological impacts on adjacent marine habitats. Rather than using rigid artificial sea barriers (like heavy concrete sea walls), our raised organic substrate framework naturally encourages root development for coastal marsh plant species.</p>
+                            <p>By shifting away from traditional static infrastructure models, our approach targets dynamic ecosystems. The underlying organic slurry layer transforms over dynamic multi-year intervals into structured peat layers, supporting high-density carbon anchoring networks across shallow environments.</p>
+                            <p>By blending modern technical precision with existing ecological elements, the method generates a self-maintaining coastal defense shield designed to scale naturally alongside changing ocean levels.</p>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="border-b brutalist-border brutalist-surface">
+            <div class="p-8 lg:p-12 border-b brutalist-border">
+                <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted select-none">CASE STUDY: THE COST OF EROSION IN LOUISIANA</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 brutalist-divide divide-y md:divide-y-0 md:divide-x">
+                <div class="p-8 lg:p-12 flex flex-col justify-between">
+                    <span class="text-6xl lg:text-8xl font-black tracking-tighter block mb-6 brutalist-text">$1.9B</span>
+                    <p class="text-sm lg:text-base brutalist-text-body font-medium">In infrastructure damage annually.</p>
+                </div>
+                <div class="p-8 lg:p-12 flex flex-col justify-between">
+                    <span class="text-6xl lg:text-8xl font-black tracking-tighter block mb-6 brutalist-text">90 MIN</span>
+                    <p class="text-sm lg:text-base brutalist-text-body font-medium">A football field of land disappears every 90 minutes.</p>
+                </div>
+                <div class="p-8 lg:p-12 flex flex-col justify-between">
+                    <span class="text-6xl lg:text-8xl font-black tracking-tighter block mb-6 brutalist-text">MANHATTAN</span>
+                    <p class="text-sm lg:text-base brutalist-text-body font-medium">An area the size of Manhattan is lost every year.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border">
+            <div class="lg:col-span-6 p-8 lg:p-16 border-b lg:border-b-0 lg:border-r brutalist-border flex flex-col justify-between brutalist-surface">
+                <div>
+                    <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-6 select-none">OUR SOLUTION</span>
+                    <h3 class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight mb-8 brutalist-text">
+                        Injecting biomass to <span class="text-indigo-600">elevate the seabed</span>, enhance <span class="text-indigo-600">coastal resilience</span>, and enable <span class="text-indigo-600">long-term carbon sequestration</span>.
+                    </h3>
+                </div>
+                <div class="space-y-6 text-sm lg:text-base brutalist-text-body max-w-xl border-t brutalist-border pt-6">
+                    <p>Agriculture captures large amounts of carbon each year—but much of its biomass waste, like bark, husks, and shells, decays and releases CO₂. In nature, this material settles on the seafloor, where an anoxic layer beneath coastal sediments can store carbon for millennia.</p>
+                    <p>Research Labs injects agricultural waste into this layer to raise the seabed and permanently store carbon—helping buffer coasts from erosion, stabilize ecosystems, and turn waste into lasting climate impact.</p>
+                </div>
+            </div>
+            <div class="lg:col-span-6 relative overflow-hidden bg-purple-900 min-h-[450px]">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=2026'); opacity: 0.75; filter: hue-rotate(70deg) contrast(1.2);"></div>
+            </div>
+        </section>
+
+        <section class="border-b brutalist-border brutalist-surface">
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border flex flex-col justify-between brutalist-bg select-none">
+                    <div>
+                        <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-4">// EXTERNAL COMPENDIUM</span>
+                        <h3 class="text-2xl font-black tracking-tight uppercase leading-none brutalist-text">Academic <br>Cross-References</h3>
+                    </div>
+                    <div class="text-[10px] brutalist-text-muted font-mono mt-8 hidden lg:block">
+                        INDEX REL: OAX-2026<br>
+                        TOTAL REFS: 03 LOCATED
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 brutalist-divide divide-y brutalist-surface">
+                    
+                    <a href="https://example.org/paper-1" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                            <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ DEEP-SEA.2025.09 ]</span>
+                            <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
+                                <span>JOURNAL OF MARINE GEOLOGY</span>
+                                <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
+                            </div>
+                        </div>
+                        <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
+                            Anoxic Carbon Sequestration Horizons in Benthic Sub-layers: Decomposition Velocity Ratios
+                        </h4>
+                        <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
+                            Babin, D., Dr. Thorne, E., et al. Evaluating decay behavior of complex raw carbon vectors under elevated lithostatic pressures across continental shelves.
+                        </p>
+                    </a>
+
+                    <a href="https://example.org/paper-2" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                            <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ ECO-INFRA.2026.02 ]</span>
+                            <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
+                                <span>COASTAL ENGINEERING QUARTERLY</span>
+                                <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
+                            </div>
+                        </div>
+                        <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
+                            Organic Slurry Aggregates as Dynamic Barriers Countering Tidal Margin Transgression
+                        </h4>
+                        <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
+                            Vance, S. R. Morphological tracking models of micro-fluidized sub-surface layers under high-energy incoming wave profiles.
+                        </p>
+                    </a>
+
+                    <a href="https://example.org/paper-3" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                            <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ BIO-GEO.2024.11 ]</span>
+                            <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
+                                <span>GLOBAL BIOGEOCHEMICAL CYCLES</span>
+                                <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
+                            </div>
+                        </div>
+                        <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
+                            Long-Term Benthic Bypassing Protocols: Eliminating Atmospheric Gas Effluence Pathways
+                        </h4>
+                        <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
+                            Kim, Y-H., & Ramirez, M. Analysis of continuous gas release dynamics across mixed organic deep deposition zones.
+                        </p>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+<footer class="w-full border-t brutalist-border brutalist-bg">
+    <div class="p-8 lg:p-16 flex flex-col justify-between min-h-[300px] max-w-xl">
+        <div>
+            <h4 class="text-sm font-black tracking-widest uppercase mb-4 brutalist-text select-none">Get in touch</h4>
+            <p class="text-sm brutalist-text-muted mb-4 leading-relaxed">
+                Explore partnership frameworks, research alignments, or technical deployments.
+            </p>
+            
+            <!-- Vector Social Icon Interface Matrix -->
+            <div class="flex items-center gap-4 mb-8">
+                <!-- GitHub -->
+                <a href="https://github.com" target="_blank" aria-label="GitHub Profile"
+                    class="p-2 border border-transparent hover:border-current transition-all duration-200 brutalist-text cursor-pointer">
+                    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                    </svg>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile"
+                    class="p-2 border border-transparent hover:border-current transition-all duration-200 brutalist-text cursor-pointer">
+                    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+
+                <!-- Codeforces -->
+                <a href="https://codeforces.com" target="_blank" aria-label="Codeforces Profile"
+                    class="p-2 border border-transparent hover:border-current transition-all duration-200 brutalist-text cursor-pointer">
+                    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.5 7.5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 10.5 7.5v15a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 4.5 22.5zm6-4.5A1.5 1.5 0 0 1 12 1.5h3A1.5 1.5 0 0 1 16.5 3v19.5a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5zm6 7.5a1.5 1.5 0 0 1 1.5-1.5h3a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        
+        <div class="space-y-2 text-sm font-bold tracking-tight brutalist-text font-mono">
+            <div><a href="mailto:hello@research.com" class="hover:underline">hello@research.com</a></div>
+            <div><a href="tel:+1234567890" class="hover:underline">+1 (234) 567-890</a></div>
+        </div>
+    </div>
+</footer>
+
+        <div class="border-t brutalist-border p-8 text-center text-[11px] font-bold brutalist-text-muted tracking-widest uppercase brutalist-surface select-none">
+            © 2026 SINKCO LABS // RECREATION EDITORIAL ARCHIVE
+        </div>
+    </div>
+
+    <script>
+        const root = document.documentElement;
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('theme-sun');
+        const moonIcon = document.getElementById('theme-moon');
+        const themeText = document.getElementById('theme-text');
+
+        // Core Theme Orchestration Function
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                root.classList.remove('theme-light');
+                root.classList.add('theme-dark');
+
+                if (themeText) themeText.textContent = 'DARK';
+
+                if (sunIcon && moonIcon) {
+                    sunIcon.classList.remove('hidden');
+                    sunIcon.classList.add('block');
+                    moonIcon.classList.remove('block');
+                    moonIcon.classList.add('hidden');
+                }
+
+                localStorage.setItem('research-theme', 'dark');
+            } else {
+                root.classList.remove('theme-dark');
+                root.classList.add('theme-light');
+
+                if (themeText) themeText.textContent = 'LIGHT';
+
+                if (sunIcon && moonIcon) {
+                    sunIcon.classList.remove('block');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                    moonIcon.classList.add('block');
+                }
+
+                localStorage.setItem('research-theme', 'light');
+            }
+        }
+
+        // Initialize from local caching engine, defaulting strictly to light mode
+        const cachedTheme = localStorage.getItem('research-theme');
+        if (cachedTheme) {
+            setTheme(cachedTheme);
+        } else {
+            // Explicitly fallback to light mode, ignoring system settings
+            setTheme('light');
+        }
+
+        // Interactive Event Binding
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const isDarkActive = root.classList.contains('theme-dark');
+                setTheme(isDarkActive ? 'light' : 'dark');
+            });
+        }
+
+        // Custom Mouse Tracker Pipeline (Desktop Only)
+        if (window.innerWidth > 1024) {
+            let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }, { passive: true }); // Adding passive flag for improved scroll performance
+
+            function renderCursor() {
+                currentX += (mouseX - currentX) * 0.18;
+                currentY += (mouseY - currentY) * 0.18;
+                root.style.setProperty('--cursor-x', `${currentX}px`);
+                root.style.setProperty('--cursor-y', `${currentY}px`);
+                requestAnimationFrame(renderCursor);
+            }
+            requestAnimationFrame(renderCursor);
+
+            const hoverTargets = document.querySelectorAll('a, button, input, .cursor-pointer, h1, h2, svg, #theme-toggle');
+            hoverTargets.forEach(element => {
+                element.addEventListener('mouseenter', () => root.style.setProperty('--cursor-scale', '0.55'));
+                element.addEventListener('mouseleave', () => root.style.setProperty('--cursor-scale', '1'));
+            });
+        }
+
+        // Sidebar Intersection Tracking Mechanics
+        const editorialSections = document.querySelectorAll('.editorial-section');
+        const sidebarLinks = document.querySelectorAll('.editorial-nav-item');
+
+        if (editorialSections.length > 0 && sidebarLinks.length > 0) {
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const activeID = entry.target.getAttribute('id');
+                        sidebarLinks.forEach(link => link.classList.remove('active'));
+                        const targetingLink = document.querySelector(`.editorial-nav-item[href="#${activeID}"]`);
+                        if (targetingLink) targetingLink.classList.add('active');
+                    }
+                });
+            }, { root: null, rootMargin: '-25% 0px -45% 0px', threshold: 0 });
+
+            editorialSections.forEach(section => sectionObserver.observe(section));
+        }
+    </script>
+</body>
+</html>
