@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="doc-page-title">Loading Research Paper...</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load the shared web component footer -->
+    <script src="../../../components.js" defer></script>
+
+    <style>
+        /* Theme Color Maps */
+        .theme-light {
+            --bg-main: #F6F6F6;
+            --bg-surface: #FFFFFF;
+            --bg-strip: #FAFAFA;
+            --text-main: #000000;
+            --text-body: #1F2937;
+            --text-muted: #9CA3AF;
+            --border-main: #000000;
+        }
+
+        .theme-dark {
+            --bg-main: #0C0C0C;
+            --bg-surface: #121212;
+            --bg-strip: #181818;
+            --text-main: #FFFFFF;
+            --text-body: #D1D5DB;
+            --text-muted: #4B5563;
+            --border-main: #FFFFFF;
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.038'/%3E%3C/svg%3E");
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .brutalist-border { border-color: var(--border-main) !important; }
+        .brutalist-bg { background-color: var(--bg-main) !important; }
+        .brutalist-surface { background-color: var(--bg-surface) !important; }
+        .brutalist-strip { background-color: var(--bg-strip) !important; }
+        .brutalist-text { color: var(--text-main) !important; }
+        .brutalist-text-body { color: var(--text-body) !important; }
+        .brutalist-text-muted { color: var(--text-muted) !important; }
+        .brutalist-divide > * + * { border-color: var(--border-main) !important; }
+
+        /* Custom Inverting Magic Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 140px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate3d(calc(var(--cursor-x, 0px) - 50%), calc(var(--cursor-y, 0px) - 50%), 0) scale(var(--cursor-scale, 1));
+            z-index: 9999;
+            mix-blend-mode: difference; 
+            transition: transform 0.1s cubic-bezier(0.215, 0.610, 0.355, 1);
+            will-change: transform;
+        }
+
+        @media (max-width: 1024px) {
+            #custom-cursor { display: none; }
+            body { cursor: auto; }
+        }
+
+        /* Sidebar Nav Styling */
+        .editorial-nav-item.active {
+            color: var(--text-main) !important;
+            border-left-color: var(--text-main) !important;
+            padding-left: 1.25rem;
+        }
+        .editorial-nav-item {
+            transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-black selection:text-white lg:cursor-none brutalist-bg brutalist-text">
+
+    <div id="custom-cursor"></div>
+
+    <div class="border-x brutalist-border mx-auto max-w-[1800px] min-h-screen flex flex-col">
+        
+        <!-- Navigation Header -->
+        <nav class="border-b brutalist-border px-8 py-5 flex justify-between items-center text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
+            <div class="brutalist-text" id="bind-posted-date">POSTED ON: -- // ARCHIVE MATRIX</div>
+            
+            <div class="flex items-center gap-3 cursor-pointer group" id="theme-toggle">
+                <a href="../../../index.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">RESEARCH</a>
+                <div class="w-px h-6 brutalist-border border-l"></div>
+                <a href="../../../projects.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">PROJECTS</a>
+                <div class="w-px h-6 brutalist-border border-l"></div>
+                <a href="../../../blog.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">BLOG</a>
+                <div class="w-px h-6 brutalist-border border-l"></div>
+
+                <span id="theme-text" class="brutalist-text">LIGHT</span>
+                <div class="relative w-5 h-5 flex items-center justify-center">
+                    <svg id="theme-sun" class="w-5 h-5 brutalist-text hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg id="theme-moon" class="w-5 h-5 brutalist-text block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border group">
+            <div class="lg:col-span-7 border-b lg:border-b-0 lg:border-r brutalist-border relative overflow-hidden bg-emerald-950 min-h-[500px] lg:min-h-[650px]">
+                <div id="bind-hero-bg" class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="opacity: 0.8; filter: hue-rotate(35deg) saturate(1.4);"></div>
+            </div>
+            
+            <a id="bind-pdf-link" href="#" target="_blank" class="lg:col-span-5 p-8 lg:p-16 flex flex-col justify-center brutalist-bg hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors duration-300 relative">
+
+                <h2 id="bind-hero-title" class="text-5xl lg:text-[4.5rem] font-normal tracking-tight leading-[1.02] brutalist-text mb-8"></h2>
+                <p id="bind-hero-summary" class="text-base lg:text-lg brutalist-text-body font-normal leading-relaxed max-w-xl"></p>
+            </a>
+        </section>
+
+        <!-- Challenge Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border">
+            <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border">
+                <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted select-none">THE CHALLENGE</span>
+            </div>
+            <div class="lg:col-span-8 p-8 lg:p-12">
+                <h3 id="bind-challenge-title" class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight max-w-4xl mb-6 brutalist-text"></h3>
+                <p id="bind-challenge-body" class="text-base lg:text-lg brutalist-text-body leading-relaxed max-w-3xl"></p>
+            </div>
+        </section>
+
+        <!-- Dynamic Content Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border relative">
+            
+            <!-- Sidebar Matrix -->
+            <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r brutalist-border p-8 lg:p-12 brutalist-bg lg:sticky lg:top-0 lg:h-screen flex flex-col justify-between select-none z-20">
+                <div class="pt-4">
+                    <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-8">// LITIGATION & EVIDENCE MATRIX</span>
+                    <nav id="bind-sidebar-nav" class="flex flex-col space-y-4">
+                        <!-- Rendered via JS -->
+                    </nav>
+                </div>
+                <div id="bind-sidebar-footer" class="hidden lg:block border-t brutalist-border pt-6 text-[10px] font-bold brutalist-text-muted tracking-widest leading-relaxed">
+                    <!-- Rendered via JS -->
+                </div>
+            </div>
+
+            <!-- Main Dynamic Articles Container -->
+            <div id="bind-articles-container" class="lg:col-span-8 brutalist-surface brutalist-divide divide-y">
+                <!-- Rendered via JS -->
+            </div>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border">
+            <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border">
+                <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted select-none">THE CONCLUSION</span>
+            </div>
+            <div class="lg:col-span-8 p-8 lg:p-12">
+                <h3 id="bind-conclusion-title" class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight max-w-4xl mb-6 brutalist-text"></h3>
+                <p id="bind-conclusion-body" class="text-base lg:text-lg brutalist-text-body leading-relaxed max-w-3xl"></p>
+            </div>
+        </section>
+
+        <!-- References Section -->
+        <section class="border-b brutalist-border brutalist-surface">
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border flex flex-col justify-between brutalist-bg select-none">
+                    <div>
+                        <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-4">// EXTERNAL COMPENDIUM</span>
+                        <h3 class="text-2xl font-black tracking-tight uppercase leading-none brutalist-text">Academic <br>Cross-References</h3>
+                    </div>
+                    <div class="mt-8">
+                        <a href="../../topics.html" class="inline-flex items-center justify-between w-full p-4 border brutalist-border brutalist-surface brutalist-text text-xs font-mono font-bold tracking-widest uppercase hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 group">
+                            <span>VIEW ALL BLOG TOPICS</span>
+                            <span class="group-hover:translate-x-1 transition-transform duration-200">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="bind-references-list" class="lg:col-span-8 brutalist-divide divide-y brutalist-surface">
+                    <!-- Rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Option 2 Custom Footer Web Component -->
+        <site-footer></site-footer>
+
+    </div>
+
+    <!-- Embedded Data Object & Dynamic Renderer -->
+    <script>
+        // -----------------------------------------------------------------
+        // 1. DATA OBJECT (Edit this section to change page content)
+        // -----------------------------------------------------------------
+        const pageData = {
+            metadata: {
+                title: "Research - Permanent Carbon Dioxide Removal",
+                date: "MAY 31st 2026",
+                registryCode: "SL-2026-REV4"
+            },
+            hero: {
+                bgImage: "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                pdfUrl: "https://example.org/documents/current-research-paper.pdf",
+                title: "Transformer Architecture Demystified: Encoders, Decoders, and Attention",
+                summary: "Research Labs' novel approach injects biomass into marine sediments, elevating the seabed to counter coastal erosion and achieve durable carbon storage."
+            },
+            challenge: {
+                title: "Our coastlines are disappearing – faster than we can rebuild them.",
+                body: "Rising seas, sinking land, stronger storms, and resource extraction are accelerating erosion, threatening ecosystems, displacing communities, and risking trillions in infrastructure. Conventional defenses are costly, slow, and often harm marine life. As climate threats grow, scalable, sustainable solutions are urgently needed."
+            },
+            conclusion: {
+                title: "A practical path forward is to store carbon where it also strengthens the coast.",
+                body: "By combining sediment-based carbon storage with seabed elevation, the method turns agricultural waste into a durable climate intervention. The result is a single system that addresses emissions, erosion, and long-term coastal resilience at the same time."
+            },
+            sections: [
+                {
+                    id: "doc-abstract",
+                    logCode: "// ARCHIVE LOG 01.A",
+                    navTitle: "01 / RESEARCH ABSTRACT & ANCHOR THESIS",
+                    title: "Research Abstract &<br>Anchor Thesis",
+                    quote: "By depositing dense agricultural biomass derivatives within specialized anoxic sub-layers of marine shelves, degradation rates drop below standard decay baselines by a factor of $10^4$.",
+                    paragraphs: [
+                        "Our long-term research establishes that deep-sediment carbon storage works concurrently as a physical stabilization medium for eroding coastal margins. Traditional techniques prioritize storage in deep open-ocean columns; however, our lab prioritizes the shallow continental margins, turning raw carbon vectors into active geological engineering infrastructure.",
+                        "By preventing atmospheric methane and carbon gas discharge through immediate sediment encapsulation, the process establishes a highly predictable, verifiable structural carbon net-negative balance zone that addresses structural earth decay and gas containment simultaneously."
+                    ]
+                },
+                {
+                    id: "doc-methodology",
+                    logCode: "// ARCHIVE LOG 02.B",
+                    navTitle: "02 / ANCHOR INJECTION METHODOLOGY",
+                    title: "Anchor Injection<br>Methodology",
+                    isStriped: true,
+                    paragraphs: [
+                        "The operational framework requires rigorous phase alignment to execute safely without displacing local benthic microclimates. The strategy relies on bypassing standard open-air storage limitations completely."
+                    ],
+                    gridItems: [
+                        { 
+                            title: "01 / MICRO-FLUIDIZATION", 
+                            text: "Raw carbon substrates are mechanically optimized down to standardized granular structures ($\\le 4\\text{mm}$) to ensure uniform fluid movement underneath soft marine layers without clumping." 
+                        },
+                        { 
+                            title: "02 / ACOUSTIC GRAIN DISPLACEMENT", 
+                            text: "Low-frequency acoustic resonance drivers create brief, clean interstitial pathways through sea mud arrays, removing the need for traditional heavy sub-surface digging." 
+                        }
+                    ],
+                    footerParagraph: "Real-time telemetry tags track continuous reading matrices across every staging point—analyzing structural gas changes and visual tracking telemetry layers to maintain the continuous security of the upper containment barrier seal."
+                }
+            ],
+            
+            references: [
+                {
+                    id: "DEEP-SEA.2025.09",
+                    journal: "JOURNAL OF MARINE GEOLOGY",
+                    title: "Anoxic Carbon Sequestration Horizons in Benthic Sub-layers: Decomposition Velocity Ratios",
+                    authors: "Babin, D., Dr. Thorne, E., et al. Evaluating decay behavior of complex raw carbon vectors under elevated lithostatic pressures across continental shelves.",
+                    link: "https://example.org/paper-1"
+                },
+                {
+                    id: "ECO-INFRA.2026.02",
+                    journal: "COASTAL ENGINEERING QUARTERLY",
+                    title: "Organic Slurry Aggregates as Dynamic Barriers Countering Tidal Margin Transgression",
+                    authors: "Vance, S. R. Morphological tracking models of micro-fluidized sub-surface layers under high-energy incoming wave profiles.",
+                    link: "https://example.org/paper-2"
+                }
+            ]
+        };
+
+        // -----------------------------------------------------------------
+        // 2. DYNAMIC RENDER ENGINE
+        // -----------------------------------------------------------------
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bind Header & Meta
+            document.getElementById('doc-page-title').innerText = pageData.metadata.title;
+            document.getElementById('bind-posted-date').innerText = `POSTED ON: ${pageData.metadata.date} // ARCHIVE MATRIX`;
+            
+            // Bind Hero
+            document.getElementById('bind-hero-bg').style.backgroundImage = `url('${pageData.hero.bgImage}')`;
+            document.getElementById('bind-pdf-link').href = pageData.hero.pdfUrl;
+            document.getElementById('bind-hero-title').innerHTML = pageData.hero.title;
+            document.getElementById('bind-hero-summary').innerText = pageData.hero.summary;
+
+            // Bind Challenge
+            document.getElementById('bind-challenge-title').innerText = pageData.challenge.title;
+            document.getElementById('bind-challenge-body').innerText = pageData.challenge.body;
+
+            // Bind Conclusion
+            document.getElementById('bind-conclusion-title').innerText = pageData.conclusion.title;
+            document.getElementById('bind-conclusion-body').innerText = pageData.conclusion.body;
+
+            // Bind Sidebar Metadata Footer
+            document.getElementById('bind-sidebar-footer').innerHTML = `
+                DATA CLASSIFICATION: UNRESTRICTED CORE DISTRIBUTION<br>
+                SYSTEM REGISTRY CODE: ${pageData.metadata.registryCode}<br>
+                SUBTERRANEAN STATUS: STABLE CONTAINMENT
+            `;
+
+            // Bind Navigation & Main Sections Loop
+            const sidebarNav = document.getElementById('bind-sidebar-nav');
+            const articlesContainer = document.getElementById('bind-articles-container');
+
+            pageData.sections.forEach((sec, idx) => {
+                // Build Sidebar Navigation Link
+                const navLink = document.createElement('a');
+                navLink.href = `#${sec.id}`;
+                navLink.className = `editorial-nav-item ${idx === 0 ? 'active' : ''} text-xs font-bold tracking-wider brutalist-text-muted border-l border-transparent pl-0 hover:text-black dark:hover:text-white block py-1`;
+                navLink.innerText = sec.navTitle;
+                sidebarNav.appendChild(navLink);
+
+                // Build Article Element
+                const article = document.createElement('article');
+                article.id = sec.id;
+                article.className = `editorial-section p-8 lg:p-20 scroll-mt-0 ${sec.isStriped ? 'brutalist-strip' : ''}`;
+                
+                const quoteHTML = sec.quote ? `<p class="text-2xl font-normal tracking-tight border-l-4 brutalist-border pl-6 py-2 my-8 brutalist-text brutalist-bg pr-4">${sec.quote}</p>` : '';
+                const paragraphsHTML = sec.paragraphs.map(p => `<p>${p}</p>`).join('');
+                
+                let gridHTML = '';
+                if (sec.gridItems && sec.gridItems.length > 0) {
+                    gridHTML = `
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12 border-t border-b brutalist-border py-8">
+                            ${sec.gridItems.map(g => `
+                                <div class="space-y-2">
+                                    <div class="text-xs font-black tracking-wider uppercase brutalist-text">${g.title}</div>
+                                    <p class="text-sm brutalist-text-muted leading-relaxed">${g.text}</p>
+                                </div>
+                            `).join('')}
+                        </div>`;
+                }
+
+                article.innerHTML = `
+                    <div class="max-w-3xl space-y-8">
+                        <span class="text-[11px] font-bold tracking-widest uppercase text-indigo-600 block">${sec.logCode}</span>
+                        <h2 class="text-4xl lg:text-6xl font-normal tracking-tight leading-[1.02] brutalist-text">${sec.title}</h2>
+                        <div class="w-16 h-[1px] my-8" style="background-color: var(--border-main);"></div>
+                        <div class="text-base lg:text-lg brutalist-text-body space-y-6 leading-relaxed font-normal">
+                            ${quoteHTML}
+                            ${paragraphsHTML}
+                            ${gridHTML}
+                            ${sec.footerParagraph ? `<p>${sec.footerParagraph}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+                articlesContainer.appendChild(article);
+            });
+
+            // Bind References Section
+            const refContainer = document.getElementById('bind-references-list');
+            refContainer.innerHTML = pageData.references.map(r => `
+                <a href="${r.link}" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ ${r.id} ]</span>
+                        <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
+                            <span>${r.journal}</span>
+                            <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
+                        </div>
+                    </div>
+                    <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
+                        ${r.title}
+                    </h4>
+                    <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
+                        ${r.authors}
+                    </p>
+                </a>
+            `).join('');
+
+            // Initialize Intersection Observer for Dynamic Sidebar Highlighting
+            initScrollObserver();
+        });
+
+        // -----------------------------------------------------------------
+        // 3. UI CONTROLLERS (Theme Switcher, Cursor, Intersection Observer)
+        // -----------------------------------------------------------------
+        const root = document.documentElement;
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('theme-sun');
+        const moonIcon = document.getElementById('theme-moon');
+        const themeText = document.getElementById('theme-text');
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                root.classList.remove('theme-light');
+                root.classList.add('theme-dark');
+                if (themeText) themeText.textContent = 'DARK';
+                if (sunIcon && moonIcon) {
+                    sunIcon.classList.remove('hidden');
+                    sunIcon.classList.add('block');
+                    moonIcon.classList.remove('block');
+                    moonIcon.classList.add('hidden');
+                }
+                localStorage.setItem('research-theme', 'dark');
+            } else {
+                root.classList.remove('theme-dark');
+                root.classList.add('theme-light');
+                if (themeText) themeText.textContent = 'LIGHT';
+                if (sunIcon && moonIcon) {
+                    sunIcon.classList.remove('block');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                    moonIcon.classList.add('block');
+                }
+                localStorage.setItem('research-theme', 'light');
+            }
+        }
+
+        const cachedTheme = localStorage.getItem('research-theme');
+        setTheme(cachedTheme || 'light');
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const isDarkActive = root.classList.contains('theme-dark');
+                setTheme(isDarkActive ? 'light' : 'dark');
+            });
+        }
+
+        // Custom Mouse Tracker Pipeline
+        if (window.innerWidth > 1024) {
+            let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }, { passive: true });
+
+            function renderCursor() {
+                currentX += (mouseX - currentX) * 0.18;
+                currentY += (mouseY - currentY) * 0.18;
+                root.style.setProperty('--cursor-x', `${currentX}px`);
+                root.style.setProperty('--cursor-y', `${currentY}px`);
+                requestAnimationFrame(renderCursor);
+            }
+            requestAnimationFrame(renderCursor);
+        }
+
+        // Sidebar Intersection Observer function
+        function initScrollObserver() {
+            const editorialSections = document.querySelectorAll('.editorial-section');
+            const sidebarLinks = document.querySelectorAll('.editorial-nav-item');
+
+            if (editorialSections.length > 0 && sidebarLinks.length > 0) {
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const activeID = entry.target.getAttribute('id');
+                            sidebarLinks.forEach(link => link.classList.remove('active'));
+                            const targetingLink = document.querySelector(`.editorial-nav-item[href="#${activeID}"]`);
+                            if (targetingLink) targetingLink.classList.add('active');
+                        }
+                    });
+                }, { root: null, rootMargin: '-25% 0px -45% 0px', threshold: 0 });
+
+                editorialSections.forEach(section => sectionObserver.observe(section));
+            }
+        }
+    </script>
+</body>
+</html>

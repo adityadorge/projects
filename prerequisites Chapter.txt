@@ -1,101 +1,59 @@
-prerequisites: 
-Chapter 1
-Numbers, Vectors & Similarity
+Chapter 1 : Math Foundations — Numbers, Vectors & Similarity
 │
-├── Scalars
-├── Vectors
-├── Dot Product
-├── Matrix Multiplication
+├── Scalars & Vectors [done]
+├── Matrix & Matrices [done]
+├── Dot Product [done]
+└── Matrix & Matrices Multiplication 
+    ├── Matrix multiplication : (Matrix × vector, Matrix × matrix) [done]
+    └── Matrix multiplication as table lookups / projection
+        └── Matrix multiplication as a table lookup [done]
 └── Cosine Similarity
+    └── Explain why embeddings use cosine similarity ?
 
 ↓
 
-Chapter 2
-Representing Words
+Chapter 2 : Text to Math — Tokenization & Representations
 │
-├── ASCII
-├── Unicode
-├── Tokenization
-├── Vocabulary
-└── One-hot Encoding
- 
+├── Text Processing (Lemmatization, Stemming, Character-level)
+├── Vocabulary & Tokenization
+└── Discrete Representations (One-Hot Encoding)
+    ├── One-hot encoding
+    └── Bridge to continuous space (Vector Embeddings)
+
 ↓
 
-Chapter 3
-Embeddings
+Chapter 3 : Sequence Modeling — Classical Approaches
 │
-├── Dense Vectors
-├── Matrix Lookup
-├── Embedding Matrix
-└── Learned Representations
+├── First-order Sequence Models (Markov Chains)
+│   └── First order sequence model
+├── Second-order Sequence Models
+│   └── Second order sequence model
+└── Skip Models & Matrix Multiplications
+    ├── Second order sequence model with skips
+    ├── Second order sequence model as matrix multiplications
+    └── Sequence completion & next-token prediction
+        └── Sequence completion
 
 ↓
 
-Chapter 4
-Modeling Sequences
-│
-├── First-order Models
-├── Second-order Models
-└── Skip Models
-
-↓
-
-Chapter 5
-Limitations of Sequence Models
+Chapter 4 : Limitations of Classical Sequence Models
 │
 ├── Long-range Dependencies
 ├── Information Bottlenecks
-└── Why RNNs/Markov Models Struggle
+└── Why Markov Models / RNNs Struggle (Sequential processing constraints)
+    └── Rest Stop and an Off Ramp
 
 ↓
 
-Chapter 6
-Attention
+Chapter 5 : Attention Mechanisms
 │
-├── Queries
-├── Keys
-├── Values
-├── Attention Scores
-├── Matrix Multiplication
-└── Masking
+├── The Core Idea: Bypassing the bottleneck
+├── Queries, Keys, and Values (Q, K, V)
+├── Attention Scores (Dot Product Similarity applied to Q & K)
+├── Attention as Matrix Multiplication (Table lookup at scale)
+│   └── Attention as matrix multiplication
+└── Masking (Causal / Autoregressive Attention)
+    └── Masking
 
-↓
 
-Chapter 7
-Transformer Input Pipeline
-│
-├── Token IDs
-├── Embeddings
-├── Positional Encoding
-└── Input Representations
-
-↓
-
-Chapter 8
-Building an Embedding Layer
-│
-├── Manual Implementation
-├── From Scratch
-├── nn.Embedding
-└── Backpropagation
-
-↓
-
-Chapter 9
-Putting Everything Together
-│
-Sentence
-↓
-Tokenizer
-↓
-Token IDs
-↓
-Embedding
-↓
-Positional Encoding
-↓
-Attention
-↓
-Next Token Prediction
-↓
-Sequence Completion
+tensors

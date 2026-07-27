@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" class="theme-light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="doc-page-title">Loading Research Paper...</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <!-- Load the shared web component footer -->
     <script src="../../../components.js" defer></script>
+    <!-- MathJax for rendering LaTeX math in HTML -->
+    <script>
+        window.MathJax = {
+            tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            packages: ['base', 'ams'] // Ensures \aligned works
+            }
+        };
+    </script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         /* Theme Color Maps */
@@ -35,8 +45,10 @@
             --border-main: #FFFFFF;
         }
 
-        html { scroll-behavior: smooth; }
-        
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-main);
@@ -45,14 +57,37 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .brutalist-border { border-color: var(--border-main) !important; }
-        .brutalist-bg { background-color: var(--bg-main) !important; }
-        .brutalist-surface { background-color: var(--bg-surface) !important; }
-        .brutalist-strip { background-color: var(--bg-strip) !important; }
-        .brutalist-text { color: var(--text-main) !important; }
-        .brutalist-text-body { color: var(--text-body) !important; }
-        .brutalist-text-muted { color: var(--text-muted) !important; }
-        .brutalist-divide > * + * { border-color: var(--border-main) !important; }
+        .brutalist-border {
+            border-color: var(--border-main) !important;
+        }
+
+        .brutalist-bg {
+            background-color: var(--bg-main) !important;
+        }
+
+        .brutalist-surface {
+            background-color: var(--bg-surface) !important;
+        }
+
+        .brutalist-strip {
+            background-color: var(--bg-strip) !important;
+        }
+
+        .brutalist-text {
+            color: var(--text-main) !important;
+        }
+
+        .brutalist-text-body {
+            color: var(--text-body) !important;
+        }
+
+        .brutalist-text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        .brutalist-divide>*+* {
+            border-color: var(--border-main) !important;
+        }
 
         /* Custom Inverting Magic Cursor */
         #custom-cursor {
@@ -66,14 +101,19 @@
             pointer-events: none;
             transform: translate3d(calc(var(--cursor-x, 0px) - 50%), calc(var(--cursor-y, 0px) - 50%), 0) scale(var(--cursor-scale, 1));
             z-index: 9999;
-            mix-blend-mode: difference; 
+            mix-blend-mode: difference;
             transition: transform 0.1s cubic-bezier(0.215, 0.610, 0.355, 1);
             will-change: transform;
         }
 
         @media (max-width: 1024px) {
-            #custom-cursor { display: none; }
-            body { cursor: auto; }
+            #custom-cursor {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
         }
 
         /* Sidebar Nav Styling */
@@ -82,36 +122,47 @@
             border-left-color: var(--text-main) !important;
             padding-left: 1.25rem;
         }
+
         .editorial-nav-item {
             transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
         }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden selection:bg-black selection:text-white lg:cursor-none brutalist-bg brutalist-text">
+
+<body
+    class="antialiased overflow-x-hidden selection:bg-black selection:text-white lg:cursor-none brutalist-bg brutalist-text">
 
     <div id="custom-cursor"></div>
 
     <div class="border-x brutalist-border mx-auto max-w-[1800px] min-h-screen flex flex-col">
-        
+
         <!-- Navigation Header -->
-        <nav class="border-b brutalist-border px-8 py-5 flex justify-between items-center text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
+        <nav
+            class="border-b brutalist-border px-8 py-5 flex justify-between items-center text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
             <div class="brutalist-text" id="bind-posted-date">POSTED ON: -- // ARCHIVE MATRIX</div>
-            
+
             <div class="flex items-center gap-3 cursor-pointer group" id="theme-toggle">
-                <a href="../../../index.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">RESEARCH</a>
+                <a href="../../../index.html"
+                    class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">RESEARCH</a>
                 <div class="w-px h-6 brutalist-border border-l"></div>
-                <a href="../../../projects.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">PROJECTS</a>
+                <a href="../../../projects.html"
+                    class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">PROJECTS</a>
                 <div class="w-px h-6 brutalist-border border-l"></div>
-                <a href="../../../blog.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">BLOG</a>
+                <a href="../../../blog.html"
+                    class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">BLOG</a>
                 <div class="w-px h-6 brutalist-border border-l"></div>
 
                 <span id="theme-text" class="brutalist-text">LIGHT</span>
                 <div class="relative w-5 h-5 flex items-center justify-center">
-                    <svg id="theme-sun" class="w-5 h-5 brutalist-text hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg id="theme-sun" class="w-5 h-5 brutalist-text hidden" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="4"></circle>
-                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        <path
+                            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41">
+                        </path>
                     </svg>
-                    <svg id="theme-moon" class="w-5 h-5 brutalist-text block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg id="theme-moon" class="w-5 h-5 brutalist-text block" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 </div>
@@ -120,50 +171,54 @@
 
         <!-- Hero Section -->
         <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border group">
-            <div class="lg:col-span-7 border-b lg:border-b-0 lg:border-r brutalist-border relative overflow-hidden bg-emerald-950 min-h-[500px] lg:min-h-[650px]">
-                <div id="bind-hero-bg" class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="opacity: 0.8; filter: hue-rotate(35deg) saturate(1.4);"></div>
+            <div
+                class="lg:col-span-7 border-b lg:border-b-0 lg:border-r brutalist-border relative overflow-hidden bg-emerald-950 min-h-[500px] lg:min-h-[650px]">
+                <div id="bind-hero-bg"
+                    class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                    style="opacity: 0.8; filter: hue-rotate(35deg) saturate(1.4);"></div>
             </div>
-            
-            <a id="bind-pdf-link" href="#" target="_blank" class="lg:col-span-5 p-8 lg:p-16 flex flex-col justify-center brutalist-bg hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors duration-300 relative">
-                <div class="flex items-center gap-2 mb-6 self-start">
-                    <span class="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold font-mono border brutalist-border brutalist-surface brutalist-text uppercase tracking-wider rounded shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
-                        <svg class="w-3.5 h-3.5 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                        </svg>
-                        VIEW FULL RESEARCH PDF
-                    </span>
-                    <span class="text-xs font-bold transition-transform duration-300 group-hover:translate-x-1 brutalist-text">→</span>
-                </div>
 
-                <h2 id="bind-hero-title" class="text-5xl lg:text-[4.5rem] font-normal tracking-tight leading-[1.02] brutalist-text mb-8"></h2>
-                <p id="bind-hero-summary" class="text-base lg:text-lg brutalist-text-body font-normal leading-relaxed max-w-xl"></p>
+            <a id="bind-pdf-link" href="#" target="_blank"
+                class="lg:col-span-5 p-8 lg:p-16 flex flex-col justify-center brutalist-bg hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors duration-300 relative">
+
+                <h2 id="bind-hero-title"
+                    class="text-5xl lg:text-[4.5rem] font-normal tracking-tight leading-[1.02] brutalist-text mb-8">
+                </h2>
+                <p id="bind-hero-summary"
+                    class="text-base lg:text-lg brutalist-text-body font-normal leading-relaxed max-w-xl"></p>
             </a>
         </section>
 
         <!-- Challenge Section -->
         <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border">
             <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border">
-                <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted select-none">THE CHALLENGE</span>
+                <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted select-none">THE
+                    CHALLENGE</span>
             </div>
             <div class="lg:col-span-8 p-8 lg:p-12">
-                <h3 id="bind-challenge-title" class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight max-w-4xl mb-6 brutalist-text"></h3>
-                <p id="bind-challenge-body" class="text-base lg:text-lg brutalist-text-body leading-relaxed max-w-3xl"></p>
+                <h3 id="bind-challenge-title"
+                    class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight max-w-4xl mb-6 brutalist-text">
+                </h3>
+                <p id="bind-challenge-body" class="text-base lg:text-lg brutalist-text-body leading-relaxed max-w-3xl">
+                </p>
             </div>
         </section>
 
         <!-- Dynamic Content Section -->
         <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border relative">
-            
+
             <!-- Sidebar Matrix -->
-            <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r brutalist-border p-8 lg:p-12 brutalist-bg lg:sticky lg:top-0 lg:h-screen flex flex-col justify-between select-none z-20">
+            <div
+                class="lg:col-span-4 border-b lg:border-b-0 lg:border-r brutalist-border p-8 lg:p-12 brutalist-bg lg:sticky lg:top-0 lg:h-screen flex flex-col justify-between select-none z-20">
                 <div class="pt-4">
-                    <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-8">// LITIGATION & EVIDENCE MATRIX</span>
+                    <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-8">//
+                        LITIGATION & EVIDENCE MATRIX</span>
                     <nav id="bind-sidebar-nav" class="flex flex-col space-y-4">
                         <!-- Rendered via JS -->
                     </nav>
                 </div>
-                <div id="bind-sidebar-footer" class="hidden lg:block border-t brutalist-border pt-6 text-[10px] font-bold brutalist-text-muted tracking-widest leading-relaxed">
+                <div id="bind-sidebar-footer"
+                    class="hidden lg:block border-t brutalist-border pt-6 text-[10px] font-bold brutalist-text-muted tracking-widest leading-relaxed">
                     <!-- Rendered via JS -->
                 </div>
             </div>
@@ -174,26 +229,35 @@
             </div>
         </section>
 
-        <!-- Dynamic Case Study Section -->
-        <section class="border-b brutalist-border brutalist-surface">
-            <div class="p-8 lg:p-12 border-b brutalist-border">
-                <span id="bind-case-title" class="text-xs font-bold tracking-widest uppercase brutalist-text-muted select-none"></span>
+        <!-- Conclusion Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border">
+            <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border">
+                <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted select-none">THE
+                    CONCLUSION</span>
             </div>
-            <div id="bind-case-stats" class="grid grid-cols-1 md:grid-cols-3 brutalist-divide divide-y md:divide-y-0 md:divide-x">
-                <!-- Rendered via JS -->
+            <div class="lg:col-span-8 p-8 lg:p-12">
+                <h3 id="bind-conclusion-title"
+                    class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight max-w-4xl mb-6 brutalist-text">
+                </h3>
+                <p id="bind-conclusion-body" class="text-base lg:text-lg brutalist-text-body leading-relaxed max-w-3xl">
+                </p>
             </div>
         </section>
 
         <!-- References Section -->
         <section class="border-b brutalist-border brutalist-surface">
             <div class="grid grid-cols-1 lg:grid-cols-12">
-                <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border flex flex-col justify-between brutalist-bg select-none">
+                <div
+                    class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border flex flex-col justify-between brutalist-bg select-none">
                     <div>
-                        <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-4">// EXTERNAL COMPENDIUM</span>
-                        <h3 class="text-2xl font-black tracking-tight uppercase leading-none brutalist-text">Academic <br>Cross-References</h3>
+                        <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-4">//
+                            EXTERNAL COMPENDIUM</span>
+                        <h3 class="text-2xl font-black tracking-tight uppercase leading-none brutalist-text">Academic
+                            <br>Cross-References</h3>
                     </div>
                     <div class="mt-8">
-                        <a href="../../topics.html" class="inline-flex items-center justify-between w-full p-4 border brutalist-border brutalist-surface brutalist-text text-xs font-mono font-bold tracking-widest uppercase hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 group">
+                        <a href="../../topics.html"
+                            class="inline-flex items-center justify-between w-full p-4 border brutalist-border brutalist-surface brutalist-text text-xs font-mono font-bold tracking-widest uppercase hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 group">
                             <span>VIEW ALL BLOG TOPICS</span>
                             <span class="group-hover:translate-x-1 transition-transform duration-200">→</span>
                         </a>
@@ -223,16 +287,347 @@
                 registryCode: "SL-2026-REV4"
             },
             hero: {
-                bgImage: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070",
+                bgImage: "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 pdfUrl: "https://example.org/documents/current-research-paper.pdf",
-                title: "Turning carbon <br>into coastlines.",
+                title: "The LLM Baseline: Prerequisites for Transformer Mechanics",
                 summary: "Research Labs' novel approach injects biomass into marine sediments, elevating the seabed to counter coastal erosion and achieve durable carbon storage."
             },
             challenge: {
                 title: "Our coastlines are disappearing – faster than we can rebuild them.",
                 body: "Rising seas, sinking land, stronger storms, and resource extraction are accelerating erosion, threatening ecosystems, displacing communities, and risking trillions in infrastructure. Conventional defenses are costly, slow, and often harm marine life. As climate threats grow, scalable, sustainable solutions are urgently needed."
             },
+            conclusion: {
+                title: "A practical path forward is to store carbon where it also strengthens the coast.",
+                body: "By combining sediment-based carbon storage with seabed elevation, the method turns agricultural waste into a durable climate intervention. The result is a single system that addresses emissions, erosion, and long-term coastal resilience at the same time."
+            },
             sections: [
+                {
+                    id: "doc-math-foundations",
+                    logCode: "// ARCHIVE LOG 01.A",
+                    navTitle: "01 / MATHEMATICAL FOUNDATIONS",
+                    title: "Numbers, Vectors & Similarity",
+                    quote: `<blockquote class="my-8 border-l-4 brutalist-border pl-6 py-4 brutalist-bg">
+                        <p class="text-sm lg:text-xl italic font-serif tracking-wide leading-relaxed brutalist-text">
+                            “A scalar tells you how much. A vector tells you how much and which way.”
+                        </p>
+                    </blockquote>`,
+                    paragraphs: [
+                        // Scalar and Vector Explanation
+                        "To understand how modern AI models think, we first need to talk about the basic building blocks of mathematics: <a href=\"https://en.wikipedia.org/wiki/Scalar_(mathematics)\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">scalars</a> and <a href=\"https://en.wikipedia.org/wiki/Array_(data_structure)\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">vectors</a>",
+                        "At its simplest, <strong>a scalar is just a single number</strong>. It tells us <em>how much</em> of something there is (its magnitude or size), but says nothing about direction.",
+                        "<ul class=\"list-disc list-inside space-y-2 my-2\"><li><strong>In Linear Algebra:</strong> It's any real number, written as $x \\in \\mathbb{R}$.</li><li><strong>In Everyday AI:</strong> It's a single setting or feature value—like setting your learning rate to $\\alpha = 0.001$, batch size to $32$, or temperature to $T = 0.7$.</li></ul>",
+                        "When you stack multiple scalars together in a specific order, you get a <strong>vector</strong>. A vector gives you both magnitude <em>and</em> direction.",
+                        "<ul class=\"list-disc list-inside space-y-2 my-2\"><li><strong>In Linear Algebra:</strong> An ordered $n$-dimensional array of numbers: $$\\vec{v} = \\begin{bmatrix} v_1 \\\\ v_2 \\\\ \\vdots \\\\ v_n \\end{bmatrix} \\in \\mathbb{R}^n$$</li><li><strong>In Everyday AI:</strong> It’s how models turn complex ideas into math—like converting a word into a 768-dimensional embedding vector so a neural network can process its meaning.</li></ul>",
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                        <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                            <strong>Think of it this way:</strong> Saying a car is driving at 60 km/h is a <em>scalar</em> (just speed). Saying that same car is driving 60 km/h <em>North</em> turns it into a <em>vector</em> (speed + direction).
+                        </p>
+                        </div>`,
+
+                        // Matrix Explanation
+                        "Once you move beyond vectors, the next logical step is a <strong class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\">matrix</strong> (plural: <strong>matrices</strong>).",
+                        "If a scalar is a single point and a vector is a single line/column of numbers, <strong>a matrix is a two-dimensional grid of numbers</strong> arranged in rows and columns. It allows models to represent complex relationships and transformations rather than just single data points.",
+                        "<ul class=\"list-disc list-inside space-y-2 my-2\"><li>A grid with $m$ rows and $n$ columns (an $m \\times n$ matrix), written as: $$\\mathbf{A} = \\begin{bmatrix} a_{11} & a_{12} & \\dots & a_{1n} \\\\ a_{21} & a_{22} & \\dots & a_{2n} \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ a_{m1} & a_{m2} & \\dots & a_{mn} \\end{bmatrix} \\in \\mathbb{R}^{m \\times n}$$</li></ul>",
+                            `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                            <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                                <strong>Think of it this way:</strong> A scalar is a single test score ($85$). A vector is all of one student's test scores in a list ($[85, 90, 78]$). A matrix is the entire gradebook for the whole class, where every row is a student and every column is a test.
+                            </p>
+                        </div>`,
+
+                        // Dot Product Explanation
+                        "Next up is the <a href=\"https://en.wikipedia.org/wiki/Dot_product\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">dot product</a>: The dot product gives us a way to multiply two vectors together to get a single scalar value.",
+                        "<strong>Coordinate definition</strong>",
+                        "The dot product of two vectors $\\mathbf{a} = [a_1, a_2, \\dots, a_n]$ and $\\mathbf{b} = [b_1, b_2, \\dots, b_n]$, specified with respect to an orthonormal basis, is defined, in summation notation, as:",
+                        "$$\\mathbf{a} \\cdot \\mathbf{b} = \\sum_{i=1}^{n} a_i b_i = a_1 b_1 + a_2 b_2 + \\dots + a_n b_n$$",
+                        "where $n$ is the dimension of the vector space. For instance, in three-dimensional space, the dot product of vectors $[1, 3, -5]$ and $[4, -2, -1]$ is:",
+                        "$$\\begin{aligned} &= (1 \\times 4) + (3 \\times -2) + (-5 \\times -1) \\\\ &= 4 - 6 + 5 \\\\ &= 3 \\end{aligned}$$",
+
+                        // matrix multiplication explanation
+                        "Building directly on the dot product brings us to <a href=\"https://en.wikipedia.org/wiki/Matrix_multiplication\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">matrix multiplication</a> (both Matrix × Vector and Matrix × Matrix).",
+
+                        "At its core, matrix multiplication is just performing a series of dot products! You take the <strong>rows</strong> of the first matrix and compute their dot products with the <strong>columns</strong> of the second matrix.",
+                        "<h3><strong>1. Matrix × Vector Multiplication</strong></h3>",
+                        "When you multiply a matrix $\\mathbf{A}$ of size $m \\times n$ by a column vector $\\vec{x}$ of size $n \\times 1$, each element in the resulting output vector is the dot product of one row of $\\mathbf{A}$ with $\\vec{x}$:",
+                        "$$\\mathbf{A}\\vec{x} = \\begin{bmatrix} a_{11} & a_{12} \\\\ a_{21} & a_{22} \\end{bmatrix} \\begin{bmatrix} x_1 \\\\ x_2 \\end{bmatrix} = \\begin{bmatrix} a_{11}x_1 + a_{12}x_2 \\\\ a_{21}x_1 + a_{22}x_2 \\end{bmatrix}$$",
+
+                        "<h3><strong>2. Matrix × Matrix Multiplication</strong></h3>",
+                        "When multiplying two matrices $\\mathbf{A}$ ($m \\times n$) and $\\mathbf{B}$ ($n \\times p$), the element at row $i$ and column $j$ in the resulting matrix $\\mathbf{C}$ is calculated as the dot product of <strong>Row $i$ of Matrix A</strong> and <strong>Column $j$ of Matrix B</strong>:",
+                        "$$c_{ij} = \\text{Row}_i(\\mathbf{A}) \\cdot \\text{Col}_j(\\mathbf{B}) = \\sum_{k=1}^{n} a_{ik}b_{kj}$$",
+                        "For example, multiplying two $2 \\times 2$ matrices:",
+                        "$$\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix} \\begin{bmatrix} e & f \\\\ g & h \\end{bmatrix} = \\begin{bmatrix} (ae + bg) & (af + bh) \\\\ (ce + dg) & (cf + dh) \\end{bmatrix}$$",
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                            <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                                <strong>Golden Rule of Dimensions:</strong> To multiply matrix $\\mathbf{A}$ by matrix $\\mathbf{B}$, the number of <em>columns in $\\mathbf{A}$</em> MUST equal the number of <em>rows in $\\mathbf{B}$</em>. If $\\mathbf{A}$ is $(m \\times n)$ and $\\mathbf{B}$ is $(n \\times p)$, the output will always be $(m \\times p)$.
+                            </p>
+                        </div>`,
+
+                        // Matrix Multiplication as Table Lookup
+                        "Next, let me show you: <strong class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\">matrix multiplication as a table lookup</strong>.",
+                        "At first glance, matrix multiplication seems like a way to multiply numbers. But in transformers, it serves a very different purpose: retrieving information from a table with remarkable efficiency.",
+                        "<h3><strong>1. The Database Matrix</strong></h3>",
+                        "Suppose we have a matrix $\\mathbf{B}$ where every row stores a record of numerical data:",
+                        "$$\\mathbf{B} = \\begin{bmatrix} 10 & 20 \\\\ 30 & 40 \\\\ 50 & 60 \\\\ 70 & 80 \\end{bmatrix}$$",
+                        
+                        "<h3><strong>2. Selecting a Row with a One-Hot Vector</strong></h3>",
+                        "Suppose we want to retrieve <strong>Row 3</strong>. We can create a <a href=\"https://en.wikipedia.org/wiki/One-hot\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">one-hot vector</a> $\\vec{x}$—a vector with a single $1$ in the third position and $0$ everywhere else:",
+                        "$$\\vec{x} = \\begin{bmatrix} 0 & 0 & 1 & 0 \\end{bmatrix}$$",
+                        "Now, compute the product $\\vec{x}\\mathbf{B}$ by expanding the linear combination:",
+                        "$$\\vec{x}\\mathbf{B} = 0\\begin{bmatrix} 10 & 20 \\end{bmatrix} + 0\\begin{bmatrix} 30 & 40 \\end{bmatrix} + 1\\begin{bmatrix} 50 & 60 \\end{bmatrix} + 0\\begin{bmatrix} 70 & 80 \\end{bmatrix} = \\begin{bmatrix} 50 & 60 \\end{bmatrix}$$",
+                        "Notice what happened: everything multiplied by zero vanishes, and only <strong>Row 3</strong> survives. Mathematically, for any one-hot vector $\\mathbf{e}_i$ with $1$ in index $i$:",
+                        "$$\\mathbf{e}_i \\mathbf{B} = 0\\mathbf{B}_1 + \\dots + 1\\mathbf{B}_i + \\dots + 0\\mathbf{B}_n = \\mathbf{B}_i \\quad (\\text{Row } i \\text{ of } \\mathbf{B})$$",
+                        "<h3><strong>3. Stacking One-Hot Vectors to Retrieve Multiple Rows</strong></h3>",
+                        "If a single row vector selects one item, a matrix $\\mathbf{A}$ formed by stacking one-hot vectors selects multiple items in a specific order. Consider:",
+                        "$$\\mathbf{A} = \\begin{bmatrix} 1 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 1 \\\\ 0 & 0 & 1 & 0 \\end{bmatrix}$$",
+                        "Here, Row 1 targets Row 1 of $\\mathbf{B}$, Row 2 targets Row 4, and Row 3 targets Row 3. Multiplying $\\mathbf{A}\\mathbf{B}$ pulls out those exact rows into a new matrix:",
+                        "$$\\mathbf{A}\\mathbf{B} = \\begin{bmatrix} 10 & 20 \\\\ 70 & 80 \\\\ 50 & 60 \\end{bmatrix}$$",
+                        "<h3><strong>4. How Transformers Use This for Token Embeddings</strong></h3>",
+                        "This is the core mechanic behind token embeddings in models like ChatGPT. Imagine a vocabulary with 4 words stored in an embedding matrix $\\mathbf{E}$:",
+
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg">
+                            <div class="text-xs font-black tracking-widest uppercase brutalist-text-muted mb-4">// MATRIX ROW LOOKUP LAYOUT</div>
+                            <div class="grid grid-cols-12 gap-4 items-center font-mono text-xs">
+                                
+                                <!-- Left: Vocabulary Tokens -->
+                                <div class="col-span-4 space-y-2 text-right">
+                                    <div class="p-1.5 brutalist-text-muted font-bold">Index 0: "I" →</div>
+                                    <div class="p-1.5 brutalist-text-muted font-bold">Index 1: "love" →</div>
+                                    <div class="p-1.5 text-indigo-600 dark:text-indigo-400 font-bold border-r-2 border-indigo-600 pr-2">Index 2: "cats" →</div>
+                                    <div class="p-1.5 brutalist-text-muted font-bold">Index 3: "dogs" →</div>
+                                </div>
+
+                                <!-- Right: Matrix E Values -->
+                                <div class="col-span-8 p-3 border-l-2 border-r-2 brutalist-border brutalist-surface space-y-2">
+                                    <div class="p-1.5 text-center brutalist-text-muted">[ 0.1, &nbsp; 0.5 ]</div>
+                                    <div class="p-1.5 text-center brutalist-text-muted">[ 0.9, &nbsp; 0.3 ]</div>
+                                    <div class="p-1.5 text-center bg-indigo-600 text-white font-bold">[ 0.4, &nbsp; 0.8 ]</div>
+                                    <div class="p-1.5 text-center brutalist-text-muted">[ 0.2, &nbsp; 0.7 ]</div>
+                                </div>
+
+                            </div>
+                        </div>`,
+
+                        "When the model processes the token <strong>\"cats\"</strong> (Index 2), multiplying its one-hot vector $[0, 0, 1, 0]$ by $\\mathbf{E}$ directly extracts its 2D embedding vector $[0.4, 0.8]$:",
+                        "$$\\begin{bmatrix} 0 & 0 & 1 & 0 \\end{bmatrix} \\begin{bmatrix} 0.1 & 0.5 \\\\ 0.9 & 0.3 \\\\ 0.4 & 0.8 \\\\ 0.2 & 0.7 \\end{bmatrix} = \\begin{bmatrix} 0.4 & 0.8 \\end{bmatrix}$$",
+                        "<h3><strong>Theoretical Reality vs. Practical Code</strong></h3>",
+                        "While it's mathematically neat to think of Transformers multiplying huge one-hot matrices. In reality, doing that with a 50,000+ word vocabulary would destroy your GPU memory. Frameworks like PyTorch skip the zero-filled matrices entirely and use smart index lookups to grab the exact row instantly.",
+
+                        `<div class="my-6 p-4 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-2"># Conceptual Linear Algebra (Theoretical):</div>
+                            <div class="brutalist-text-muted mb-3">output = one_hot_vector @ embedding_matrix</div>
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-2"># PyTorch Implementation (Practical):</div>
+                            <div class="brutalist-text">embedding = nn.Embedding(vocab_size=4, embedding_dim=2)</div>
+                            <div class="brutalist-text">x = torch.tensor([2])  <span class="brutalist-text-muted"># Index for "cats"</span></div>
+                            <div class="brutalist-text">output = embedding(x)  <span class="brutalist-text-muted"># Returns tensor([0.4, 0.8]) instantly</span></div>
+                        </div>`,
+
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                            <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                                <strong>Key Takeaway:</strong> A one-hot vector acts as a row selector. In theory, multiplying a token's one-hot encoding by the embedding matrix retrieves its mathematical meaning.
+                            </p>
+                        </div>`,
+
+                        // cosine similarity explanation
+                        "To wrap up our foundation in numbers and vectors, we need to answer a fundamental question in AI: <strong>How do we measure how similar two things are?</strong> Enter <a href=\"https://en.wikipedia.org/wiki/Cosine_similarity\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">cosine similarity</a>.",
+                        "At its core, cosine similarity measures the <em>angle</em> between two vectors in space rather than the distance between them. It tells us whether two vectors are pointing in roughly the same direction, regardless of how long or short they are.",
+                        "Don't worry about the formula—at its heart, it's just a simple ratio:",
+                        "$$\\text{Cosine Similarity} = \\cos(\\theta) = \\frac{\\mathbf{A} \\cdot \\mathbf{B}}{\\|\\mathbf{A}\\| \\|\\mathbf{B}\\|}$$",
+                        "In simple terms: you take the <strong>dot product</strong> of the two vectors (which measures their alignment) and divide it by the product of their <strong>magnitudes</strong> (their physical lengths).",
+                        
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg">
+                            <div class="text-xs font-black tracking-widest uppercase brutalist-text-muted mb-4">// GEOMETRIC GRAPH: VECTOR ANGLE vs LENGTH</div>
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                                
+                                <!-- SVG Vector Plot Graph -->
+                                <div class="md:col-span-6 flex justify-center bg-white dark:bg-neutral-900 p-4 border brutalist-border">
+                                    <svg viewBox="0 0 220 200" class="w-full max-w-[220px] overflow-visible font-mono text-[10px]">
+                                        <!-- Grid Lines & Axes -->
+                                        <line x1="20" y1="180" x2="200" y2="180" stroke="currentColor" stroke-width="1.5" class="text-neutral-400" />
+                                        <line x1="20" y1="180" x2="20" y2="10" stroke="currentColor" stroke-width="1.5" class="text-neutral-400" />
+                                        <text x="202" y="184" class="fill-current text-neutral-500">X</text>
+                                        <text x="16" y="8" class="fill-current text-neutral-500">Y</text>
+
+                                        <!-- Angle Arc (θ) -->
+                                        <path d="M 60,180 A 40,40 0 0,0 52,148" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="2 2" />
+                                        <text x="64" y="162" class="fill-indigo-600 dark:fill-indigo-400 font-bold text-[12px]">θ</text>
+
+                                        <!-- Vector A (Short Vector) -->
+                                        <line x1="20" y1="180" x2="100" y2="100" stroke="#6366f1" stroke-width="2.5" />
+                                        <polygon points="100,100 90,104 96,112" fill="#6366f1" />
+                                        <text x="105" y="98" class="fill-indigo-600 dark:fill-indigo-400 font-bold">a (short)</text>
+
+                                        <!-- Vector B (Long Vector - Same Direction) -->
+                                        <line x1="20" y1="180" x2="180" y2="20" stroke="#10b981" stroke-width="2.5" />
+                                        <polygon points="180,20 168,26 174,34" fill="#10b981" />
+                                        <text x="140" y="30" class="fill-emerald-600 dark:fill-emerald-400 font-bold">b (long)</text>
+                                    </svg>
+                                </div>
+
+                                <!-- Graph Explanation -->
+                                <div class="md:col-span-6 font-mono text-xs space-y-3">
+                                    <div class="p-2 border brutalist-border brutalist-surface">
+                                        <span class="text-indigo-600 dark:text-indigo-400 font-bold">Vector a:</span> Short query (e.g. "AI news")
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-surface">
+                                        <span class="text-emerald-600 dark:text-emerald-400 font-bold">Vector b:</span> Long article (e.g. 500-word essay on AI)
+                                    </div>
+                                    <p class="brutalist-text-body text-[11px] leading-relaxed">
+                                        Even though <strong>b</strong> is much longer than <strong>a</strong>, the angle <strong class="text-indigo-600 dark:text-indigo-400">θ is near 0°</strong>. Cosine similarity ignores physical length and scores them as <strong class="text-emerald-600 dark:text-emerald-400">nearly 1.0 (identical topic)</strong>.
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>`,
+
+ "<h3><strong>Solving the Worked Example</strong></h3>",
+
+    "To calculate those exact benchmark scores, we map each sentence into a 2D feature coordinate representing <strong>[Vehicle Domain (X), Speed/Sports Context (Y)]</strong>:",
+
+    "The query vector <strong>\"sports car\"</strong> is defined as $\\mathbf{q} = [4, 5]$.",
+
+    "The first candidate vector <strong>\"race vehicle\"</strong> is defined as $\\mathbf{v_1} = [3, 5]$.",
+
+    "The second candidate vector <strong>\"vehicle insurance\"</strong> is defined as $\\mathbf{v_2} = [4, 1]$.",
+
+    "The third candidate vector <strong>\"baking recipes\"</strong> is defined as $\\mathbf{v_3} = [0, 5]$.",
+
+    "<strong>Step 1: Calculate Query Length</strong>",
+
+    "$$\\|\\mathbf{q}\\| = \\sqrt{4^2 + 5^2} = \\sqrt{41} \\approx 6.40$$",
+
+    "<strong>Step 2: Candidate Vector Lengths</strong>",
+
+    "$$\\|\\mathbf{v_1}\\| = \\sqrt{3^2 + 5^2} = \\sqrt{34} \\approx 5.83$$",
+
+    "$$\\|\\mathbf{v_2}\\| = \\sqrt{4^2 + 1^2} = \\sqrt{17} \\approx 4.12$$",
+
+    "$$\\|\\mathbf{v_3}\\| = \\sqrt{0^2 + 5^2} = \\sqrt{25} = 5.00$$",
+
+    "<strong>Step 3: Cosine Similarity Calculations</strong>",
+
+    "$$\\text{Sim}(\\mathbf{q}, \\mathbf{v_1}) = \\frac{(4 \\times 3) + (5 \\times 5)}{6.40 \\times 5.83} = \\frac{37}{37.31} \\approx \\mathbf{0.94}$$",
+
+    "$$\\text{Sim}(\\mathbf{q}, \\mathbf{v_2}) = \\frac{(4 \\times 4) + (5 \\times 1)}{6.40 \\times 4.12} = \\frac{21}{26.36} \\approx \\mathbf{0.42}$$",
+
+    "$$\\text{Sim}(\\mathbf{q}, \\mathbf{v_3}) = \\frac{(4 \\times 0) + (5 \\times 0.1)}{6.40 \\times 5.00} = \\frac{0.5}{32.00} \\approx \\mathbf{0.03}$$",
+
+                            "<h3><strong>Worked Example: Comparing Text Queries</strong></h3>",
+
+                            `<div class="my-6 p-5 border brutalist-border brutalist-bg">
+        <div class="text-xs font-black tracking-widest uppercase brutalist-text-muted mb-4">// WORKED EXAMPLE: 2D VECTOR SPACE PLOT</div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            
+            <!-- SVG Coordinate Plot -->
+            <div class="md:col-span-7 flex justify-center bg-white dark:bg-neutral-900 p-4 border brutalist-border">
+                <svg viewBox="0 0 240 220" class="w-full max-w-[260px] overflow-visible font-mono text-[10px]">
+                    <!-- Background Grid -->
+                    <path d="M 50,20 L 50,180 M 80,20 L 80,180 M 110,20 L 110,180 M 140,20 L 140,180 M 170,20 L 170,180 M 200,20 L 200,180" stroke="currentColor" stroke-width="0.5" class="text-neutral-200 dark:text-neutral-800" />
+                    <path d="M 20,150 L 220,150 M 20,120 L 220,120 M 20,90 L 220,90 M 20,60 L 220,60 M 20,30 L 220,30" stroke="currentColor" stroke-width="0.5" class="text-neutral-200 dark:text-neutral-800" />
+
+                    <!-- Axes -->
+                    <line x1="20" y1="180" x2="220" y2="180" stroke="currentColor" stroke-width="1.5" class="text-neutral-400" />
+                    <line x1="20" y1="180" x2="20" y2="10" stroke="currentColor" stroke-width="1.5" class="text-neutral-400" />
+                    <text x="210" y="196" class="fill-current text-neutral-500 font-bold">X (Vehicle)</text>
+                    <text x="24" y="16" class="fill-current text-neutral-500 font-bold">Y (Speed)</text>
+
+                    <!-- Vector v3: Baking Recipes [0, 5] -->
+                    <line x1="20" y1="180" x2="20" y2="30" stroke="#f43f5e" stroke-width="2" stroke-dasharray="3 3" />
+                    <polygon points="20,30 16,38 24,38" fill="#f43f5e" />
+                    <text x="28" y="35" class="fill-rose-500 font-bold">v₃ [0, 5]</text>
+
+                    <!-- Vector v2: Vehicle Insurance [4, 1] -->
+                    <line x1="20" y1="180" x2="140" y2="150" stroke="#f59e0b" stroke-width="2" />
+                    <polygon points="140,150 130,150 134,158" fill="#f59e0b" />
+                    <text x="145" y="155" class="fill-amber-500 font-bold">v₂ [4, 1]</text>
+
+                    <!-- Vector v1: Race Vehicle [3, 5] -->
+                    <line x1="20" y1="180" x2="110" y2="30" stroke="#10b981" stroke-width="2" />
+                    <polygon points="110,30 102,36 108,42" fill="#10b981" />
+                    <text x="75" y="25" class="fill-emerald-500 font-bold">v₁ [3, 5]</text>
+
+                    <!-- Vector q: Sports Car [4, 5] -->
+                    <line x1="20" y1="180" x2="140" y2="30" stroke="#6366f1" stroke-width="3" />
+                    <polygon points="140,30 130,34 135,42" fill="#6366f1" />
+                    <text x="145" y="25" class="fill-indigo-600 dark:fill-indigo-400 font-bold">q [4, 5]</text>
+                </svg>
+            </div>
+
+            <!-- Plot Legend / Summary -->
+            <div class="md:col-span-5 font-mono text-xs space-y-2">
+                <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-indigo-600">
+                    <span class="text-indigo-600 dark:text-indigo-400 font-bold">q: "sports car"</span>
+                    <div class="text-[10px] brutalist-text-muted">Target Query Vector</div>
+                </div>
+                <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-emerald-500">
+                    <span class="text-emerald-600 dark:text-emerald-400 font-bold">v₁: "race vehicle"</span>
+                    <div class="text-[10px] brutalist-text-muted">Tiny Angle (Score: 0.94)</div>
+                </div>
+                <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-amber-500">
+                    <span class="text-amber-600 dark:text-amber-400 font-bold">v₂: "vehicle insurance"</span>
+                    <div class="text-[10px] brutalist-text-muted">Wide Angle (Score: 0.42)</div>
+                </div>
+                <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-rose-500">
+                    <span class="text-rose-600 dark:text-rose-400 font-bold">v₃: "baking recipes"</span>
+                    <div class="text-[10px] brutalist-text-muted">Near-90° Angle (Score: 0.03)</div>
+                </div>
+            </div>
+
+        </div>
+    </div>`,
+
+
+                            `<div class="my-6 border brutalist-border brutalist-surface overflow-hidden">
+                                <div class="px-4 py-3 border-b brutalist-border brutalist-bg flex justify-between items-center">
+                                    <span class="text-xs font-black tracking-widest uppercase brutalist-text">// SIMILARITY METRIC BENCHMARK</span>
+                                    <span class="text-[10px] font-mono brutalist-text-muted">QUERY: "sports car"</span>
+                                </div>
+                                <div class="p-4 space-y-4 font-mono text-xs">
+                                    
+                                    <!-- Comparison 1 -->
+                                    <div>
+                                        <div class="flex justify-between font-bold mb-1">
+                                            <span>"sports car" vs. "race vehicle"</span>
+                                            <span class="text-emerald-600 dark:text-emerald-400">Score: 0.94 (High Similarity)</span>
+                                        </div>
+                                        <div class="w-full bg-neutral-200 dark:bg-neutral-800 h-3 border brutalist-border">
+                                            <div class="bg-emerald-500 h-full" style="width: 94%;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Comparison 2 -->
+                                    <div>
+                                        <div class="flex justify-between font-bold mb-1">
+                                            <span>"sports car" vs. "vehicle insurance"</span>
+                                            <span class="text-amber-600 dark:text-amber-400">Score: 0.42 (Moderate Similarity)</span>
+                                        </div>
+                                        <div class="w-full bg-neutral-200 dark:bg-neutral-800 h-3 border brutalist-border">
+                                            <div class="bg-amber-500 h-full" style="width: 42%;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Comparison 3 -->
+                                    <div>
+                                        <div class="flex justify-between font-bold mb-1">
+                                            <span>"sports car" vs. "baking recipes"</span>
+                                            <span class="text-rose-600 dark:text-rose-400">Score: 0.03 (Unrelated)</span>
+                                        </div>
+                                        <div class="w-full bg-neutral-200 dark:bg-neutral-800 h-3 border brutalist-border">
+                                            <div class="bg-rose-500 h-full" style="width: 3%;"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>`,
+
+                            `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                                <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                                    <strong>Key Takeaway:</strong> At its core, the attention mechanism calculates dot products and similarity scores between Query and Key vectors to decide which tokens in a sentence should pay attention to each other.
+                                </p>
+                            </div>`,
+
+                        "<h2><strong>Wrapping Up & What's Next</strong></h2>",
+                        "Congratulations! You now have a rock-solid grasp of the fundamental building blocks - scalars, vectors, matrices, dot products, and similarity metrics that make artificial intelligence possible. But while we've seen how AI models manipulate numbers, computers don't naturally read human text. So how do we convert raw sentences into these mathematical vectors in the first place?",
+                    ]
+                },
                 {
                     id: "doc-abstract",
                     logCode: "// ARCHIVE LOG 01.A",
@@ -254,26 +649,19 @@
                         "The operational framework requires rigorous phase alignment to execute safely without displacing local benthic microclimates. The strategy relies on bypassing standard open-air storage limitations completely."
                     ],
                     gridItems: [
-                        { 
-                            title: "01 / MICRO-FLUIDIZATION", 
-                            text: "Raw carbon substrates are mechanically optimized down to standardized granular structures ($\\le 4\\text{mm}$) to ensure uniform fluid movement underneath soft marine layers without clumping." 
+                        {
+                            title: "01 / MICRO-FLUIDIZATION",
+                            text: "Raw carbon substrates are mechanically optimized down to standardized granular structures ($\\le 4\\text{mm}$) to ensure uniform fluid movement underneath soft marine layers without clumping."
                         },
-                        { 
-                            title: "02 / ACOUSTIC GRAIN DISPLACEMENT", 
-                            text: "Low-frequency acoustic resonance drivers create brief, clean interstitial pathways through sea mud arrays, removing the need for traditional heavy sub-surface digging." 
+                        {
+                            title: "02 / ACOUSTIC GRAIN DISPLACEMENT",
+                            text: "Low-frequency acoustic resonance drivers create brief, clean interstitial pathways through sea mud arrays, removing the need for traditional heavy sub-surface digging."
                         }
                     ],
                     footerParagraph: "Real-time telemetry tags track continuous reading matrices across every staging point—analyzing structural gas changes and visual tracking telemetry layers to maintain the continuous security of the upper containment barrier seal."
                 }
             ],
-            caseStudy: {
-                location: "dadar",
-                stats: [
-                    { value: "$1.9B", label: "In infrastructure damage annually." },
-                    { value: "90 MIN", label: "A football field of land disappears every 90 minutes." },
-                    { value: "MANHATTAN", label: "An area the size of Manhattan is lost every year." }
-                ]
-            },
+
             references: [
                 {
                     id: "DEEP-SEA.2025.09",
@@ -299,7 +687,7 @@
             // Bind Header & Meta
             document.getElementById('doc-page-title').innerText = pageData.metadata.title;
             document.getElementById('bind-posted-date').innerText = `POSTED ON: ${pageData.metadata.date} // ARCHIVE MATRIX`;
-            
+
             // Bind Hero
             document.getElementById('bind-hero-bg').style.backgroundImage = `url('${pageData.hero.bgImage}')`;
             document.getElementById('bind-pdf-link').href = pageData.hero.pdfUrl;
@@ -309,6 +697,10 @@
             // Bind Challenge
             document.getElementById('bind-challenge-title').innerText = pageData.challenge.title;
             document.getElementById('bind-challenge-body').innerText = pageData.challenge.body;
+
+            // Bind Conclusion
+            document.getElementById('bind-conclusion-title').innerText = pageData.conclusion.title;
+            document.getElementById('bind-conclusion-body').innerText = pageData.conclusion.body;
 
             // Bind Sidebar Metadata Footer
             document.getElementById('bind-sidebar-footer').innerHTML = `
@@ -333,10 +725,10 @@
                 const article = document.createElement('article');
                 article.id = sec.id;
                 article.className = `editorial-section p-8 lg:p-20 scroll-mt-0 ${sec.isStriped ? 'brutalist-strip' : ''}`;
-                
-                const quoteHTML = sec.quote ? `<p class="text-2xl font-normal tracking-tight border-l-4 brutalist-border pl-6 py-2 my-8 brutalist-text brutalist-bg pr-4">${sec.quote}</p>` : '';
+
+                const quoteHTML = sec.quote ? sec.quote : '';
                 const paragraphsHTML = sec.paragraphs.map(p => `<p>${p}</p>`).join('');
-                
+
                 let gridHTML = '';
                 if (sec.gridItems && sec.gridItems.length > 0) {
                     gridHTML = `
@@ -366,16 +758,6 @@
                 articlesContainer.appendChild(article);
             });
 
-            // Bind Case Study Section
-            document.getElementById('bind-case-title').innerText = `CASE STUDY: THE COST OF EROSION IN ${pageData.caseStudy.location}`;
-            const caseStatsContainer = document.getElementById('bind-case-stats');
-            caseStatsContainer.innerHTML = pageData.caseStudy.stats.map(s => `
-                <div class="p-8 lg:p-12 flex flex-col justify-between">
-                    <span class="text-6xl lg:text-8xl font-black tracking-tighter block mb-6 brutalist-text">${s.value}</span>
-                    <p class="text-sm lg:text-base brutalist-text-body font-medium">${s.label}</p>
-                </div>
-            `).join('');
-
             // Bind References Section
             const refContainer = document.getElementById('bind-references-list');
             refContainer.innerHTML = pageData.references.map(r => `
@@ -395,6 +777,11 @@
                     </p>
                 </a>
             `).join('');
+
+            // At the very end of your DOMContentLoaded event listener script block:
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
 
             // Initialize Intersection Observer for Dynamic Sidebar Highlighting
             initScrollObserver();
@@ -485,4 +872,5 @@
         }
     </script>
 </body>
+
 </html>
