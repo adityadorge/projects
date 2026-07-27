@@ -1,0 +1,101 @@
+prerequisites: 
+Chapter 1
+Numbers, Vectors & Similarity
+│
+├── Scalars
+├── Vectors
+├── Dot Product
+├── Matrix Multiplication
+└── Cosine Similarity
+
+↓
+
+Chapter 2
+Representing Words
+│
+├── ASCII
+├── Unicode
+├── Tokenization
+├── Vocabulary
+└── One-hot Encoding
+ 
+↓
+
+Chapter 3
+Embeddings
+│
+├── Dense Vectors
+├── Matrix Lookup
+├── Embedding Matrix
+└── Learned Representations
+
+↓
+
+Chapter 4
+Modeling Sequences
+│
+├── First-order Models
+├── Second-order Models
+└── Skip Models
+
+↓
+
+Chapter 5
+Limitations of Sequence Models
+│
+├── Long-range Dependencies
+├── Information Bottlenecks
+└── Why RNNs/Markov Models Struggle
+
+↓
+
+Chapter 6
+Attention
+│
+├── Queries
+├── Keys
+├── Values
+├── Attention Scores
+├── Matrix Multiplication
+└── Masking
+
+↓
+
+Chapter 7
+Transformer Input Pipeline
+│
+├── Token IDs
+├── Embeddings
+├── Positional Encoding
+└── Input Representations
+
+↓
+
+Chapter 8
+Building an Embedding Layer
+│
+├── Manual Implementation
+├── From Scratch
+├── nn.Embedding
+└── Backpropagation
+
+↓
+
+Chapter 9
+Putting Everything Together
+│
+Sentence
+↓
+Tokenizer
+↓
+Token IDs
+↓
+Embedding
+↓
+Positional Encoding
+↓
+Attention
+↓
+Next Token Prediction
+↓
+Sequence Completion

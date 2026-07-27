@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Topics - Weblog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load the component JS file -->
+    <script src="../components.js" defer></script>
+    <style>
+        /* Define Theme Color Maps */
+        .theme-light {
+            --bg-main: #F6F6F6;
+            --bg-surface: #FFFFFF;
+            --bg-strip: #FAFAFA;
+            --text-main: #000000;
+            --text-body: #1F2937;
+            --text-muted: #9CA3AF;
+            --border-main: #000000;
+        }
+
+        .theme-dark {
+            --bg-main: #0C0C0C;
+            --bg-surface: #121212;
+            --bg-strip: #181818;
+            --text-main: #FFFFFF;
+            --text-body: #D1D5DB;
+            --text-muted: #4B5563;
+            --border-main: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.038'/%3E%3C/svg%3E");
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Brutalist Style Overrides */
+        .brutalist-border { border-color: var(--border-main) !important; }
+        .brutalist-bg { background-color: var(--bg-main) !important; }
+        .brutalist-surface { background-color: var(--bg-surface) !important; }
+        .brutalist-strip { background-color: var(--bg-strip) !important; }
+        .brutalist-text { color: var(--text-main) !important; }
+        .brutalist-text-body { color: var(--text-body) !important; }
+        .brutalist-text-muted { color: var(--text-muted) !important; }
+        .brutalist-divide > * + * { border-color: var(--border-main) !important; }
+
+        /* Hardware Accelerated Inverting Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 140px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate3d(calc(var(--cursor-x, 0px) - 50%), calc(var(--cursor-y, 0px) - 50%), 0) scale(var(--cursor-scale, 1));
+            z-index: 9999;
+            mix-blend-mode: difference; 
+            transition: transform 0.1s cubic-bezier(0.215, 0.610, 0.355, 1);
+            will-change: transform;
+        }
+
+        @media (max-width: 1024px) {
+            #custom-cursor { display: none; }
+            body { cursor: auto; }
+        }
+
+        /* Ticker Marquee */
+        @keyframes marquee {
+            0% { transform: translate3d(0%, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+
+        /* Sidebar Nav Indicators */
+        .editorial-nav-item.active {
+            color: var(--text-main) !important;
+            border-left-color: var(--text-main) !important;
+            padding-left: 1.25rem;
+        }
+        .editorial-nav-item {
+            transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-black selection:text-white lg:cursor-none brutalist-bg brutalist-text">
+
+    <div id="custom-cursor"></div>
+
+    <div class="border-x brutalist-border mx-auto max-w-[1800px] min-h-screen flex flex-col">
+        
+        <!-- Header -->
+        <header class="border-b brutalist-border w-full overflow-hidden">
+            <h1 class="text-[13.8vw] font-[900] tracking-tighter leading-[0.80] brutalist-text w-full text-center whitespace-nowrap pt-5 pb-1 select-none">
+                TOPICS
+            </h1>
+        </header>
+
+        <!-- Navigation Bar -->
+        <nav class="border-b brutalist-border px-8 py-5 flex justify-between items-center text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
+            <div class="brutalist-text">TOPIC INDEX // 2026 ARCHIVE MATRIX</div>
+            
+            <div class="flex items-center gap-3 cursor-pointer group" id="theme-toggle">
+                <a href="../index.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">
+                    RESEARCH
+                </a>
+                <div class="w-px h-6 brutalist-border border-l"></div>
+
+                <a href="../projects.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">
+                    PROJECTS
+                </a>
+                <div class="w-px h-6 brutalist-border border-l"></div>
+
+                <a href="../blog.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">
+                    BLOG
+                </a>
+                <div class="w-px h-6 brutalist-border border-l"></div>
+
+                <span id="theme-text" class="brutalist-text">LIGHT</span>
+                <div class="relative w-5 h-5 flex items-center justify-center">
+                    <svg id="theme-sun" class="w-5 h-5 brutalist-text hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg id="theme-moon" class="w-5 h-5 brutalist-text block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Marquee Ticker -->
+        <div class="border-b brutalist-border overflow-hidden py-3 brutalist-strip select-none">
+            <div class="animate-marquee font-mono text-xs font-bold tracking-widest uppercase brutalist-text-muted">
+                <span class="mx-8">// DISCIPLINARY DIRECTORY</span>
+                <span class="mx-8">• TRANSFORMER MECHANICS</span>
+                <span class="mx-8">• SECURE AUTHENTICATION</span>
+                <span class="mx-8">• FULL-STACK PARADIGMS</span>
+                <span class="mx-8">• CLIMATE ENGINEERING</span>
+                <span class="mx-8">• ALGORITHMIC ARCHITECTURE</span>
+                <span class="mx-8">// DISCIPLINARY DIRECTORY</span>
+                <span class="mx-8">• TRANSFORMER MECHANICS</span>
+                <span class="mx-8">• SECURE AUTHENTICATION</span>
+                <span class="mx-8">• FULL-STACK PARADIGMS</span>
+                <span class="mx-8">• CLIMATE ENGINEERING</span>
+                <span class="mx-8">• ALGORITHMIC ARCHITECTURE</span>
+            </div>
+        </div>
+
+        <!-- Filter Controls & Header Info -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border">
+            <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border brutalist-bg flex flex-col justify-between">
+                <div>
+                    <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-4">// CATEGORICAL INDEX</span>
+                    <h2 class="text-4xl lg:text-5xl font-black tracking-tight leading-tight brutalist-text mb-6">
+                        Explore Topics & Domains.
+                    </h2>
+                </div>
+                <p class="text-sm brutalist-text-body leading-relaxed">
+                    Filter across transformer mechanics, system designs, authentication protocols, and technical breakdowns.
+                </p>
+            </div>
+
+            <div class="lg:col-span-8 p-8 lg:p-12 brutalist-surface flex flex-col justify-center">
+                <!-- Search Box -->
+                <div class="relative mb-8">
+                    <input type="text" id="topic-search" placeholder="SEARCH TOPICS, TITLES OR TAGS..." 
+                           class="w-full p-4 border brutalist-border brutalist-bg brutalist-text text-sm font-mono tracking-wider focus:outline-none uppercase placeholder:text-neutral-400">
+                    <span class="absolute right-4 top-4 text-xs font-mono brutalist-text-muted">[LIVE SEARCH]</span>
+                </div>
+
+                <!-- Dynamic Filter Pills -->
+                <div class="flex flex-wrap gap-2 text-xs font-mono" id="filter-buttons-container">
+                    <button class="topic-filter-btn px-4 py-2 border brutalist-border brutalist-bg brutalist-text hover:bg-neutral-200 dark:hover:bg-neutral-800 uppercase" data-filter="all">
+                        ALL
+                    </button>
+                    <button class="topic-filter-btn px-4 py-2 border brutalist-border brutalist-bg brutalist-text hover:bg-neutral-200 dark:hover:bg-neutral-800 uppercase" data-filter="transformers">
+                        TRANSFORMER MECHANICS
+                    </button>
+                    <button class="topic-filter-btn px-4 py-2 border brutalist-border brutalist-bg brutalist-text hover:bg-neutral-200 dark:hover:bg-neutral-800 uppercase" data-filter="security">
+                        SECURITY & OIDC
+                    </button>
+                    <button class="topic-filter-btn px-4 py-2 border brutalist-border brutalist-bg brutalist-text hover:bg-neutral-200 dark:hover:bg-neutral-800 uppercase" data-filter="fullstack">
+                        FULL-STACK DEVEL
+                    </button>
+                    <button class="topic-filter-btn px-4 py-2 border brutalist-border brutalist-bg brutalist-text hover:bg-neutral-200 dark:hover:bg-neutral-800 uppercase" data-filter="climate">
+                        CLIMATE ENGINEERING
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Topic Cards Matrix Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border relative">
+            
+            <!-- Sticky Sidebar Indicator -->
+            <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r brutalist-border p-8 lg:p-12 brutalist-bg lg:sticky lg:top-0 lg:h-screen flex flex-col justify-between select-none z-20">
+                <div>
+                    <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-8">// TOPIC CLUSTER DIRECTORY</span>
+                    <nav class="flex flex-col space-y-4" id="sidebar-nav-container">
+                        <!-- Dynamic Sidebar Category Nav Injected Here -->
+                    </nav>
+                </div>
+                <div class="hidden lg:block border-t brutalist-border pt-6 text-[10px] font-bold brutalist-text-muted tracking-widest leading-relaxed">
+                    STATUS: REALTIME DYNAMIC MATCHING<br>
+                    QUERY ENGINE: INITIALIZED<br>
+                    SYSTEM STATE: SYNCHRONIZED
+                </div>
+            </div>
+
+            <!-- Main Dynamic Topics Target Container -->
+            <div class="lg:col-span-8 brutalist-surface brutalist-divide divide-y" id="dynamic-topics-container">
+                <!-- JS will inject dynamic content cards here -->
+            </div>
+        </section>
+
+        <site-footer></site-footer>
+
+    <!-- JavaScript Data Engine & Interactive Pipelines -->
+    <script>
+        // 1. DYNAMIC CONTENT DATA STORE
+        // Simply append or edit blog topics here!
+        const BLOG_POSTS = [
+            {
+                id: "PROTOCOL 0",
+                title: "The LLM Baseline: Prerequisites for Transformer Mechanics",
+                category: "transformers",
+                categoryLabel: "Transformer Mechanics",
+                date: "AUG 2026",
+                description: "A comprehensive breakdown of the essential concepts required before writing your first Transformer block.",
+                url: "topics/transformers/llm-baseline-prerequisites.html"
+            },
+            {
+                id: "TRANS-01",
+                title: "Transformer Architecture Demystified: Self-Attention & Positional Encodings",
+                category: "transformers",
+                categoryLabel: "Transformer Mechanics",
+                date: "AUG 2026",
+                description: "Deconstructing Query, Key, and Value matrices, scaled dot-product attention, and positional embeddings step-by-step.",
+                url: "/blog/topics/transformer-architecture-demystified.html"
+            },
+            {
+                id: "TRANS-02",
+                title: "Building a GPT From Scratch: Tokenizer to Training Loop",
+                category: "transformers",
+                categoryLabel: "Transformer Mechanics",
+                date: "SEP 2026",
+                description: "A complete hands-on guide to implementing an autoregressive decoder-only language model from bare tensors.",
+                url: "/blog/building-gpt-from-scratch"
+            },
+            {
+                id: "AUTH-01",
+                title: "Implementing SSO & OIDC Matrix Integration",
+                category: "security",
+                categoryLabel: "Security & Single Sign-On",
+                date: "MAY 2026",
+                description: "A deep dive into integrating custom Django authentication providers with Element-Web and Matrix Synapse instances.",
+                url: "/blog/single-sign-on-synapse"
+            },
+            {
+                id: "AUTH-02",
+                title: "Front-Channel vs Back-Channel SLO Protocols",
+                category: "security",
+                categoryLabel: "Security & Single Sign-On",
+                date: "JAN 2026",
+                description: "Designing reliable Single Logout (SLO) mechanisms across decoupled client interfaces and session caches.",
+                url: "/blog/front-back-channel-logout"
+            },
+            {
+                id: "WEB-01",
+                title: "Django & SvelteKit Hybrid Platform Patterns",
+                category: "fullstack",
+                categoryLabel: "Full-Stack Architectures",
+                date: "MAR 2026",
+                description: "Best practices for combining Python REST backends with reactive SvelteKit client applications.",
+                url: "/blog/django-sveltekit-bridge"
+            },
+            {
+                id: "GEO-01",
+                title: "Subseabed Biomass Injection Dynamics",
+                category: "climate",
+                categoryLabel: "Climate & Ocean Science",
+                date: "MAY 2026",
+                description: "Depositing agricultural carbon into anoxic sub-layers to slow decomposition rates by factors of 10,000x.",
+                url: "/blog/subsea-biomass-injection"
+            }
+        ];
+
+        // 2. DYNAMIC RENDERING ENGINE
+        function renderPosts(posts) {
+            const container = document.getElementById('dynamic-topics-container');
+            const navContainer = document.getElementById('sidebar-nav-container');
+            if (!container) return;
+
+            if (posts.length === 0) {
+                container.innerHTML = `
+                    <div class="p-16 text-center text-sm font-mono brutalist-text-muted uppercase">
+                        // NO BLOG TOPICS MATCHED YOUR SEARCH QUERY
+                    </div>`;
+                if (navContainer) navContainer.innerHTML = '';
+                return;
+            }
+
+            // Group posts dynamically by category
+            const categories = {};
+            posts.forEach(post => {
+                if (!categories[post.category]) {
+                    categories[post.category] = {
+                        label: post.categoryLabel,
+                        items: []
+                    };
+                }
+                categories[post.category].items.push(post);
+            });
+
+            let mainContentHtml = '';
+            let sidebarNavHtml = '';
+            let categoryIndex = 1;
+
+            for (const catKey in categories) {
+                const cat = categories[catKey];
+                const catNum = String(categoryIndex).padStart(2, '0');
+                const catId = `cat-${catKey}`;
+
+                // Build Sticky Sidebar Link
+                sidebarNavHtml += `
+                    <a href="#${catId}" class="editorial-nav-item ${categoryIndex === 1 ? 'active' : ''} text-xs font-bold tracking-wider brutalist-text-muted border-l border-transparent pl-0 hover:text-black dark:hover:text-white block py-1">
+                        ${catNum} / ${cat.label.toUpperCase()}
+                    </a>
+                `;
+
+                // Build Section Grid
+                mainContentHtml += `
+                <section id="${catId}" class="editorial-section p-8 lg:p-12 scroll-mt-0 ${categoryIndex % 2 === 0 ? 'brutalist-strip' : ''}">
+                    <div class="flex items-center justify-between mb-8">
+                        <span class="text-xs font-mono font-bold tracking-widest uppercase text-indigo-600">// CATEGORY ${catNum}</span>
+                        <span class="text-xs font-mono border brutalist-border px-2 py-0.5 brutalist-bg brutalist-text">${cat.items.length} ARTICLES</span>
+                    </div>
+                    <h3 class="text-3xl font-normal tracking-tight brutalist-text mb-8">${cat.label}</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        ${cat.items.map(post => `
+                            <a href="${post.url}" class="group border brutalist-border p-6 brutalist-bg hover:bg-neutral-900 dark:hover:bg-neutral-100 transition-colors duration-300 flex flex-col justify-between min-h-[220px]">
+                                <div>
+                                    <div class="flex justify-between items-start text-[10px] font-mono text-indigo-600 mb-3 group-hover:text-indigo-400 dark:group-hover:text-indigo-600">
+                                        <span>[ ${post.id} ]</span>
+                                        <span>${post.date}</span>
+                                    </div>
+                                    <h4 class="text-xl font-bold brutalist-text group-hover:text-white dark:group-hover:text-black leading-snug mb-3">
+                                        ${post.title}
+                                    </h4>
+                                    <p class="text-xs brutalist-text-muted group-hover:text-neutral-300 dark:group-hover:text-neutral-600 line-clamp-2">
+                                        ${post.description}
+                                    </p>
+                                </div>
+                                <div class="mt-6 flex items-center justify-between text-[11px] font-bold tracking-wider brutalist-text group-hover:text-white dark:group-hover:text-black uppercase border-t brutalist-border pt-4">
+                                    <span>READ ARTICLE</span>
+                                    <span class="group-hover:translate-x-1 transition-transform">→</span>
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>
+                </section>`;
+
+                categoryIndex++;
+            }
+
+            container.innerHTML = mainContentHtml;
+            if (navContainer) navContainer.innerHTML = sidebarNavHtml;
+
+            // Re-initialize intersection observers after DOM updates
+            bindIntersectionObservers();
+        }
+
+        // 3. INITIAL RENDER
+        renderPosts(BLOG_POSTS);
+
+        // 4. FILTER BUTTON CONTROLLER
+        document.querySelectorAll('.topic-filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const filter = e.currentTarget.getAttribute('data-filter');
+                
+                document.querySelectorAll('.topic-filter-btn').forEach(b => {
+                    b.classList.remove('bg-black', 'text-white', 'dark:bg-white', 'dark:text-black', 'font-bold');
+                    b.classList.add('brutalist-bg');
+                });
+                e.currentTarget.classList.add('bg-black', 'text-white', 'dark:bg-white', 'dark:text-black', 'font-bold');
+
+                if (filter === 'all') {
+                    renderPosts(BLOG_POSTS);
+                } else {
+                    const filtered = BLOG_POSTS.filter(p => p.category === filter);
+                    renderPosts(filtered);
+                }
+            });
+        });
+
+        // 5. LIVE SEARCH SEARCH ENGINE
+        const searchInput = document.getElementById('topic-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const filtered = BLOG_POSTS.filter(p => 
+                    p.title.toLowerCase().includes(query) || 
+                    p.description.toLowerCase().includes(query) ||
+                    p.categoryLabel.toLowerCase().includes(query) ||
+                    p.id.toLowerCase().includes(query)
+                );
+                renderPosts(filtered);
+            });
+        }
+
+        // 6. SIDEBAR INTERSECTION OBSERVER
+        function bindIntersectionObservers() {
+            const editorialSections = document.querySelectorAll('.editorial-section');
+            const sidebarLinks = document.querySelectorAll('.editorial-nav-item');
+
+            if (editorialSections.length > 0 && sidebarLinks.length > 0) {
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const activeID = entry.target.getAttribute('id');
+                            sidebarLinks.forEach(link => link.classList.remove('active'));
+                            const targetingLink = document.querySelector(`.editorial-nav-item[href="#${activeID}"]`);
+                            if (targetingLink) targetingLink.classList.add('active');
+                        }
+                    });
+                }, { root: null, rootMargin: '-20% 0px -40% 0px', threshold: 0 });
+
+                editorialSections.forEach(section => sectionObserver.observe(section));
+            }
+        }
+
+        // 7. THEME SWITCHER MECHANICS
+        const root = document.documentElement;
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('theme-sun');
+        const moonIcon = document.getElementById('theme-moon');
+        const themeText = document.getElementById('theme-text');
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                root.classList.remove('theme-light');
+                root.classList.add('theme-dark');
+                if (themeText) themeText.textContent = 'DARK';
+                if (sunIcon && moonIcon) {
+                    sunIcon.classList.remove('hidden');
+                    sunIcon.classList.add('block');
+                    moonIcon.classList.remove('block');
+                    moonIcon.classList.add('hidden');
+                }
+                localStorage.setItem('research-theme', 'dark');
+            } else {
+                root.classList.remove('theme-dark');
+                root.classList.add('theme-light');
+                if (themeText) themeText.textContent = 'LIGHT';
+                if (sunIcon && moonIcon) {
+                    sunIcon.classList.remove('block');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                    moonIcon.classList.add('block');
+                }
+                localStorage.setItem('research-theme', 'light');
+            }
+        }
+
+        const cachedTheme = localStorage.getItem('research-theme');
+        setTheme(cachedTheme || 'light');
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const isDarkActive = root.classList.contains('theme-dark');
+                setTheme(isDarkActive ? 'light' : 'dark');
+            });
+        }
+
+        // 8. CUSTOM CURSOR
+        if (window.innerWidth > 1024) {
+            let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }, { passive: true });
+
+            function renderCursor() {
+                currentX += (mouseX - currentX) * 0.18;
+                currentY += (mouseY - currentY) * 0.18;
+                root.style.setProperty('--cursor-x', `${currentX}px`);
+                root.style.setProperty('--cursor-y', `${currentY}px`);
+                requestAnimationFrame(renderCursor);
+            }
+            requestAnimationFrame(renderCursor);
+
+            const hoverTargets = document.querySelectorAll('a, button, input, .cursor-pointer, h1, h2, svg, #theme-toggle');
+            hoverTargets.forEach(element => {
+                element.addEventListener('mouseenter', () => root.style.setProperty('--cursor-scale', '0.55'));
+                element.addEventListener('mouseleave', () => root.style.setProperty('--cursor-scale', '1'));
+            });
+        }
+    </script>
+</body>
+</html>
