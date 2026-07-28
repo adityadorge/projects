@@ -16,12 +16,13 @@
     <script>
         window.MathJax = {
             tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']],
-            displayMath: [['$$', '$$'], ['\\[', '\\]']],
-            packages: ['base', 'ams'] // Ensures \aligned works
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                packages: ['base', 'ams'] // Ensures \aligned works
             }
         };
-    </script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         /* Theme Color Maps */
@@ -253,7 +254,8 @@
                         <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-4">//
                             EXTERNAL COMPENDIUM</span>
                         <h3 class="text-2xl font-black tracking-tight uppercase leading-none brutalist-text">Academic
-                            <br>Cross-References</h3>
+                            <br>Cross-References
+                        </h3>
                     </div>
                     <div class="mt-8">
                         <a href="../../topics.html"
@@ -328,7 +330,7 @@
                         "Once you move beyond vectors, the next logical step is a <strong class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\">matrix</strong> (plural: <strong>matrices</strong>).",
                         "If a scalar is a single point and a vector is a single line/column of numbers, <strong>a matrix is a two-dimensional grid of numbers</strong> arranged in rows and columns. It allows models to represent complex relationships and transformations rather than just single data points.",
                         "<ul class=\"list-disc list-inside space-y-2 my-2\"><li>A grid with $m$ rows and $n$ columns (an $m \\times n$ matrix), written as: $$\\mathbf{A} = \\begin{bmatrix} a_{11} & a_{12} & \\dots & a_{1n} \\\\ a_{21} & a_{22} & \\dots & a_{2n} \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ a_{m1} & a_{m2} & \\dots & a_{mn} \\end{bmatrix} \\in \\mathbb{R}^{m \\times n}$$</li></ul>",
-                            `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
                             <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
                                 <strong>Think of it this way:</strong> A scalar is a single test score ($85$). A vector is all of one student's test scores in a list ($[85, 90, 78]$). A matrix is the entire gradebook for the whole class, where every row is a student and every column is a test.
                             </p>
@@ -367,7 +369,7 @@
                         "<h3><strong>1. The Database Matrix</strong></h3>",
                         "Suppose we have a matrix $\\mathbf{B}$ where every row stores a record of numerical data:",
                         "$$\\mathbf{B} = \\begin{bmatrix} 10 & 20 \\\\ 30 & 40 \\\\ 50 & 60 \\\\ 70 & 80 \\end{bmatrix}$$",
-                        
+
                         "<h3><strong>2. Selecting a Row with a One-Hot Vector</strong></h3>",
                         "Suppose we want to retrieve <strong>Row 3</strong>. We can create a <a href=\"https://en.wikipedia.org/wiki/One-hot\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">one-hot vector</a> $\\vec{x}$—a vector with a single $1$ in the third position and $0$ everywhere else:",
                         "$$\\vec{x} = \\begin{bmatrix} 0 & 0 & 1 & 0 \\end{bmatrix}$$",
@@ -432,7 +434,7 @@
                         "Don't worry about the formula—at its heart, it's just a simple ratio:",
                         "$$\\text{Cosine Similarity} = \\cos(\\theta) = \\frac{\\mathbf{A} \\cdot \\mathbf{B}}{\\|\\mathbf{A}\\| \\|\\mathbf{B}\\|}$$",
                         "In simple terms: you take the <strong>dot product</strong> of the two vectors (which measures their alignment) and divide it by the product of their <strong>magnitudes</strong> (their physical lengths).",
-                        
+
                         `<div class="my-6 p-5 border brutalist-border brutalist-bg">
                             <div class="text-xs font-black tracking-widest uppercase brutalist-text-muted mb-4">// GEOMETRIC GRAPH: VECTOR ANGLE vs LENGTH</div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
@@ -478,104 +480,88 @@
                             </div>
                         </div>`,
 
- "<h3><strong>Solving the Worked Example</strong></h3>",
+                        "<h3><strong>Solving the Worked Example</strong></h3>",
+                        "To calculate those exact benchmark scores, we map each sentence into a 2D feature coordinate representing <strong>[Vehicle Domain (X), Speed/Sports Context (Y)]</strong>:",
+                        "The query vector <strong>\"sports car\"</strong> is defined as $\\mathbf{q} = [4, 5]$.",
+                        "The first candidate vector <strong>\"race vehicle\"</strong> is defined as $\\mathbf{v_1} = [3, 5]$.",
+                        "The second candidate vector <strong>\"vehicle insurance\"</strong> is defined as $\\mathbf{v_2} = [4, 1]$.",
+                        "The third candidate vector <strong>\"baking recipes\"</strong> is defined as $\\mathbf{v_3} = [0, 5]$.",
+                        "<strong>Step 1: Calculate Query Length</strong>",
+                        "$$\\|\\mathbf{q}\\| = \\sqrt{4^2 + 5^2} = \\sqrt{41} \\approx 6.40$$",
+                        "<strong>Step 2: Candidate Vector Lengths</strong>",
+                        "$$\\|\\mathbf{v_1}\\| = \\sqrt{3^2 + 5^2} = \\sqrt{34} \\approx 5.83$$",
+                        "$$\\|\\mathbf{v_2}\\| = \\sqrt{4^2 + 1^2} = \\sqrt{17} \\approx 4.12$$",
+                        "$$\\|\\mathbf{v_3}\\| = \\sqrt{0^2 + 5^2} = \\sqrt{25} = 5.00$$",
+                        "<strong>Step 3: Cosine Similarity Calculations</strong>",
+                        "$$\\text{Sim}(\\mathbf{q}, \\mathbf{v_1}) = \\frac{(4 \\times 3) + (5 \\times 5)}{6.40 \\times 5.83} = \\frac{37}{37.31} \\approx \\mathbf{0.94}$$",
+                        "$$\\text{Sim}(\\mathbf{q}, \\mathbf{v_2}) = \\frac{(4 \\times 4) + (5 \\times 1)}{6.40 \\times 4.12} = \\frac{21}{26.36} \\approx \\mathbf{0.42}$$",
+                        "$$\\text{Sim}(\\mathbf{q}, \\mathbf{v_3}) = \\frac{(4 \\times 0) + (5 \\times 0.1)}{6.40 \\times 5.00} = \\frac{0.5}{32.00} \\approx \\mathbf{0.03}$$",
 
-    "To calculate those exact benchmark scores, we map each sentence into a 2D feature coordinate representing <strong>[Vehicle Domain (X), Speed/Sports Context (Y)]</strong>:",
+                        "<h3><strong>Worked Example: Comparing Text Queries</strong></h3>",
 
-    "The query vector <strong>\"sports car\"</strong> is defined as $\\mathbf{q} = [4, 5]$.",
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg">
+                            <div class="text-xs font-black tracking-widest uppercase brutalist-text-muted mb-4">// WORKED EXAMPLE: 2D VECTOR SPACE PLOT</div>
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                                
+                                <!-- SVG Coordinate Plot -->
+                                <div class="md:col-span-7 flex justify-center bg-white dark:bg-neutral-900 p-4 border brutalist-border">
+                                    <svg viewBox="0 0 240 220" class="w-full max-w-[260px] overflow-visible font-mono text-[10px]">
+                                        <!-- Background Grid -->
+                                        <path d="M 50,20 L 50,180 M 80,20 L 80,180 M 110,20 L 110,180 M 140,20 L 140,180 M 170,20 L 170,180 M 200,20 L 200,180" stroke="currentColor" stroke-width="0.5" class="text-neutral-200 dark:text-neutral-800" />
+                                        <path d="M 20,150 L 220,150 M 20,120 L 220,120 M 20,90 L 220,90 M 20,60 L 220,60 M 20,30 L 220,30" stroke="currentColor" stroke-width="0.5" class="text-neutral-200 dark:text-neutral-800" />
 
-    "The first candidate vector <strong>\"race vehicle\"</strong> is defined as $\\mathbf{v_1} = [3, 5]$.",
+                                        <!-- Axes -->
+                                        <line x1="20" y1="180" x2="220" y2="180" stroke="currentColor" stroke-width="1.5" class="text-neutral-400" />
+                                        <line x1="20" y1="180" x2="20" y2="10" stroke="currentColor" stroke-width="1.5" class="text-neutral-400" />
+                                        <text x="210" y="196" class="fill-current text-neutral-500 font-bold">X (Vehicle)</text>
+                                        <text x="24" y="16" class="fill-current text-neutral-500 font-bold">Y (Speed)</text>
 
-    "The second candidate vector <strong>\"vehicle insurance\"</strong> is defined as $\\mathbf{v_2} = [4, 1]$.",
+                                        <!-- Vector v3: Baking Recipes [0, 5] -->
+                                        <line x1="20" y1="180" x2="20" y2="30" stroke="#f43f5e" stroke-width="2" stroke-dasharray="3 3" />
+                                        <polygon points="20,30 16,38 24,38" fill="#f43f5e" />
+                                        <text x="28" y="35" class="fill-rose-500 font-bold">v₃ [0, 5]</text>
 
-    "The third candidate vector <strong>\"baking recipes\"</strong> is defined as $\\mathbf{v_3} = [0, 5]$.",
+                                        <!-- Vector v2: Vehicle Insurance [4, 1] -->
+                                        <line x1="20" y1="180" x2="140" y2="150" stroke="#f59e0b" stroke-width="2" />
+                                        <polygon points="140,150 130,150 134,158" fill="#f59e0b" />
+                                        <text x="145" y="155" class="fill-amber-500 font-bold">v₂ [4, 1]</text>
 
-    "<strong>Step 1: Calculate Query Length</strong>",
+                                        <!-- Vector v1: Race Vehicle [3, 5] -->
+                                        <line x1="20" y1="180" x2="110" y2="30" stroke="#10b981" stroke-width="2" />
+                                        <polygon points="110,30 102,36 108,42" fill="#10b981" />
+                                        <text x="75" y="25" class="fill-emerald-500 font-bold">v₁ [3, 5]</text>
 
-    "$$\\|\\mathbf{q}\\| = \\sqrt{4^2 + 5^2} = \\sqrt{41} \\approx 6.40$$",
+                                        <!-- Vector q: Sports Car [4, 5] -->
+                                        <line x1="20" y1="180" x2="140" y2="30" stroke="#6366f1" stroke-width="3" />
+                                        <polygon points="140,30 130,34 135,42" fill="#6366f1" />
+                                        <text x="145" y="25" class="fill-indigo-600 dark:fill-indigo-400 font-bold">q [4, 5]</text>
+                                    </svg>
+                                </div>
 
-    "<strong>Step 2: Candidate Vector Lengths</strong>",
+                                <!-- Plot Legend / Summary -->
+                                <div class="md:col-span-5 font-mono text-xs space-y-2">
+                                    <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-indigo-600">
+                                        <span class="text-indigo-600 dark:text-indigo-400 font-bold">q: "sports car"</span>
+                                        <div class="text-[10px] brutalist-text-muted">Target Query Vector</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-emerald-500">
+                                        <span class="text-emerald-600 dark:text-emerald-400 font-bold">v₁: "race vehicle"</span>
+                                        <div class="text-[10px] brutalist-text-muted">Tiny Angle (Score: 0.94)</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-amber-500">
+                                        <span class="text-amber-600 dark:text-amber-400 font-bold">v₂: "vehicle insurance"</span>
+                                        <div class="text-[10px] brutalist-text-muted">Wide Angle (Score: 0.42)</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-rose-500">
+                                        <span class="text-rose-600 dark:text-rose-400 font-bold">v₃: "baking recipes"</span>
+                                        <div class="text-[10px] brutalist-text-muted">Near-90° Angle (Score: 0.03)</div>
+                                    </div>
+                                </div>
 
-    "$$\\|\\mathbf{v_1}\\| = \\sqrt{3^2 + 5^2} = \\sqrt{34} \\approx 5.83$$",
-
-    "$$\\|\\mathbf{v_2}\\| = \\sqrt{4^2 + 1^2} = \\sqrt{17} \\approx 4.12$$",
-
-    "$$\\|\\mathbf{v_3}\\| = \\sqrt{0^2 + 5^2} = \\sqrt{25} = 5.00$$",
-
-    "<strong>Step 3: Cosine Similarity Calculations</strong>",
-
-    "$$\\text{Sim}(\\mathbf{q}, \\mathbf{v_1}) = \\frac{(4 \\times 3) + (5 \\times 5)}{6.40 \\times 5.83} = \\frac{37}{37.31} \\approx \\mathbf{0.94}$$",
-
-    "$$\\text{Sim}(\\mathbf{q}, \\mathbf{v_2}) = \\frac{(4 \\times 4) + (5 \\times 1)}{6.40 \\times 4.12} = \\frac{21}{26.36} \\approx \\mathbf{0.42}$$",
-
-    "$$\\text{Sim}(\\mathbf{q}, \\mathbf{v_3}) = \\frac{(4 \\times 0) + (5 \\times 0.1)}{6.40 \\times 5.00} = \\frac{0.5}{32.00} \\approx \\mathbf{0.03}$$",
-
-                            "<h3><strong>Worked Example: Comparing Text Queries</strong></h3>",
-
-                            `<div class="my-6 p-5 border brutalist-border brutalist-bg">
-        <div class="text-xs font-black tracking-widest uppercase brutalist-text-muted mb-4">// WORKED EXAMPLE: 2D VECTOR SPACE PLOT</div>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-            
-            <!-- SVG Coordinate Plot -->
-            <div class="md:col-span-7 flex justify-center bg-white dark:bg-neutral-900 p-4 border brutalist-border">
-                <svg viewBox="0 0 240 220" class="w-full max-w-[260px] overflow-visible font-mono text-[10px]">
-                    <!-- Background Grid -->
-                    <path d="M 50,20 L 50,180 M 80,20 L 80,180 M 110,20 L 110,180 M 140,20 L 140,180 M 170,20 L 170,180 M 200,20 L 200,180" stroke="currentColor" stroke-width="0.5" class="text-neutral-200 dark:text-neutral-800" />
-                    <path d="M 20,150 L 220,150 M 20,120 L 220,120 M 20,90 L 220,90 M 20,60 L 220,60 M 20,30 L 220,30" stroke="currentColor" stroke-width="0.5" class="text-neutral-200 dark:text-neutral-800" />
-
-                    <!-- Axes -->
-                    <line x1="20" y1="180" x2="220" y2="180" stroke="currentColor" stroke-width="1.5" class="text-neutral-400" />
-                    <line x1="20" y1="180" x2="20" y2="10" stroke="currentColor" stroke-width="1.5" class="text-neutral-400" />
-                    <text x="210" y="196" class="fill-current text-neutral-500 font-bold">X (Vehicle)</text>
-                    <text x="24" y="16" class="fill-current text-neutral-500 font-bold">Y (Speed)</text>
-
-                    <!-- Vector v3: Baking Recipes [0, 5] -->
-                    <line x1="20" y1="180" x2="20" y2="30" stroke="#f43f5e" stroke-width="2" stroke-dasharray="3 3" />
-                    <polygon points="20,30 16,38 24,38" fill="#f43f5e" />
-                    <text x="28" y="35" class="fill-rose-500 font-bold">v₃ [0, 5]</text>
-
-                    <!-- Vector v2: Vehicle Insurance [4, 1] -->
-                    <line x1="20" y1="180" x2="140" y2="150" stroke="#f59e0b" stroke-width="2" />
-                    <polygon points="140,150 130,150 134,158" fill="#f59e0b" />
-                    <text x="145" y="155" class="fill-amber-500 font-bold">v₂ [4, 1]</text>
-
-                    <!-- Vector v1: Race Vehicle [3, 5] -->
-                    <line x1="20" y1="180" x2="110" y2="30" stroke="#10b981" stroke-width="2" />
-                    <polygon points="110,30 102,36 108,42" fill="#10b981" />
-                    <text x="75" y="25" class="fill-emerald-500 font-bold">v₁ [3, 5]</text>
-
-                    <!-- Vector q: Sports Car [4, 5] -->
-                    <line x1="20" y1="180" x2="140" y2="30" stroke="#6366f1" stroke-width="3" />
-                    <polygon points="140,30 130,34 135,42" fill="#6366f1" />
-                    <text x="145" y="25" class="fill-indigo-600 dark:fill-indigo-400 font-bold">q [4, 5]</text>
-                </svg>
-            </div>
-
-            <!-- Plot Legend / Summary -->
-            <div class="md:col-span-5 font-mono text-xs space-y-2">
-                <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-indigo-600">
-                    <span class="text-indigo-600 dark:text-indigo-400 font-bold">q: "sports car"</span>
-                    <div class="text-[10px] brutalist-text-muted">Target Query Vector</div>
-                </div>
-                <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-emerald-500">
-                    <span class="text-emerald-600 dark:text-emerald-400 font-bold">v₁: "race vehicle"</span>
-                    <div class="text-[10px] brutalist-text-muted">Tiny Angle (Score: 0.94)</div>
-                </div>
-                <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-amber-500">
-                    <span class="text-amber-600 dark:text-amber-400 font-bold">v₂: "vehicle insurance"</span>
-                    <div class="text-[10px] brutalist-text-muted">Wide Angle (Score: 0.42)</div>
-                </div>
-                <div class="p-2 border brutalist-border brutalist-surface border-l-4 border-l-rose-500">
-                    <span class="text-rose-600 dark:text-rose-400 font-bold">v₃: "baking recipes"</span>
-                    <div class="text-[10px] brutalist-text-muted">Near-90° Angle (Score: 0.03)</div>
-                </div>
-            </div>
-
-        </div>
-    </div>`,
-
-
-                            `<div class="my-6 border brutalist-border brutalist-surface overflow-hidden">
+                            </div>
+                        </div>`,
+                        // BENCHMARK RESULTS
+                        `<div class="my-6 border brutalist-border brutalist-surface overflow-hidden">
                                 <div class="px-4 py-3 border-b brutalist-border brutalist-bg flex justify-between items-center">
                                     <span class="text-xs font-black tracking-widest uppercase brutalist-text">// SIMILARITY METRIC BENCHMARK</span>
                                     <span class="text-[10px] font-mono brutalist-text-muted">QUERY: "sports car"</span>
@@ -624,19 +610,51 @@
                                 </p>
                             </div>`,
 
-                        "<h2><strong>Wrapping Up & What's Next</strong></h2>",
-                        "Congratulations! You now have a rock-solid grasp of the fundamental building blocks - scalars, vectors, matrices, dot products, and similarity metrics that make artificial intelligence possible. But while we've seen how AI models manipulate numbers, computers don't naturally read human text. So how do we convert raw sentences into these mathematical vectors in the first place?",
+                            // closing remarks
+                            "<h2><strong>Wrapping Up & What's Next</strong></h2>",
+                            "Congratulations! You now have a rock-solid grasp of the fundamental building blocks - scalars, vectors, matrices, dot products, and similarity metrics that make artificial intelligence possible. But while we've seen how AI models manipulate numbers, computers don't naturally read human text. So how do we convert raw sentences into these mathematical vectors in the first place?",
                     ]
                 },
                 {
                     id: "doc-abstract",
-                    logCode: "// ARCHIVE LOG 01.A",
-                    navTitle: "01 / RESEARCH ABSTRACT & ANCHOR THESIS",
-                    title: "Research Abstract &<br>Anchor Thesis",
-                    quote: "By depositing dense agricultural biomass derivatives within specialized anoxic sub-layers of marine shelves, degradation rates drop below standard decay baselines by a factor of $10^4$.",
+                    logCode: "// ARCHIVE LOG 01.B",
+                    navTitle: "02 / NLP FUNDAMENTALS",
+                    title: "Understanding Language",
+                    quote: `<blockquote class="my-8 border-l-4 brutalist-border pl-6 py-4 brutalist-bg">
+                        <p class="text-sm lg:text-xl italic font-serif tracking-wide leading-relaxed brutalist-text">
+                            “Computers are brilliant calculators; human language is a messy art form.”
+                        </p>
+                    </blockquote>`,
                     paragraphs: [
-                        "Our long-term research establishes that deep-sediment carbon storage works concurrently as a physical stabilization medium for eroding coastal margins. Traditional techniques prioritize storage in deep open-ocean columns; however, our lab prioritizes the shallow continental margins, turning raw carbon vectors into active geological engineering infrastructure.",
-                        "By preventing atmospheric methane and carbon gas discharge through immediate sediment encapsulation, the process establishes a highly predictable, verifiable structural carbon net-negative balance zone that addresses structural earth decay and gas containment simultaneously."
+                        `<div class="my-8">
+                            <h2 class="text-xl font-black mb-3">Why Is Human Language Hard for Machines?</h2>
+                        </div>`,                        
+                        "Every day, we communicate effortlessly. We switch between languages, use slang, emojis, jokes, and sometimes say less than we mean. Yet, other people usually understand us without much effort.<br><br><strong>Computers don't :(</strong>",
+                        "It has never experienced happiness, seen a sunset, deposited money in a bank, or stood beside a river. To a machine, every document, tweet, email, or novel is nothing more than a sequence of symbols. Before a machine can understand text, those symbols must somehow be transformed into mathematical representations that algorithms can process.",
+                        "This is the central challenge of <a href=\"https://en.wikipedia.org/wiki/Natural_language_processing\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">Natural Language Processing (NLP)</a>.",
+                                                                                         
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                            <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body font-mono">
+                                <strong>Example:</strong> "bro u coming?? 😂"
+                            </p>
+                        </div>`,
+
+                        "Real-world language is rarely perfect. People misspell words, use slang, abbreviations, emojis, mix languages, and often ignore grammar and punctuation.",
+                        "Most people instantly understand the message. A machine, however, must learn that <strong>\"u\"</strong> means <strong>\"you\"</strong>, the 😂 conveys emotion, and informal text follows entirely different patterns than formal language.",
+                        
+                        // Section 2: How Models Learn Language
+                        `<h3><strong> So the real question is, how do models understand text?</strong></h3>`,
+                        "Language models learn by recognizing patterns in enormous collections of text, known as a <a href=\"https://en.wikipedia.org/wiki/Text_corpus\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">corpus</a> (plural: <em>corpora</em>). During training, a language model repeatedly observes which words tend to appear together and in what order. Over billions of examples, it begins to estimate the statistical likelihood of one word following another.",
+                        
+                        "For example, suppose the model frequently encounters sentences like:",
+                        `<ul class="list-disc list-inside space-y-1 my-3 brutalist-text-body">
+                            <li>"The sun rises in the east."</li>
+                            <li>"The sun is shining brightly."</li>
+                            <li>"The sun provides light and heat."</li>
+                        </ul>`,
+
+                        "After seeing millions of similar examples, the model learns the <strong>statistical relationships</strong> between these words: \"sun\" is strongly associated with words such as \"rises\", \"light\", \"heat\", and \"shining\".",                                                
+                        
                     ]
                 },
                 {
