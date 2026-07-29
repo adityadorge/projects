@@ -634,7 +634,7 @@
                         "This is the central challenge of <a href=\"https://en.wikipedia.org/wiki/Natural_language_processing\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">Natural Language Processing (NLP)</a>.",
                                                                                          
                         `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
-                            <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body font-mono">
+                            <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
                                 <strong>Example:</strong> "bro u coming?? 😂"
                             </p>
                         </div>`,
@@ -643,7 +643,7 @@
                         "Most people instantly understand the message. A machine, however, must learn that <strong>\"u\"</strong> means <strong>\"you\"</strong>, the 😂 conveys emotion, and informal text follows entirely different patterns than formal language.",
                         
                         // Section 2: How Models Learn Language
-                        `<h3><strong> So the real question is, how do models understand text?</strong></h3>`,
+                        `<strong> So the real question is, how do models understand text?</strong>`,
                         "Language models learn by recognizing patterns in enormous collections of text, known as a <a href=\"https://en.wikipedia.org/wiki/Text_corpus\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">corpus</a> (plural: <em>corpora</em>). During training, a language model repeatedly observes which words tend to appear together and in what order. Over billions of examples, it begins to estimate the statistical likelihood of one word following another.",
                         
                         "For example, suppose the model frequently encounters sentences like:",
@@ -653,9 +653,626 @@
                             <li>"The sun provides light and heat."</li>
                         </ul>`,
 
-                        "After seeing millions of similar examples, the model learns the <strong>statistical relationships</strong> between these words: \"sun\" is strongly associated with words such as \"rises\", \"light\", \"heat\", and \"shining\".",                                                
+                        "After seeing millions of similar examples, the model learns the <strong>statistical relationships</strong> between these words: \"sun\" is strongly associated with words such as \"rises\", \"light\", \"heat\", and \"shining\".",        
+                        // Section 3: Cleaning Raw Text
+                        `<strong>You might ask, Aditya, "Can we feed raw text directly into a language model?"</strong>`,
+                        "Imagine teaching your child to read using books filled with random capital letters, broken words, unnecessary symbols, and inconsistent formatting. Learning would be a nightmare.",
+                      
+                        "Language models face a similar challenge.",
+                        // Text preprocessing 
+                        "Before we ask a machine to learn the patterns hidden within language, we often need to clean and standardize the text it receives. This process, known as <a href=\"https://en.wikipedia.org/wiki/Text_processing\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">text preprocessing</a>, removes unnecessary inconsistencies while preserving the information that matters.",
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                            <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                                <strong>Example:</strong> "Dr. Smith's AI-powered app cost $5.00!! Viist [https://dr-smith-at-help.com/]"
+                            </p>
+                        </div>`,
+                        // Section: Text Normalization
+                        `<strong>Lets clean it step by step</strong>`,
+                        `<strong>Lowercasing</strong> reduces unnecessary variations in the vocabulary. Instead of treating <code>\"dr\"</code>, <code>\"DR\"</code>, and <code>\"Dr\"</code> as three distinct words, they are mapped to a single normalized token.`,
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
+                            <div class="text-rose-600 dark:text-rose-400 font-bold mb-2">// RAW UNPREPROCESSED INPUT:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-4">
+                                "Dr. Smith's AI-powered app cost $5.00!! Viist [https://example.com/]"
+                            </div>
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-2">// AFTER LOWERCASE NORMALIZATION:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface">
+                                "dr. smith's ai-powered app cost $5.00!! viist [https://example.com/]"
+                            </div>
+                        </div>`,  
+                        // Section: Handling Numbers, URLs, Emails, and HTML
+                        `<strong>Handling Numbers, URLs, Emails & HTML:</strong> Raw text often contains numbers, URLs, email addresses, and HTML tags. Traditional NLP systems replace them with placeholder <code>&lt;PLACEHOLDER&gt;</code> tokens, while modern LLMs typically preserve and tokenize them directly.`,
                         
-                    ]
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
+                            <div class="text-rose-600 dark:text-rose-400 font-bold mb-2">// AFTER LOWERCASE NORMALIZATION:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-4">
+                                "dr. smith's ai-powered app cost $5.00!! viist [https://example.com/]"
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
+                                <div class="p-3 border brutalist-border brutalist-surface">
+                                    <span class="text-amber-600 dark:text-amber-400 font-bold block mb-1">Traditional NLP Approach (Placeholder)</span>
+                                    <div class="brutalist-text p-2 brutalist-bg border brutalist-border">
+                                        "dr. smith's ai-powered app cost &lt;NUM&gt;!! viist [&lt;URL&gt;]"
+                                    </div>
+                                </div>
+                                <div class="p-3 border brutalist-border brutalist-surface">
+                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold block mb-1">Modern LLM Approach (Preserved Context)</span>
+                                    <div class="brutalist-text p-2 brutalist-bg border brutalist-border">
+                                        "dr. smith's ai-powered app cost $5.00!! viist [https://example.com/]"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`,        
+                        // Section: Spelling Errors & Typos
+                       `<strong>Spelling Correction & Typo Handling: </strong>Fixing spelling errors or normalizing character repetitions (e.g., mapping <code>\"viist\"</code> to <code>\"visit\"</code>) prevents the vocabulary size from inflating unnecessarily with misspelled duplicates.`,
+                        
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
+                            <div class="text-amber-600 dark:text-amber-400 font-bold mb-2">// BEFORE SPELLING & TYPO CORRECTION:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-4">
+                                "dr. smith's ai-powered app cost $5.00!! viist [https://example.com/]"
+                            </div>
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-2">// AFTER SPELLING & CHARACTER NORMALIZATION:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface">
+                                "dr. smith's ai-powered app cost $5.00! visit [https://example.com/]"
+                            </div>
+                        </div>`,                         
+                        // Section: Stemming & Lemmatization Intro
+                        "So far, we've cleaned and normalized our text, but another challenge still remains.",
+                        
+                        "Consider the following words: \"play \| playing \| played \| plays\"",    
+
+                        "Although these words are different forms of <strong>play</strong>, a computer initially treats each as a separate token, unnecessarily expanding the vocabulary.",
+                        "To simplify text and group related word forms together, traditional NLP pipelines relied on two core techniques: <a href=\"https://en.wikipedia.org/wiki/Stemming\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">stemming</a> and <a href=\"https://en.wikipedia.org/wiki/Lemmatisation\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">lemmatization</a>.",
+                        {
+                            type: "grid",
+                            items: [
+                                {
+                                    title: "01 / STEMMING",
+                                    text: "<strong>Definition:</strong> Fast text reduction technique cutting word affixes to find crude roots.<br><strong>Approach:</strong> Rule-based heuristic algorithms that strip standard suffixes without understanding language semantics or word meaning.<br><strong>Example:</strong> Transforms words like \"playing\", \"played\", and \"plays\" down to \"play\", but incorrectly chops \"studies\" into non-real root \"studi\"."
+                                },
+                                {
+                                    title: "02 / LEMMATIZATION",
+                                    text: "<strong>Definition:</strong> Precise morphological reduction mapping terms back to valid dictionary lemmas.<br><strong>Approach:</strong> Dictionary- and linguistics-based analysis utilizing vocabulary context, grammar rules, and part-of-speech tag identification.<br><strong>Example:</strong> Transforms words like \"playing\", \"played\", and \"plays\" down to \"play\", while correctly mapping irregular terms like \"better\" to \"good\"."
+                                }
+                            ]
+                        },
+                        "In summary, removing unnecessary spaces, stripping noisy punctuation, and standardizing casing are all key steps in <a href=\"https://en.wikipedia.org/wiki/Text_normalization\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">text normalization</a>.",  
+                        "We still can't feed the entire text directly to the model. Before any text reaches a language model, it must first be broken down into chunks called <strong>tokens</strong>.",
+                        // Section: Token Types
+                        "Depending on the tokenization strategy, a token can represent different things:",
+
+                        `<ul class="list-disc list-inside space-y-2.5 my-4 brutalist-text-body">
+                            <li><strong>A character:</strong> 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">"a"</code>, 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">"b"</code>, 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">"c"</code>
+                            </li>
+                            <li><strong>A word:</strong> 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">"hello"</code>, 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">"world"</code>
+                            </li>
+                            <li><strong>A subword:</strong> 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">"un"</code>, 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">"believ"</code>, 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">"able"</code>
+                            </li>
+                            <li><strong>A punctuation mark:</strong> 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">"."</code>, 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">","</code>, 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">"?"</code>
+                            </li>
+                            <li><strong>A special symbol:</strong> 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">&lt;BOS&gt;</code>, 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">&lt;EOS&gt;</code>, 
+                                <code class="bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-300 dark:border-neutral-700 px-1.5 py-0.5 rounded font-bold">&lt;PAD&gt;</code>
+                            </li>
+                        </ul>`,
+                        // Section: Building the Vocabulary
+                        "Once our text is chopped up into tokens, the model needs an official index of every word it knows. This is called the <strong>vocabulary</strong> - a master list containing every <em>unique</em> token the model can recognize.",
+                        
+                        "Regardless of how many times a word appears in a massive dataset, it gets recorded in the vocabulary <strong>exactly once</strong> and assigned a permanent numerical address known as a <strong>Token ID</strong>.",
+
+                        "Let's see this in action with a quick example:",
+
+                        `<div class="my-4 p-4 border brutalist-border brutalist-bg font-mono text-xs">
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-2">// INPUT TEXT (2 SENTENCES):</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-3">
+                                "I love AI. I love Machine Learning."
+                            </div>
+
+                            <div class="text-amber-600 dark:text-amber-400 font-bold mb-2">// AFTER TOKENIZATION:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-3">
+                                ["I", "love", "AI", ".", "I", "love", "Machine", "Learning", "."]
+                            </div>
+
+                            <div class="text-emerald-600 dark:text-emerald-400 font-bold mb-2">// WORD-LEVEL VOCABULARY MAPPING (TOKEN → UNIQUE ID):</div>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                <div class="p-2 border brutalist-border brutalist-surface flex justify-between">
+                                    <span>"I"</span>
+                                    <span class="text-indigo-600 dark:text-indigo-400 font-bold">ID: 101</span>
+                                </div>
+                                <div class="p-2 border brutalist-border brutalist-surface flex justify-between">
+                                    <span>"love"</span>
+                                    <span class="text-indigo-600 dark:text-indigo-400 font-bold">ID: 102</span>
+                                </div>
+                                <div class="p-2 border brutalist-border brutalist-surface flex justify-between">
+                                    <span>"AI"</span>
+                                    <span class="text-indigo-600 dark:text-indigo-400 font-bold">ID: 103</span>
+                                </div>
+                                <div class="p-2 border brutalist-border brutalist-surface flex justify-between">
+                                    <span>"Machine"</span>
+                                    <span class="text-indigo-600 dark:text-indigo-400 font-bold">ID: 104</span>
+                                </div>
+                                <div class="p-2 border brutalist-border brutalist-surface flex justify-between">
+                                    <span>"Learning"</span>
+                                    <span class="text-indigo-600 dark:text-indigo-400 font-bold">ID: 105</span>
+                                </div>
+                                <div class="p-2 border brutalist-border brutalist-surface flex justify-between">
+                                    <span>"."</span>
+                                    <span class="text-indigo-600 dark:text-indigo-400 font-bold">ID: 106</span>
+                                </div>
+                            </div>
+                        </div>`,
+
+                        `<div class="my-5 border-l-4 border-indigo-600 pl-4 py-2.5 brutalist-bg bg-opacity-50">
+                            <p class="text-xs lg:text-sm font-normal tracking-wide leading-relaxed brutalist-text-body">
+                                <strong>Notice what happened:</strong> Even though the words <code>"I"</code> and <code>"love"</code> were repeated across both sentences, they appear only once in our vocabulary table. The model simply reuses <strong>ID: 101</strong> and <strong>ID: 102</strong> whenever those terms pop up again!
+                            </p>
+                        </div>`,
+                        // Section: Vocabulary Size
+                        "The size of a vocabulary, often called the <strong>vocabulary size</strong> (<code>vocab_size</code>), is simply the total number of unique tokens it contains.",
+                        "A larger vocabulary allows a model to recognize more words and symbols but also increases the number of parameters and memory required.",
+                        // OOV
+                        // Section 3: Cleaning Raw Text
+                        `<strong>What happens if a language model encounters a word that isn't in its vocabulary?</strong>`,
+                        "What happens if a language model encounters a word that isn't in its vocabulary? This is known as the <strong>Out-of-Vocabulary (OOV)</strong> problem.",
+                        "An Out-of-Vocabulary (OOV) word is any word or token that does not exist in the model's vocabulary. Since the model has never seen this token during training, it cannot directly assign it a token ID.",
+
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-2">// EXAMPLE VOCABULARY:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-4">
+                                ["Python", "is", "a", "programming", "language"]
+                            </div>
+                            
+                            <div class="text-amber-600 dark:text-amber-400 font-bold mb-2">// TARGET SENTENCE:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface">
+                                "Python is a <span class="text-rose-600 dark:text-rose-400 font-bold">scripting</span> language."
+                            </div>
+                        </div>`,
+
+                        "The word <code>\"scripting\"</code> is not present in the vocabulary, making it an Out-of-Vocabulary (OOV) word.",
+
+                        "<h3><strong>The Traditional NLP Approach: Special &lt;UNK&gt; Token</strong></h3>",
+                        "In traditional NLP systems, unknown words were typically replaced with a special token such as <code>&lt;UNK&gt;</code>:",
+
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs">
+                            <div class="text-rose-600 dark:text-rose-400 font-bold mb-2">// TRADITIONAL REPLACEMENT:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface">
+                                "Python is a <span class="text-rose-600 dark:text-rose-400 font-bold">&lt;UNK&gt;</span> language."
+                            </div>
+                        </div>`,
+
+                        "While this allows the model to process the sentence, it also loses the identity and meaning of the unknown word. The model only knows that an unknown token appeared—it has no information about what that word actually was.",
+
+                        "<h3><strong>The Modern Approach: Subword Tokenization</strong></h3>",
+                        "Modern LLMs solve this problem using <strong>subword tokenization</strong>. Instead of treating an unseen word as completely unknown, they break it into smaller pieces that already exist in the vocabulary.",
+
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs">
+                            <div class="text-emerald-600 dark:text-emerald-400 font-bold mb-2">// SUBWORD SPLIT:</div>
+                            <div class="p-3 border brutalist-border brutalist-surface flex items-center space-x-3">
+                                <span class="font-bold">"scripting"</span>
+                                <span>↓</span>
+                                <span class="bg-indigo-600 text-white px-2 py-1 rounded">"script"</span>
+                                <span>+</span>
+                                <span class="bg-indigo-600 text-white px-2 py-1 rounded">"ing"</span>
+                            </div>
+                        </div>`,
+
+                        "Even if the complete word <code>\"scripting\"</code> was never seen during training, the model may already know the subwords <code>\"script\"</code> and <code>\"ing\"</code>. By combining these familiar pieces, it can still understand and process the word without replacing it with <code>&lt;UNK&gt;</code>.",
+                        // Inside pageData.sections[1] (id: "doc-abstract"), add these lines to the paragraphs array:
+
+                        "Let’s take a look at some of the most popular subword tokenization algorithms.",
+                        "Created by Philip Gage in 1994, <a href=\"https://en.wikipedia.org/wiki/Byte_pair_encoding\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">Byte Pair Encoding (BPE)</a> was originally a file compression algorithm that replaced frequent byte pairs with single bytes. In 2015, Rico Sennrich et al. adapted it for NLP to solve out-of-vocabulary text issues by breaking words into reusable subword units. Today, it serves as the primary tokenization method powering modern Large Language Models like GPT and LLaMA.",           
+                        `<strong>How does Byte Pair Encoding (BPE) work?</strong>`,             
+                        "Unlike a word-level tokenizer, BPE does not start with a vocabulary. Instead, it builds its vocabulary by learning from the training data. As it processes more data, it notices which characters or groups of characters frequently appear together. It then combines these frequent pairs into a single token. By repeating this process over and over, BPE gradually builds a vocabulary of meaningful subwords and even complete words.",
+                        // Inside pageData.sections[1] (id: "doc-abstract"), inside the paragraphs array:
+
+                        // Inside pageData.sections[1] (id: "doc-abstract"), inside the paragraphs array:
+
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                            <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                                <strong>After normalization:</strong> "The cat in the hat"  → {t, h, e, _, c, a, t, _, i, n, _, t, h, e, _, h, a, t}
+                            </p>
+                        </div>`,
+
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
+                            <div class="text-rose-600 dark:text-rose-400 font-bold mb-2">// INITIAL BASE VOCABULARY:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-4">
+                                Vocabulary: [ _, a, c, e, h, i, n, t ]
+                            </div>
+                            
+                            <div class="text-amber-600 dark:text-amber-400 font-bold mb-2">// INITIAL BASE VOCABULARY MAPPING (CHARACTER & ASCII TOKEN IDs):</div>
+                            <div class="brutalist-text p-3 border brutalist-border brutalist-surface mb-4">
+                                <div class="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-9 gap-2 text-center">
+                                    <!-- Highlighted Pair: ('t', 'h') -->
+                                    <div class="p-2 border-2 border-amber-500 bg-amber-50 dark:bg-amber-950/40 rounded">
+                                        <div class="font-bold text-sm brutalist-text">t</div>
+                                        <div class="text-[10px] text-amber-600 dark:text-amber-400 font-bold">116</div>
+                                    </div>
+                                    <div class="p-2 border-2 border-amber-500 bg-amber-50 dark:bg-amber-950/40 rounded">
+                                        <div class="font-bold text-sm brutalist-text">h</div>
+                                        <div class="text-[10px] text-amber-600 dark:text-amber-400 font-bold">104</div>
+                                    </div>
+
+                                    <!-- Remaining Tokens -->
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">e</div>
+                                        <div class="text-[10px] brutalist-text-muted">101</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">c</div>
+                                        <div class="text-[10px] brutalist-text-muted">99</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">a</div>
+                                        <div class="text-[10px] brutalist-text-muted">97</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">t</div>
+                                        <div class="text-[10px] brutalist-text-muted">116</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">i</div>
+                                        <div class="text-[10px] brutalist-text-muted">105</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">n</div>
+                                        <div class="text-[10px] brutalist-text-muted">110</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+                                    <div class="p-2 border-2 border-amber-500 bg-amber-50 dark:bg-amber-950/40 rounded">
+                                        <div class="font-bold text-sm brutalist-text">t</div>
+                                        <div class="text-[10px] text-amber-600 dark:text-amber-400 font-bold">116</div>
+                                    </div>
+                                    <div class="p-2 border-2 border-amber-500 bg-amber-50 dark:bg-amber-950/40 rounded">
+                                        <div class="font-bold text-sm brutalist-text">h</div>
+                                        <div class="text-[10px] text-amber-600 dark:text-amber-400 font-bold">104</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">e</div>
+                                        <div class="text-[10px] brutalist-text-muted">101</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">h</div>
+                                        <div class="text-[10px] brutalist-text-muted">104</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">a</div>
+                                        <div class="text-[10px] brutalist-text-muted">97</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">t</div>
+                                        <div class="text-[10px] brutalist-text-muted">116</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-1">// STEP 1: SCANNING PAIR FREQUENCIES</div>
+                            <p class="brutalist-text-body text-[11px] leading-relaxed">
+                                The character pair <span class="text-amber-600 dark:text-amber-400 font-bold">"t" (116)</span> + <span class="text-amber-600 dark:text-amber-400 font-bold">"h" (104)</span> appears frequently, making it an ideal candidate to merge into a single new subword token ID in the next iteration.
+                            </p>
+                        </div>`,
+
+                        // Inside pageData.sections[1] (id: "doc-abstract"), inside the paragraphs array:
+
+                        "Next, BPE performs consecutive merge operations on the most frequent adjacent pairs:",
+
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-2">// MERGE ITERATIONS:</div>
+                            <div class="brutalist-text p-3 border brutalist-border brutalist-surface mb-4 space-y-1 text-[11px]">
+                                <div>1. Merge <span class="font-bold text-amber-600 dark:text-amber-400">"t" + "h"</span> &nbsp;→&nbsp; <span class="font-bold text-indigo-600 dark:text-indigo-400">"th"</span> (New Token ID: 256)</div>
+                                <div>2. Merge <span class="font-bold text-sky-600 dark:text-sky-400">"th" + "e"</span> &nbsp;→&nbsp; <span class="font-bold text-sky-500">"the"</span> (New Token ID: 257)</div>
+                            </div>
+
+                            <div class="text-emerald-600 dark:text-emerald-400 font-bold mb-2">// UPDATED VOCABULARY LIST:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-4 font-bold text-indigo-600 dark:text-indigo-400">
+                                Vocabulary: [ _, a, c, e, h, i, n, t, th, the ]
+                            </div>
+                            
+                            <div class="text-sky-600 dark:text-sky-400 font-bold mb-2">// UPDATED TOKEN SEQUENCE & MERGED SUBWORD IDs:</div>
+                            <div class="brutalist-text p-3 border brutalist-border brutalist-surface mb-4">
+                                <div class="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-7 gap-2 text-center">
+                                    
+                                    <!-- Merged Token: "the" (ID: 257) -->
+                                    <div class="p-2 bg-sky-500 dark:bg-sky-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">the</div>
+                                        <div class="text-[10px] text-sky-100">257</div>
+                                    </div>
+
+                                    <!-- Remaining Tokens -->
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">c</div>
+                                        <div class="text-[10px] brutalist-text-muted">99</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">a</div>
+                                        <div class="text-[10px] brutalist-text-muted">97</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">t</div>
+                                        <div class="text-[10px] brutalist-text-muted">116</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">i</div>
+                                        <div class="text-[10px] brutalist-text-muted">105</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">n</div>
+                                        <div class="text-[10px] brutalist-text-muted">110</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+
+                                    <!-- Merged Token: "the" (ID: 257) -->
+                                    <div class="p-2 bg-sky-500 dark:bg-sky-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">the</div>
+                                        <div class="text-[10px] text-sky-100">257</div>
+                                    </div>
+
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">h</div>
+                                        <div class="text-[10px] brutalist-text-muted">104</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">a</div>
+                                        <div class="text-[10px] brutalist-text-muted">97</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">t</div>
+                                        <div class="text-[10px] brutalist-text-muted">116</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="text-sky-600 dark:text-sky-400 font-bold mb-1">// RESULT OF SUBWORD MERGING</div>
+                            <p class="brutalist-text-body text-[11px] leading-relaxed">
+                                Notice how the sentence length shrank from <strong>18 individual characters</strong> down to <strong>14 subword tokens</strong>. The frequent word <span class="text-sky-500 font-bold">"the"</span> is now represented as a single cohesive token ID (257) rather than three separate character IDs.
+                            </p>
+                        </div>`,
+                        // Inside pageData.sections[1] (id: "doc-abstract"), inside paragraphs array:
+
+                        "When multiple pair candidates share the highest frequency, standard BPE applies tie-breaking rules (lexical order / first occurrence) to proceed with consecutive merges:",
+
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-2">// MERGE ITERATIONS (WITH TIE-BREAKING):</div>
+                            <div class="brutalist-text p-3 border brutalist-border brutalist-surface mb-4 space-y-1.5 text-[11px]">
+                                <div>1. Merge <span class="font-bold text-amber-600 dark:text-amber-400">"t" + "h"</span> &nbsp;→&nbsp; <span class="font-bold text-indigo-600 dark:text-indigo-400">"th"</span> (ID: 256)</div>
+                                <div>2. Merge <span class="font-bold text-sky-600 dark:text-sky-400">"th" + "e"</span> &nbsp;→&nbsp; <span class="font-bold text-sky-500">"the"</span> (ID: 257)</div>
+                                <div class="pt-1 border-t border-dashed brutalist-border">
+                                    <span class="text-emerald-600 dark:text-emerald-400 font-bold">3. Merge "a" + "t" &nbsp;→&nbsp; "at" (New Token ID: 258)</span>
+                                    <span class="text-[10px] text-gray-500 dark:text-gray-400 ml-2">(Tied Freq: 2 — Selected by Lexical Priority)</span>
+                                </div>
+                                <div>
+                                    <span class="text-purple-600 dark:text-purple-400 font-bold">4. Merge "the" + "_" &nbsp;→&nbsp; "the_" (New Token ID: 259)</span>
+                                    <span class="text-[10px] text-gray-500 dark:text-gray-400 ml-2">(Tied Freq: 2)</span>
+                                </div>
+                            </div>
+
+                            <div class="text-emerald-600 dark:text-emerald-400 font-bold mb-2">// UPDATED VOCABULARY LIST:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-4 font-bold text-indigo-600 dark:text-indigo-400">
+                                Vocabulary: [ _, a, c, e, h, i, n, t, th, the, at, the_ ]
+                            </div>
+                            
+                            <div class="text-emerald-600 dark:text-emerald-400 font-bold mb-2">// UPDATED TOKEN SEQUENCE & SUBWORD IDs:</div>
+                            <div class="brutalist-text p-3 border brutalist-border brutalist-surface mb-4">
+                                <div class="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-10 gap-2 text-center">
+                                    
+                                    <!-- Merged Token: "the_" (ID: 259) -->
+                                    <div class="p-2 bg-purple-500 dark:bg-purple-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">the_</div>
+                                        <div class="text-[10px] text-purple-100">259</div>
+                                    </div>
+
+                                    <!-- Token: "c" -->
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">c</div>
+                                        <div class="text-[10px] brutalist-text-muted">99</div>
+                                    </div>
+
+                                    <!-- Merged Token: "at" (ID: 258) -->
+                                    <div class="p-2 bg-emerald-500 dark:bg-emerald-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">at</div>
+                                        <div class="text-[10px] text-emerald-100">258</div>
+                                    </div>
+
+                                    <!-- Remaining Tokens -->
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">i</div>
+                                        <div class="text-[10px] brutalist-text-muted">105</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">n</div>
+                                        <div class="text-[10px] brutalist-text-muted">110</div>
+                                    </div>
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+
+                                    <!-- Merged Token: "the_" (ID: 259) -->
+                                    <div class="p-2 bg-purple-500 dark:bg-purple-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">the_</div>
+                                        <div class="text-[10px] text-purple-100">259</div>
+                                    </div>
+
+                                    <!-- Remaining Token: "h" -->
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">h</div>
+                                        <div class="text-[10px] brutalist-text-muted">104</div>
+                                    </div>
+
+                                    <!-- Merged Token: "at" (ID: 258) -->
+                                    <div class="p-2 bg-emerald-500 dark:bg-emerald-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">at</div>
+                                        <div class="text-[10px] text-emerald-100">258</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="text-purple-600 dark:text-purple-400 font-bold mb-1">// TIE-BREAKING & SEQUENCE COMPRESSION</div>
+                            <p class="brutalist-text-body text-[11px] leading-relaxed">
+                                Both <span class="text-emerald-500 font-bold">"a" + "t"</span> and <span class="text-purple-500 font-bold">"the" + "_"</span> tied with a frequency count of 2. Standard BPE breaks ties by lexical priority—merging <span class="text-emerald-500 font-bold">"at"</span> (ID: 258) first, followed immediately by <span class="text-purple-500 font-bold">"the_"</span> (ID: 259). This compresses our original 18-character sequence down to just <strong>10 subword tokens</strong>.
+                            </p>
+                        </div>`,
+
+                        `<strong>what happens next ?</strong>`,
+                        // Inside pageData.sections[1] (id: "doc-abstract"), inside paragraphs array:
+
+                        "Finally, after tie-breaking the remaining single-frequency adjacent pairs, BPE executes its final merge steps to reach the fully compressed token sequence:",
+
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-2">// FINAL MERGE ITERATIONS:</div>
+                            <div class="brutalist-text p-3 border brutalist-border brutalist-surface mb-4 space-y-1 text-[11px]">
+                                <div>5. Merge <span class="font-bold text-rose-600 dark:text-rose-400">"c" + "at"</span> &nbsp;→&nbsp; <span class="font-bold text-rose-500">"cat"</span> (New Token ID: 260)</div>
+                                <div>6. Merge <span class="font-bold text-amber-600 dark:text-amber-400">"h" + "at"</span> &nbsp;→&nbsp; <span class="font-bold text-amber-500">"hat"</span> (New Token ID: 261)</div>
+                                <div>7. Merge <span class="font-bold text-teal-600 dark:text-teal-400">"i" + "n"</span> &nbsp;→&nbsp; <span class="font-bold text-teal-500">"in"</span> (New Token ID: 262)</div>
+                            </div>
+
+                            <div class="text-emerald-600 dark:text-emerald-400 font-bold mb-2">// FINAL VOCABULARY LIST (15 TOKENS):</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-4 font-bold text-indigo-600 dark:text-indigo-400">
+                                Vocabulary: [ _, a, c, e, h, i, n, t, th, the, at, the_, cat, hat, in ]
+                            </div>
+                            
+                            <div class="text-sky-600 dark:text-sky-400 font-bold mb-2">// FINAL TOKEN SEQUENCE & MERGED SUBWORD IDs:</div>
+                            <div class="brutalist-text p-3 border brutalist-border brutalist-surface mb-4">
+                                <div class="grid grid-cols-4 sm:grid-cols-7 gap-2 text-center">
+                                    
+                                    <!-- Token: "the_" (ID: 259) -->
+                                    <div class="p-2 bg-purple-500 dark:bg-purple-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">the_</div>
+                                        <div class="text-[10px] text-purple-100">259</div>
+                                    </div>
+
+                                    <!-- Token: "cat" (ID: 260) -->
+                                    <div class="p-2 bg-rose-500 dark:bg-rose-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">cat</div>
+                                        <div class="text-[10px] text-rose-100">260</div>
+                                    </div>
+
+                                    <!-- Token: "_" (ID: 32) -->
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+
+                                    <!-- Token: "in" (ID: 262) -->
+                                    <div class="p-2 bg-teal-500 dark:bg-teal-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">in</div>
+                                        <div class="text-[10px] text-teal-100">262</div>
+                                    </div>
+
+                                    <!-- Token: "_" (ID: 32) -->
+                                    <div class="p-2 border brutalist-border brutalist-bg rounded">
+                                        <div class="font-bold text-sm brutalist-text">_</div>
+                                        <div class="text-[10px] brutalist-text-muted">32</div>
+                                    </div>
+
+                                    <!-- Token: "the_" (ID: 259) -->
+                                    <div class="p-2 bg-purple-500 dark:bg-purple-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">the_</div>
+                                        <div class="text-[10px] text-purple-100">259</div>
+                                    </div>
+
+                                    <!-- Token: "hat" (ID: 261) -->
+                                    <div class="p-2 bg-amber-500 dark:bg-amber-600 text-white font-bold rounded shadow-sm">
+                                        <div class="text-sm">hat</div>
+                                        <div class="text-[10px] text-amber-100">261</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-1">// SEQUENCE COMPRESSION vs. VOCABULARY GROWTH</div>
+                            <p class="brutalist-text-body text-[11px] leading-relaxed">
+                                By executing these 7 merge iterations, the input sequence dramatically shrinks from <strong>18 individual character tokens down to just 7 subword tokens</strong> (a 61% reduction in sequence length). To enable this compression, the vocabulary expanded from <strong>8 initial base character tokens to 15 total entries</strong>, assigning unique subword token IDs (256 through 262) to frequent character combinations.
+                            </p>
+                        </div>`,
+                        // --- WORDPIECE TOKENIZATION ---
+                        "<h2><strong>WordPiece Tokenization</strong></h2>",
+
+                        "Like Byte Pair Encoding (BPE), <a href=\"https://huggingface.co/learn/llm-course/en/chapter6/6\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">WordPiece</a> also begins with a small vocabulary instead of a dictionary containing complete words. This initial vocabulary consists of the model's special tokens (such as <code>[PAD]</code>, <code>[CLS]</code>, and <code>[SEP]</code>) along with all the unique characters found in the training corpus.",
+
+                        "One unique characteristic of WordPiece is that it distinguishes the first character of a word from the characters that follow. To do this, WordPiece prefixes every character after the first one with <code>##</code>.",
+
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
+                            <div class="text-indigo-600 dark:text-indigo-400 font-bold mb-2">// WORDPIECE PREFIX EXAMPLE:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-3">
+                                Word: <strong>"coding"</strong>
+                            </div>
+                            <div class="text-emerald-600 dark:text-emerald-400 font-bold mb-2">// INITIAL REPRESENTATION:</div>
+                            <div class="brutalist-text p-2 border brutalist-border brutalist-surface flex flex-wrap gap-2 font-bold">
+                                <span class="bg-indigo-600 text-white px-2.5 py-1 rounded">c</span>
+                                <span class="bg-indigo-600 text-white px-2.5 py-1 rounded">##o</span>
+                                <span class="bg-indigo-600 text-white px-2.5 py-1 rounded">##d</span>
+                                <span class="bg-indigo-600 text-white px-2.5 py-1 rounded">##i</span>
+                                <span class="bg-indigo-600 text-white px-2.5 py-1 rounded">##n</span>
+                                <span class="bg-indigo-600 text-white px-2.5 py-1 rounded">##g</span>
+                            </div>
+                        </div>`,
+
+                        "Notice that only the first character is written without a prefix, while every subsequent character is prefixed with <code>##</code>. This notation tells the tokenizer that these characters belong to the same word rather than starting a new one.",
+
+                        "<h3><strong>How Does WordPiece Learn New Tokens?</strong></h3>",
+
+                        "Once the initial vocabulary has been created, WordPiece starts combining smaller pieces into larger subwords, much like BPE. However, the way it chooses which pair to merge is completely different.",
+
+                        "WordPiece doesn't rely solely on frequency. Instead, it assigns every adjacent pair a score and merges the pair with the highest score.",
+
+                        "The score is calculated using the following equation:",
+
+                        "$$\\text{Score} = \\frac{\\text{Frequency of the Pair}}{\\text{Frequency of First Token} \\times \\text{Frequency of Second Token}}$$",
+                        "<strong>Why Use This Score?</strong> The reason is simple. WordPiece rewards pairs that have a strong relationship with each other rather than pairs with high individual frequencies."
+
+
+                        
+
+
+                 ]
                 },
                 {
                     id: "doc-methodology",
@@ -745,20 +1362,26 @@
                 article.className = `editorial-section p-8 lg:p-20 scroll-mt-0 ${sec.isStriped ? 'brutalist-strip' : ''}`;
 
                 const quoteHTML = sec.quote ? sec.quote : '';
-                const paragraphsHTML = sec.paragraphs.map(p => `<p>${p}</p>`).join('');
 
-                let gridHTML = '';
-                if (sec.gridItems && sec.gridItems.length > 0) {
-                    gridHTML = `
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12 border-t border-b brutalist-border py-8">
-                            ${sec.gridItems.map(g => `
-                                <div class="space-y-2">
-                                    <div class="text-xs font-black tracking-wider uppercase brutalist-text">${g.title}</div>
-                                    <p class="text-sm brutalist-text-muted leading-relaxed">${g.text}</p>
-                                </div>
-                            `).join('')}
-                        </div>`;
-                }
+                const contentHTML = (sec.paragraphs || []).map(item => {
+                    if (typeof item === 'string') {
+                        return `<p>${item}</p>`;
+                    }
+
+                    if (item && item.type === 'grid' && Array.isArray(item.items) && item.items.length > 0) {
+                        return `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12 border-t border-b brutalist-border py-8">
+                                ${item.items.map(g => `
+                                    <div class="space-y-2">
+                                        <div class="text-xs font-black tracking-wider uppercase brutalist-text">${g.title}</div>
+                                        <p class="text-sm leading-relaxed">${g.text}</p>
+                                    </div>
+                                `).join('')}
+                            </div>`;
+                    }
+
+                    return '';
+                }).join('');
 
                 article.innerHTML = `
                     <div class="max-w-3xl space-y-8">
@@ -767,8 +1390,7 @@
                         <div class="w-16 h-[1px] my-8" style="background-color: var(--border-main);"></div>
                         <div class="text-base lg:text-lg brutalist-text-body space-y-6 leading-relaxed font-normal">
                             ${quoteHTML}
-                            ${paragraphsHTML}
-                            ${gridHTML}
+                            ${contentHTML}
                             ${sec.footerParagraph ? `<p>${sec.footerParagraph}</p>` : ''}
                         </div>
                     </div>
