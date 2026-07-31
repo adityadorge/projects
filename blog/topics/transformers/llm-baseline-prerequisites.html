@@ -317,9 +317,9 @@
                         // Scalar and Vector Explanation
                         "To understand how modern AI models think, we first need to talk about the basic building blocks of mathematics: <a href=\"https://en.wikipedia.org/wiki/Scalar_(mathematics)\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">scalars</a> and <a href=\"https://en.wikipedia.org/wiki/Array_(data_structure)\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">vectors</a>",
                         "At its simplest, <strong>a scalar is just a single number</strong>. It tells us <em>how much</em> of something there is (its magnitude or size), but says nothing about direction.",
-                        "<ul class=\"list-disc list-inside space-y-2 my-2\"><li><strong>In Linear Algebra:</strong> It's any real number, written as $x \\in \\mathbb{R}$.</li><li><strong>In Everyday AI:</strong> It's a single setting or feature value—like setting your learning rate to $\\alpha = 0.001$, batch size to $32$, or temperature to $T = 0.7$.</li></ul>",
+                        `<ul class="list-disc list-inside space-y-2 my-2"><li><strong>In Linear Algebra:</strong> It's any real number, written as $x \\in \\mathbb{R}$.</li><li><strong>In Everyday AI:</strong> It's a single setting or feature value—like setting your learning rate to $\\alpha = 0.001$, batch size to $32$, or temperature to $T = 0.7$.</li></ul>`,
                         "When you stack multiple scalars together in a specific order, you get a <strong>vector</strong>. A vector gives you both magnitude <em>and</em> direction.",
-                        "<ul class=\"list-disc list-inside space-y-2 my-2\"><li><strong>In Linear Algebra:</strong> An ordered $n$-dimensional array of numbers: $$\\vec{v} = \\begin{bmatrix} v_1 \\\\ v_2 \\\\ \\vdots \\\\ v_n \\end{bmatrix} \\in \\mathbb{R}^n$$</li><li><strong>In Everyday AI:</strong> It’s how models turn complex ideas into math—like converting a word into a 768-dimensional embedding vector so a neural network can process its meaning.</li></ul>",
+                        `<ul class="list-disc list-inside space-y-2 my-2"><li><strong>In Linear Algebra:</strong> An ordered $n$-dimensional array of numbers: $$\\vec{v} = \\begin{bmatrix} v_1 \\\\ v_2 \\\\ \\vdots \\\\ v_n \\end{bmatrix} \\in \\mathbb{R}^n$$</li><li><strong>In Everyday AI:</strong> It’s how models turn complex ideas into math—like converting a word into a 768-dimensional embedding vector so a neural network can process its meaning.</li></ul>`,
                         `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
                         <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
                             <strong>Think of it this way:</strong> Saying a car is driving at 60 km/h is a <em>scalar</em> (just speed). Saying that same car is driving 60 km/h <em>North</em> turns it into a <em>vector</em> (speed + direction).
@@ -329,7 +329,7 @@
                         // Matrix Explanation
                         "Once you move beyond vectors, the next logical step is a <strong class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\">matrix</strong> (plural: <strong>matrices</strong>).",
                         "If a scalar is a single point and a vector is a single line/column of numbers, <strong>a matrix is a two-dimensional grid of numbers</strong> arranged in rows and columns. It allows models to represent complex relationships and transformations rather than just single data points.",
-                        "<ul class=\"list-disc list-inside space-y-2 my-2\"><li>A grid with $m$ rows and $n$ columns (an $m \\times n$ matrix), written as: $$\\mathbf{A} = \\begin{bmatrix} a_{11} & a_{12} & \\dots & a_{1n} \\\\ a_{21} & a_{22} & \\dots & a_{2n} \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ a_{m1} & a_{m2} & \\dots & a_{mn} \\end{bmatrix} \\in \\mathbb{R}^{m \\times n}$$</li></ul>",
+                        `<ul class="list-disc list-inside space-y-2 my-2"><li>A grid with $m$ rows and $n$ columns (an $m \\times n$ matrix), written as: $$\\mathbf{A} = \\begin{bmatrix} a_{11} & a_{12} & \\dots & a_{1n} \\\\ a_{21} & a_{22} & \\dots & a_{2n} \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ a_{m1} & a_{m2} & \\dots & a_{mn} \\end{bmatrix} \\in \\mathbb{R}^{m \\times n}$$</li></ul>`,
                         `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
                             <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
                                 <strong>Think of it this way:</strong> A scalar is a single test score ($85$). A vector is all of one student's test scores in a list ($[85, 90, 78]$). A matrix is the entire gradebook for the whole class, where every row is a student and every column is a test.
@@ -338,7 +338,7 @@
 
                         // Dot Product Explanation
                         "Next up is the <a href=\"https://en.wikipedia.org/wiki/Dot_product\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">dot product</a>: The dot product gives us a way to multiply two vectors together to get a single scalar value.",
-                        "<strong>Coordinate definition</strong>",
+                        `<strong>Coordinate definition</strong>`,
                         "The dot product of two vectors $\\mathbf{a} = [a_1, a_2, \\dots, a_n]$ and $\\mathbf{b} = [b_1, b_2, \\dots, b_n]$, specified with respect to an orthonormal basis, is defined, in summation notation, as:",
                         "$$\\mathbf{a} \\cdot \\mathbf{b} = \\sum_{i=1}^{n} a_i b_i = a_1 b_1 + a_2 b_2 + \\dots + a_n b_n$$",
                         "where $n$ is the dimension of the vector space. For instance, in three-dimensional space, the dot product of vectors $[1, 3, -5]$ and $[4, -2, -1]$ is:",
@@ -348,11 +348,11 @@
                         "Building directly on the dot product brings us to <a href=\"https://en.wikipedia.org/wiki/Matrix_multiplication\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">matrix multiplication</a> (both Matrix × Vector and Matrix × Matrix).",
 
                         "At its core, matrix multiplication is just performing a series of dot products! You take the <strong>rows</strong> of the first matrix and compute their dot products with the <strong>columns</strong> of the second matrix.",
-                        "<h3><strong>1. Matrix × Vector Multiplication</strong></h3>",
+                        `<h3><strong>1. Matrix × Vector Multiplication</strong></h3>`,
                         "When you multiply a matrix $\\mathbf{A}$ of size $m \\times n$ by a column vector $\\vec{x}$ of size $n \\times 1$, each element in the resulting output vector is the dot product of one row of $\\mathbf{A}$ with $\\vec{x}$:",
                         "$$\\mathbf{A}\\vec{x} = \\begin{bmatrix} a_{11} & a_{12} \\\\ a_{21} & a_{22} \\end{bmatrix} \\begin{bmatrix} x_1 \\\\ x_2 \\end{bmatrix} = \\begin{bmatrix} a_{11}x_1 + a_{12}x_2 \\\\ a_{21}x_1 + a_{22}x_2 \\end{bmatrix}$$",
 
-                        "<h3><strong>2. Matrix × Matrix Multiplication</strong></h3>",
+                        `<h3><strong>2. Matrix × Matrix Multiplication</strong></h3>`,
                         "When multiplying two matrices $\\mathbf{A}$ ($m \\times n$) and $\\mathbf{B}$ ($n \\times p$), the element at row $i$ and column $j$ in the resulting matrix $\\mathbf{C}$ is calculated as the dot product of <strong>Row $i$ of Matrix A</strong> and <strong>Column $j$ of Matrix B</strong>:",
                         "$$c_{ij} = \\text{Row}_i(\\mathbf{A}) \\cdot \\text{Col}_j(\\mathbf{B}) = \\sum_{k=1}^{n} a_{ik}b_{kj}$$",
                         "For example, multiplying two $2 \\times 2$ matrices:",
@@ -366,23 +366,23 @@
                         // Matrix Multiplication as Table Lookup
                         "Next, let me show you: <strong class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\">matrix multiplication as a table lookup</strong>.",
                         "At first glance, matrix multiplication seems like a way to multiply numbers. But in transformers, it serves a very different purpose: retrieving information from a table with remarkable efficiency.",
-                        "<h3><strong>1. The Database Matrix</strong></h3>",
+                        `<h3><strong>1. The Database Matrix</strong></h3>`,
                         "Suppose we have a matrix $\\mathbf{B}$ where every row stores a record of numerical data:",
                         "$$\\mathbf{B} = \\begin{bmatrix} 10 & 20 \\\\ 30 & 40 \\\\ 50 & 60 \\\\ 70 & 80 \\end{bmatrix}$$",
 
-                        "<h3><strong>2. Selecting a Row with a One-Hot Vector</strong></h3>",
+                        `<h3><strong>2. Selecting a Row with a One-Hot Vector</strong></h3>`,
                         "Suppose we want to retrieve <strong>Row 3</strong>. We can create a <a href=\"https://en.wikipedia.org/wiki/One-hot\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">one-hot vector</a> $\\vec{x}$—a vector with a single $1$ in the third position and $0$ everywhere else:",
                         "$$\\vec{x} = \\begin{bmatrix} 0 & 0 & 1 & 0 \\end{bmatrix}$$",
                         "Now, compute the product $\\vec{x}\\mathbf{B}$ by expanding the linear combination:",
                         "$$\\vec{x}\\mathbf{B} = 0\\begin{bmatrix} 10 & 20 \\end{bmatrix} + 0\\begin{bmatrix} 30 & 40 \\end{bmatrix} + 1\\begin{bmatrix} 50 & 60 \\end{bmatrix} + 0\\begin{bmatrix} 70 & 80 \\end{bmatrix} = \\begin{bmatrix} 50 & 60 \\end{bmatrix}$$",
                         "Notice what happened: everything multiplied by zero vanishes, and only <strong>Row 3</strong> survives. Mathematically, for any one-hot vector $\\mathbf{e}_i$ with $1$ in index $i$:",
                         "$$\\mathbf{e}_i \\mathbf{B} = 0\\mathbf{B}_1 + \\dots + 1\\mathbf{B}_i + \\dots + 0\\mathbf{B}_n = \\mathbf{B}_i \\quad (\\text{Row } i \\text{ of } \\mathbf{B})$$",
-                        "<h3><strong>3. Stacking One-Hot Vectors to Retrieve Multiple Rows</strong></h3>",
+                        `<h3><strong>3. Stacking One-Hot Vectors to Retrieve Multiple Rows</strong></h3>`,
                         "If a single row vector selects one item, a matrix $\\mathbf{A}$ formed by stacking one-hot vectors selects multiple items in a specific order. Consider:",
                         "$$\\mathbf{A} = \\begin{bmatrix} 1 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 1 \\\\ 0 & 0 & 1 & 0 \\end{bmatrix}$$",
                         "Here, Row 1 targets Row 1 of $\\mathbf{B}$, Row 2 targets Row 4, and Row 3 targets Row 3. Multiplying $\\mathbf{A}\\mathbf{B}$ pulls out those exact rows into a new matrix:",
                         "$$\\mathbf{A}\\mathbf{B} = \\begin{bmatrix} 10 & 20 \\\\ 70 & 80 \\\\ 50 & 60 \\end{bmatrix}$$",
-                        "<h3><strong>4. How Transformers Use This for Token Embeddings</strong></h3>",
+                        `<h3><strong>4. How Transformers Use This for Token Embeddings</strong></h3>`,
                         "This is the core mechanic behind token embeddings in models like ChatGPT. Imagine a vocabulary with 4 words stored in an embedding matrix $\\mathbf{E}$:",
 
                         `<div class="my-6 p-5 border brutalist-border brutalist-bg">
@@ -410,7 +410,7 @@
 
                         "When the model processes the token <strong>\"cats\"</strong> (Index 2), multiplying its one-hot vector $[0, 0, 1, 0]$ by $\\mathbf{E}$ directly extracts its 2D embedding vector $[0.4, 0.8]$:",
                         "$$\\begin{bmatrix} 0 & 0 & 1 & 0 \\end{bmatrix} \\begin{bmatrix} 0.1 & 0.5 \\\\ 0.9 & 0.3 \\\\ 0.4 & 0.8 \\\\ 0.2 & 0.7 \\end{bmatrix} = \\begin{bmatrix} 0.4 & 0.8 \\end{bmatrix}$$",
-                        "<h3><strong>Theoretical Reality vs. Practical Code</strong></h3>",
+                        `<h3><strong>Theoretical Reality vs. Practical Code</strong></h3>`,
                         "While it's mathematically neat to think of Transformers multiplying huge one-hot matrices. In reality, doing that with a 50,000+ word vocabulary would destroy your GPU memory. Frameworks like PyTorch skip the zero-filled matrices entirely and use smart index lookups to grab the exact row instantly.",
 
                         `<div class="my-6 p-4 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
@@ -431,7 +431,7 @@
                         // cosine similarity explanation
                         "To wrap up our foundation in numbers and vectors, we need to answer a fundamental question in AI: <strong>How do we measure how similar two things are?</strong> Enter <a href=\"https://en.wikipedia.org/wiki/Cosine_similarity\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">cosine similarity</a>.",
                         "At its core, cosine similarity measures the <em>angle</em> between two vectors in space rather than the distance between them. It tells us whether two vectors are pointing in roughly the same direction, regardless of how long or short they are.",
-                        "Don't worry about the formula—at its heart, it's just a simple ratio:",
+                        "Don't worry about the formula - at its heart, it's just a simple ratio:",
                         "$$\\text{Cosine Similarity} = \\cos(\\theta) = \\frac{\\mathbf{A} \\cdot \\mathbf{B}}{\\|\\mathbf{A}\\| \\|\\mathbf{B}\\|}$$",
                         "In simple terms: you take the <strong>dot product</strong> of the two vectors (which measures their alignment) and divide it by the product of their <strong>magnitudes</strong> (their physical lengths).",
 
@@ -1266,8 +1266,42 @@
                         "The score is calculated using the following equation:",
 
                         "$$\\text{Score} = \\frac{\\text{Frequency of the Pair}}{\\text{Frequency of First Token} \\times \\text{Frequency of Second Token}}$$",
-                        "<strong>Why Use This Score?</strong> The reason is simple. WordPiece rewards pairs that have a strong relationship with each other rather than pairs with high individual frequencies."
+                        "<strong>Why Use This Score?</strong> The reason is simple. WordPiece rewards pairs that have a strong relationship with each other rather than pairs with high individual frequencies.",
+                        "We've learned how tokenizers convert raw text into tokens and how BPE and WordPiece overcome the Out-of-Vocabulary (OOV) problem. However, converting text into tokens is only the first step.",
+                        `<strong>If every sentence is ultimately represented as a sequence of tokens, how does a language model know what those tokens actually mean? More importantly, how does it understand the relationship between them?</strong>`,
+                        "The answer lies in one of the most fundamental concepts in NLP—<a href=\"https://en.wikipedia.org/wiki/Word-sense_disambiguation\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">Context</a>.",
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50 space-y-3">
+    <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+        <strong>Sentence 1:</strong> "I deposited my paycheck at the bank."<br>
+        <span class="text-xs brutalist-text-muted">→ Here, <strong>bank</strong> refers to a place where people keep their money.</span>
+    </p>
+    <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+        <strong>Sentence 2:</strong> "We sat on the bank of the river and watched the sunset."<br>
+        <span class="text-xs brutalist-text-muted">→ This time, <strong>bank</strong> refers to the land beside a river.</span>
+    </p>
+</div>`,
 
+"Even though the word <strong>bank</strong> is same in both sentences, its meaning changes because of the words around it. Those surrounding words provide the <strong>context</strong> that allows both humans and language models to determine true word sense.",
+                `<p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                    <strong>Context Window Limit:</strong> 10 tokens<br>
+                    <span class="text-xs brutalist-text-muted">→ Here, <strong>Context Window</strong> refers to maximum number of tokens that a language model can process at one time</span>
+                </p>
+                <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                    <strong>Input Sentence:</strong> "The weather today is sunny with light winds and clear skies across the city."<br>
+                    <span class="text-xs brutalist-text-muted">→<strong> (~14 tokens)</strong></span>
+                </p>`,
+                "Because the input exceeds the 10-token limit, the model cannot process the full sentence at once. ",
+                `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50 space-y-3">
+                    <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                        <strong>First 10 Tokens (Prefix Focus)</strong><br>
+                        <strong>Processed: </strong> "The weather today is sunny with light winds and clear"<br>
+                        <strong>Ignored: </strong> "...skies across the city."<br>
+                    </p>
+                    <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                        <strong>Most Recent 10 Tokens (Sliding Window Focus)</strong><br>
+                        <strong>Processed: </strong> "sunny with light winds and clear skies across the city."<br>
+                        <strong>Ignored: </strong>"The weather today is..."<br>
+                </div>`,
 
                         
 
