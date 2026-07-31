@@ -1302,6 +1302,113 @@
                         <strong>Processed: </strong> "sunny with light winds and clear skies across the city."<br>
                         <strong>Ignored: </strong>"The weather today is..."<br>
                 </div>`,
+                "We've explored tokenization, context, and how language models interpret text. Now it's time to bring everything together.",
+                "From simple autocorrect systems to powerful models like GPT-4, they all share one fundamental objective of predicting the next token in a sequence. This objective forms the foundation of modern <a href=\"https://en.wikipedia.org/wiki/Language_model\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">language modeling</a>.",
+
+                        "<h2><strong>So, what do we actually mean by Language Modeling?</strong></h2>",
+                        "At its core, <strong>Language Modeling</strong> seeks to answer one fundamental question:",
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                            <p class="text-sm lg:text-base font-bold tracking-wide leading-relaxed brutalist-text-body">
+                                "How plausible or likely is this sequence of text in human language?"
+                            </p>
+                        </div>`,
+                        "For instance, a trained language model recognizes that:",
+                        "$$\\text{P(\"The cat sat on the mat\")} \\gg \\text{P(\"The mat on sat cat the\")}$$",
+
+                        
+                        "Language modeling is the statistical task of predicting the probability of a sequence of words. In practice, it most often comes down to one fundamental operation: <strong>predicting the next word given the text that came before it</strong>.",
+
+                        `<div class="my-6 p-5 border brutalist-border brutalist-bg text-sm">
+                            <div class="text-xs font-black tracking-widest uppercase brutalist-text-muted mb-3">// NEXT TOKEN PREDICTION EXAMPLE</div>
+                            
+                            <p class="mb-3">
+                            <strong>Input Context:</strong> <code class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono">"The cat sat on the"</code>
+                        </p>
+
+                            <div class="mb-4">
+                                <div class="text-xs font-bold uppercase brutalist-text-muted mb-2">Model Predictions:</div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left font-mono text-xs border-collapse">
+                                        <thead>
+                                            <tr class="border-b brutalist-border">
+                                                <th class="pb-2">Token</th>
+                                                <th class="pb-2">Probability</th>
+                                                <th class="pb-2 w-1/2">Distribution</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 dark:divide-zinc-800">
+                                            <tr class="font-bold text-emerald-600 dark:text-emerald-400">
+                                                <td class="py-1.5">"mat"</td>
+                                                <td class="py-1.5">0.78</td>
+                                                <td class="py-1.5"><div class="bg-emerald-500 h-2.5 rounded" style="width: 78%;"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-1.5">"floor"</td>
+                                                <td class="py-1.5">0.10</td>
+                                                <td class="py-1.5"><div class="bg-gray-400 h-2.5 rounded" style="width: 10%;"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-1.5">"chair"</td>
+                                                <td class="py-1.5">0.05</td>
+                                                <td class="py-1.5"><div class="bg-gray-400 h-2.5 rounded" style="width: 5%;"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-1.5">"roof"</td>
+                                                <td class="py-1.5">0.03</td>
+                                                <td class="py-1.5"><div class="bg-gray-400 h-2.5 rounded" style="width: 3%;"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-1.5">"table"</td>
+                                                <td class="py-1.5">0.02</td>
+                                                <td class="py-1.5"><div class="bg-gray-400 h-2.5 rounded" style="width: 2%;"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-1.5">others</td>
+                                                <td class="py-1.5">0.02</td>
+                                                <td class="py-1.5"><div class="bg-gray-400 h-2.5 rounded" style="width: 2%;"></div></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <p class="mb-3">
+                                The highest probability token is <strong class="text-emerald-600 dark:text-emerald-400 font-mono">"mat"</strong> (0.78).
+                            </p>
+
+                            <div class="p-3 border brutalist-border brutalist-surface rounded">
+                                <strong>Resulting Sentence:</strong> 
+                                <span class="font-mono text-indigo-600 dark:text-indigo-400">"The cat sat on the <strong>mat</strong>"</span>
+                            </div>
+
+                            <p class="mt-3 text-xs brutalist-text-muted italic">
+                                Then repeat: the updated sentence becomes the new input context for the next iteration.
+                            </p>
+                        </div>`,                      
+
+                        "A language model calculates the probability distribution over a vocabulary for the next token $w_i$, given the context of preceding tokens $W = (w_1, w_2, \\dots, w_N)$ :",
+                        "$$P(W) = P(w_1, w_2, \\dots, w_N)$$",
+                        "By applying the <a href=\"https://en.wikipedia.org/wiki/Chain_rule_(probability)\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\">chain rule of probability</a>, the likelihood of an entire sequence of $N$ words can be decomposed into a product of conditional probabilities:",
+                        "$$P(W) = P(w_1, w_2, \\dots, w_N) = \\prod_{i=1}^{N} P(w_i \\mid w_1, w_2, \\dots, w_{i-1})$$",
+
+                        "<h3><strong>Concrete Example</strong></h3>",
+                        "To calculate $P(\\text{\"AI is transforming the world\"})$:",
+                        "$$P(\\text{\"AI\"}) \\times P(\\text{\"is\"} \\mid \\text{\"AI\"}) \\times P(\\text{\"transforming\"} \\mid \\text{\"AI is\"}) \\times P(\\text{\"the\"} \\mid \\text{\"AI is transforming\"}) \\times \\dots$$",
+                        "Instead of predicting the whole sentence at once, the model predicts one token after another. The probability of the complete sentence is obtained by multiplying the probabilities of each token conditioned on the tokens that came before it.",
+
+                        "To train a language model, we minimize the <a href=\"https://medium.com/deeplearningmadeeasy/negative-log-likelihood-6bd79b55d8b6\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\">Negative Log-Likelihood (NLL)</a> loss over a target dataset:",
+                        "$$\\mathcal{L}_{NLL} = -\\frac{1}{N} \\sum_{i=1}^{N} \\log P(w_i \\mid w_1, \\dots, w_{i-1})$$",
+                        "Minimizing this loss forces the model to assign higher probability mass to real, natural human text.",
+
+                        "<h3><strong>How We Evaluate Language Probability ?:</strong></h3>",
+                        "Perplexity is the standard metric used to evaluate language models. Mathematically, it is the exponentiated cross-entropy loss:",
+                        "$$\\text{PPL}(W) = \\exp\\left( \\mathcal{L}_{NLL} \\right) = \\exp\\left( -\\frac{1}{N} \\sum_{i=1}^{N} \\log P(w_i \\mid w_1, \\dots, w_{i-1}) \\right)$$",
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                            <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                                <strong>Intuition:</strong> Perplexity represents the model's "uncertainty." A perplexity of $k$ means that, on average, the model is as confused as if it were picking uniformly at random among $k$ choices for each token.<br><br>
+                                <strong>Lower is better:</strong> A model with a lower perplexity predicts text more accurately.
+                            </p>
+                        </div>`
 
                         
 
