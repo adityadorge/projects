@@ -604,21 +604,21 @@
                                 </div>
                             </div>`,
 
-                            `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
                                 <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
                                     <strong>Key Takeaway:</strong> At its core, the attention mechanism calculates dot products and similarity scores between Query and Key vectors to decide which tokens in a sentence should pay attention to each other.
                                 </p>
                             </div>`,
 
-                            // closing remarks
-                            "<h2><strong>Wrapping Up & What's Next</strong></h2>",
-                            "Congratulations! You now have a rock-solid grasp of the fundamental building blocks - scalars, vectors, matrices, dot products, and similarity metrics that make artificial intelligence possible. But while we've seen how AI models manipulate numbers, computers don't naturally read human text. So how do we convert raw sentences into these mathematical vectors in the first place?",
+                        // closing remarks
+                        "<h2><strong>Wrapping Up & What's Next</strong></h2>",
+                        "Congratulations! You now have a rock-solid grasp of the fundamental building blocks - scalars, vectors, matrices, dot products, and similarity metrics that make artificial intelligence possible. But while we've seen how AI models manipulate numbers, computers don't naturally read human text. So how do we convert raw sentences into these mathematical vectors in the first place?",
                     ]
                 },
                 {
                     id: "doc-abstract",
-                    logCode: "// ARCHIVE LOG 01.B",
-                    navTitle: "02 / NLP FUNDAMENTALS",
+                    logCode: "// ARCHIVE LOG 02.A",
+                    navTitle: "02.A / NLP FUNDAMENTALS",
                     title: "Understanding Language",
                     quote: `<blockquote class="my-8 border-l-4 brutalist-border pl-6 py-4 brutalist-bg">
                         <p class="text-sm lg:text-xl italic font-serif tracking-wide leading-relaxed brutalist-text">
@@ -628,11 +628,11 @@
                     paragraphs: [
                         `<div class="my-8">
                             <h2 class="text-xl font-black mb-3">Why Is Human Language Hard for Machines?</h2>
-                        </div>`,                        
+                        </div>`,
                         "Every day, we communicate effortlessly. We switch between languages, use slang, emojis, jokes, and sometimes say less than we mean. Yet, other people usually understand us without much effort.<br><br><strong>Computers don't :(</strong>",
                         "It has never experienced happiness, seen a sunset, deposited money in a bank, or stood beside a river. To a machine, every document, tweet, email, or novel is nothing more than a sequence of symbols. Before a machine can understand text, those symbols must somehow be transformed into mathematical representations that algorithms can process.",
                         "This is the central challenge of <a href=\"https://en.wikipedia.org/wiki/Natural_language_processing\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">Natural Language Processing (NLP)</a>.",
-                                                                                         
+
                         `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50">
                             <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
                                 <strong>Example:</strong> "bro u coming?? 😂"
@@ -641,11 +641,11 @@
 
                         "Real-world language is rarely perfect. People misspell words, use slang, abbreviations, emojis, mix languages, and often ignore grammar and punctuation.",
                         "Most people instantly understand the message. A machine, however, must learn that <strong>\"u\"</strong> means <strong>\"you\"</strong>, the 😂 conveys emotion, and informal text follows entirely different patterns than formal language.",
-                        
+
                         // Section 2: How Models Learn Language
                         `<strong> So the real question is, how do models understand text?</strong>`,
                         "Language models learn by recognizing patterns in enormous collections of text, known as a <a href=\"https://en.wikipedia.org/wiki/Text_corpus\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">corpus</a> (plural: <em>corpora</em>). During training, a language model repeatedly observes which words tend to appear together and in what order. Over billions of examples, it begins to estimate the statistical likelihood of one word following another.",
-                        
+
                         "For example, suppose the model frequently encounters sentences like:",
                         `<ul class="list-disc list-inside space-y-1 my-3 brutalist-text-body">
                             <li>"The sun rises in the east."</li>
@@ -653,11 +653,11 @@
                             <li>"The sun provides light and heat."</li>
                         </ul>`,
 
-                        "After seeing millions of similar examples, the model learns the <strong>statistical relationships</strong> between these words: \"sun\" is strongly associated with words such as \"rises\", \"light\", \"heat\", and \"shining\".",        
+                        "After seeing millions of similar examples, the model learns the <strong>statistical relationships</strong> between these words: \"sun\" is strongly associated with words such as \"rises\", \"light\", \"heat\", and \"shining\".",
                         // Section 3: Cleaning Raw Text
                         `<strong>You might ask, Aditya, "Can we feed raw text directly into a language model?"</strong>`,
                         "Imagine teaching your child to read using books filled with random capital letters, broken words, unnecessary symbols, and inconsistent formatting. Learning would be a nightmare.",
-                      
+
                         "Language models face a similar challenge.",
                         // Text preprocessing 
                         "Before we ask a machine to learn the patterns hidden within language, we often need to clean and standardize the text it receives. This process, known as <a href=\"https://en.wikipedia.org/wiki/Text_processing\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">text preprocessing</a>, removes unnecessary inconsistencies while preserving the information that matters.",
@@ -678,10 +678,10 @@
                             <div class="brutalist-text p-2 border brutalist-border brutalist-surface">
                                 "dr. smith's ai-powered app cost $5.00!! viist [https://example.com/]"
                             </div>
-                        </div>`,  
+                        </div>`,
                         // Section: Handling Numbers, URLs, Emails, and HTML
                         `<strong>Handling Numbers, URLs, Emails & HTML:</strong> Raw text often contains numbers, URLs, email addresses, and HTML tags. Traditional NLP systems replace them with placeholder <code>&lt;PLACEHOLDER&gt;</code> tokens, while modern LLMs typically preserve and tokenize them directly.`,
-                        
+
                         `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
                             <div class="text-rose-600 dark:text-rose-400 font-bold mb-2">// AFTER LOWERCASE NORMALIZATION:</div>
                             <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-4">
@@ -702,10 +702,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>`,        
+                        </div>`,
                         // Section: Spelling Errors & Typos
-                       `<strong>Spelling Correction & Typo Handling: </strong>Fixing spelling errors or normalizing character repetitions (e.g., mapping <code>\"viist\"</code> to <code>\"visit\"</code>) prevents the vocabulary size from inflating unnecessarily with misspelled duplicates.`,
-                        
+                        `<strong>Spelling Correction & Typo Handling: </strong>Fixing spelling errors or normalizing character repetitions (e.g., mapping <code>\"viist\"</code> to <code>\"visit\"</code>) prevents the vocabulary size from inflating unnecessarily with misspelled duplicates.`,
+
                         `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs overflow-x-auto">
                             <div class="text-amber-600 dark:text-amber-400 font-bold mb-2">// BEFORE SPELLING & TYPO CORRECTION:</div>
                             <div class="brutalist-text p-2 border brutalist-border brutalist-surface mb-4">
@@ -715,11 +715,11 @@
                             <div class="brutalist-text p-2 border brutalist-border brutalist-surface">
                                 "dr. smith's ai-powered app cost $5.00! visit [https://example.com/]"
                             </div>
-                        </div>`,                         
+                        </div>`,
                         // Section: Stemming & Lemmatization Intro
                         "So far, we've cleaned and normalized our text, but another challenge still remains.",
-                        
-                        "Consider the following words: \"play \| playing \| played \| plays\"",    
+
+                        "Consider the following words: \"play \| playing \| played \| plays\"",
 
                         "Although these words are different forms of <strong>play</strong>, a computer initially treats each as a separate token, unnecessarily expanding the vocabulary.",
                         "To simplify text and group related word forms together, traditional NLP pipelines relied on two core techniques: <a href=\"https://en.wikipedia.org/wiki/Stemming\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">stemming</a> and <a href=\"https://en.wikipedia.org/wiki/Lemmatisation\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">lemmatization</a>.",
@@ -736,7 +736,7 @@
                                 }
                             ]
                         },
-                        "In summary, removing unnecessary spaces, stripping noisy punctuation, and standardizing casing are all key steps in <a href=\"https://en.wikipedia.org/wiki/Text_normalization\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">text normalization</a>.",  
+                        "In summary, removing unnecessary spaces, stripping noisy punctuation, and standardizing casing are all key steps in <a href=\"https://en.wikipedia.org/wiki/Text_normalization\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">text normalization</a>.",
                         "We still can't feed the entire text directly to the model. Before any text reaches a language model, it must first be broken down into chunks called <strong>tokens</strong>.",
                         // Section: Token Types
                         "Depending on the tokenization strategy, a token can represent different things:",
@@ -769,7 +769,7 @@
                         </ul>`,
                         // Section: Building the Vocabulary
                         "Once our text is chopped up into tokens, the model needs an official index of every word it knows. This is called the <strong>vocabulary</strong> - a master list containing every <em>unique</em> token the model can recognize.",
-                        
+
                         "Regardless of how many times a word appears in a massive dataset, it gets recorded in the vocabulary <strong>exactly once</strong> and assigned a permanent numerical address known as a <strong>Token ID</strong>.",
 
                         "Let's see this in action with a quick example:",
@@ -842,7 +842,6 @@
 
                         "The word <code>\"scripting\"</code> is not present in the vocabulary, making it an Out-of-Vocabulary (OOV) word.",
 
-                        "<h3><strong>The Traditional NLP Approach: Special &lt;UNK&gt; Token</strong></h3>",
                         "In traditional NLP systems, unknown words were typically replaced with a special token such as <code>&lt;UNK&gt;</code>:",
 
                         `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs">
@@ -852,10 +851,9 @@
                             </div>
                         </div>`,
 
-                        "While this allows the model to process the sentence, it also loses the identity and meaning of the unknown word. The model only knows that an unknown token appeared—it has no information about what that word actually was.",
+                        "While this allows the model to process the sentence, it also loses the identity and meaning of the unknown word, it has no information about what that word actually was.",
 
-                        "<h3><strong>The Modern Approach: Subword Tokenization</strong></h3>",
-                        "Modern LLMs solve this problem using <strong>subword tokenization</strong>. Instead of treating an unseen word as completely unknown, they break it into smaller pieces that already exist in the vocabulary.",
+                        "In Modern LLMs solve this problem using <strong>subword tokenization</strong>. Instead of treating an unseen word as completely unknown, they break it into smaller pieces that already exist in the vocabulary.",
 
                         `<div class="my-6 p-5 border brutalist-border brutalist-bg font-mono text-xs">
                             <div class="text-emerald-600 dark:text-emerald-400 font-bold mb-2">// SUBWORD SPLIT:</div>
@@ -872,8 +870,8 @@
                         // Inside pageData.sections[1] (id: "doc-abstract"), add these lines to the paragraphs array:
 
                         "Let’s take a look at some of the most popular subword tokenization algorithms.",
-                        "Created by Philip Gage in 1994, <a href=\"https://en.wikipedia.org/wiki/Byte_pair_encoding\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">Byte Pair Encoding (BPE)</a> was originally a file compression algorithm that replaced frequent byte pairs with single bytes. In 2015, Rico Sennrich et al. adapted it for NLP to solve out-of-vocabulary text issues by breaking words into reusable subword units. Today, it serves as the primary tokenization method powering modern Large Language Models like GPT and LLaMA.",           
-                        `<strong>How does Byte Pair Encoding (BPE) work?</strong>`,             
+                        "Created by Philip Gage in 1994, <a href=\"https://en.wikipedia.org/wiki/Byte_pair_encoding\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">Byte Pair Encoding (BPE)</a> was originally a file compression algorithm that replaced frequent byte pairs with single bytes. In 2015, Rico Sennrich et al. adapted it for NLP to solve out-of-vocabulary text issues by breaking words into reusable subword units. Today, it serves as the primary tokenization method powering modern Large Language Models like GPT and LLaMA.",
+                        `<strong>How does Byte Pair Encoding (BPE) work?</strong>`,
                         "Unlike a word-level tokenizer, BPE does not start with a vocabulary. Instead, it builds its vocabulary by learning from the training data. As it processes more data, it notices which characters or groups of characters frequently appear together. It then combines these frequent pairs into a single token. By repeating this process over and over, BPE gradually builds a vocabulary of meaningful subwords and even complete words.",
                         // Inside pageData.sections[1] (id: "doc-abstract"), inside the paragraphs array:
 
@@ -1281,8 +1279,8 @@
     </p>
 </div>`,
 
-"Even though the word <strong>bank</strong> is same in both sentences, its meaning changes because of the words around it. Those surrounding words provide the <strong>context</strong> that allows both humans and language models to determine true word sense.",
-                `<p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
+                        "Even though the word <strong>bank</strong> is same in both sentences, its meaning changes because of the words around it. Those surrounding words provide the <strong>context</strong> that allows both humans and language models to determine true word sense.",
+                        `<p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
                     <strong>Context Window Limit:</strong> 10 tokens<br>
                     <span class="text-xs brutalist-text-muted">→ Here, <strong>Context Window</strong> refers to maximum number of tokens that a language model can process at one time</span>
                 </p>
@@ -1290,8 +1288,8 @@
                     <strong>Input Sentence:</strong> "The weather today is sunny with light winds and clear skies across the city."<br>
                     <span class="text-xs brutalist-text-muted">→<strong> (~14 tokens)</strong></span>
                 </p>`,
-                "Because the input exceeds the 10-token limit, the model cannot process the full sentence at once. ",
-                `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50 space-y-3">
+                        "Because the input exceeds the 10-token limit, the model cannot process the full sentence at once. ",
+                        `<div class="my-6 border-l-4 border-indigo-600 pl-4 py-3 brutalist-bg bg-opacity-50 space-y-3">
                     <p class="text-sm lg:text-base font-normal tracking-wide leading-relaxed brutalist-text-body">
                         <strong>First 10 Tokens (Prefix Focus)</strong><br>
                         <strong>Processed: </strong> "The weather today is sunny with light winds and clear"<br>
@@ -1302,8 +1300,8 @@
                         <strong>Processed: </strong> "sunny with light winds and clear skies across the city."<br>
                         <strong>Ignored: </strong>"The weather today is..."<br>
                 </div>`,
-                "We've explored tokenization, context, and how language models interpret text. Now it's time to bring everything together.",
-                "From simple autocorrect systems to powerful models like GPT-4, they all share one fundamental objective of predicting the next token in a sequence. This objective forms the foundation of modern <a href=\"https://en.wikipedia.org/wiki/Language_model\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">language modeling</a>.",
+                        "We've explored tokenization, context, and how language models interpret text. Now it's time to bring everything together.",
+                        "From simple autocorrect systems to powerful models like GPT-4, they all share one fundamental objective of predicting the next token in a sequence. This objective forms the foundation of modern <a href=\"https://en.wikipedia.org/wiki/Language_model\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">language modeling</a>.",
 
                         "<h2><strong>So, what do we actually mean by Language Modeling?</strong></h2>",
                         "At its core, <strong>Language Modeling</strong> seeks to answer one fundamental question:",
@@ -1315,7 +1313,7 @@
                         "For instance, a trained language model recognizes that:",
                         "$$\\text{P(\"The cat sat on the mat\")} \\gg \\text{P(\"The mat on sat cat the\")}$$",
 
-                        
+
                         "Language modeling is the statistical task of predicting the probability of a sequence of words. In practice, it most often comes down to one fundamental operation: <strong>predicting the next word given the text that came before it</strong>.",
 
                         `<div class="my-6 p-5 border brutalist-border brutalist-bg text-sm">
@@ -1384,14 +1382,14 @@
                             <p class="mt-3 text-xs brutalist-text-muted italic">
                                 Then repeat: the updated sentence becomes the new input context for the next iteration.
                             </p>
-                        </div>`,                      
+                        </div>`,
 
                         "A language model calculates the probability distribution over a vocabulary for the next token $w_i$, given the context of preceding tokens $W = (w_1, w_2, \\dots, w_N)$ :",
                         "$$P(W) = P(w_1, w_2, \\dots, w_N)$$",
                         "By applying the <a href=\"https://en.wikipedia.org/wiki/Chain_rule_(probability)\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\">chain rule of probability</a>, the likelihood of an entire sequence of $N$ words can be decomposed into a product of conditional probabilities:",
                         "$$P(W) = P(w_1, w_2, \\dots, w_N) = \\prod_{i=1}^{N} P(w_i \\mid w_1, w_2, \\dots, w_{i-1})$$",
 
-                        "<h3><strong>Concrete Example</strong></h3>",
+                        "<h3><strong>A concrete example would be:</strong></h3>",
                         "To calculate $P(\\text{\"AI is transforming the world\"})$:",
                         "$$P(\\text{\"AI\"}) \\times P(\\text{\"is\"} \\mid \\text{\"AI\"}) \\times P(\\text{\"transforming\"} \\mid \\text{\"AI is\"}) \\times P(\\text{\"the\"} \\mid \\text{\"AI is transforming\"}) \\times \\dots$$",
                         "Instead of predicting the whole sentence at once, the model predicts one token after another. The probability of the complete sentence is obtained by multiplying the probabilities of each token conditioned on the tokens that came before it.",
@@ -1409,20 +1407,479 @@
                                 <strong>Lower is better:</strong> A model with a lower perplexity predicts text more accurately.
                             </p>
                         </div>`
-
-                        
-
-
-                 ]
+                    ]
                 },
                 {
                     id: "doc-methodology",
                     logCode: "// ARCHIVE LOG 02.B",
-                    navTitle: "02 / ANCHOR INJECTION METHODOLOGY",
-                    title: "Anchor Injection<br>Methodology",
-                    isStriped: true,
+                    navTitle: "02.B / SEQUENCE MODELING",
+                    title: "When Order Matters",
+                    quote: `<blockquote class="my-8 border-l-4 brutalist-border pl-6 py-4 brutalist-bg">
+                        <p class="text-sm lg:text-xl italic font-serif tracking-wide leading-relaxed brutalist-text">
+                            “Predicting what comes next when the order of things matters.”
+                        </p>
+                    </blockquote>`,
                     paragraphs: [
-                        "The operational framework requires rigorous phase alignment to execute safely without displacing local benthic microclimates. The strategy relies on bypassing standard open-air storage limitations completely."
+                        "As we have seen, Token IDs are simply arbitrary integer labels assigned to words or subwords. Crucially, these numbers carry zero semantic meaning",
+                        `<h3><strong>Why the Word "Sequence" Matters ?</strong></h3>`,
+                        `<div class="my-6 space-y-3 border-l-4 border-indigo-600 brutalist-bg bg-opacity-50 py-3 pl-4">
+                            <p class="brutalist-text-body text-sm font-normal leading-relaxed tracking-wide lg:text-base">
+                                $\\text{"Dog bites man"} \\longrightarrow \\text{Boring everyday news.}$
+                            </p>
+                            <p class="brutalist-text-body text-sm font-normal leading-relaxed tracking-wide lg:text-base">
+                                $\\text{"Man bites dog"} \\longrightarrow \\text{Front-page breaking news!}$
+                            </p>
+                        </div>`,
+                        "Similarly, mapping the phrase \"Dog bites man\" to [15, 203, 87] does not mean the word \"bites\" (ID 203) is numerically \"greater than\" or \"more important\" than \"man\" (ID 87). To a machine at this stage, these integers are just categorical IDs in a dictionary.",
+                        `<strong>Before diving into sequence modeling, let’s first step back and look at how we represent words</strong>`,
+                        "<a href=\"https://en.wikipedia.org/wiki/Bag-of-words_model\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\">Bag of Words</a> transforms text by asking two simple questions:",
+                        `<ul class="list-disc list-inside space-y-2">
+                            <li>Which words are present in the text?</li>
+                            <li>How many times does each word appear?</li>
+                        </ul>`,
+                        `
+                        <p class="brutalist-text-body">
+                            Given a shared vocabulary vector 
+                            $\\mathcal{V} = [\\text{"the"}, \\text{"cat"}, \\text{"chased"}, \\text{"mouse"}]$, 
+                            we map sentences into a frequency vector $\\mathbf{v} \\in \\mathbb{R}^{|\\mathcal{V}|}$:
+                        </p>`,
+
+                        `<p class="brutalist-text-body">
+                            $$\\text{Sentence 1: "The cat chased the mouse"} \\implies \\begin{bmatrix} 2 & 1 & 1 & 1 \\end{bmatrix}$$
+                        </p>`,
+                        `<p class="brutalist-text-body">
+                            $$\\text{Sentence 2: "The mouse chased the cat"} \\implies \\begin{bmatrix} 2 & 1 & 1 & 1 \\end{bmatrix}$$
+                        </p>`,
+                        `<p class="brutalist-text-body "> Imagine placing every word from a sentence into a physical bag and shaking it up. 
+                            You preserve the word counts, but you completely destroy the order
+                            $w_1, w_2, \\dots, w_N$.</p>`,
+                        `<p class="brutalist-text-body">
+                            Because the representation depends solely on term frequency, identical word counts yield identical vectors:
+                            $$\\mathbf{v}_1 = \\mathbf{v}_2 = \\begin{bmatrix} 2 & 1 & 1 & 1 \\end{bmatrix}^T$$
+                        </p>`,
+                        "Even though \"The cat chased the mouse\"  and \"The mouse chased the cat\" describes different meaning, Bag of Words cannot distinguish between them.",
+                        `<p class="brutalist-text-body ">
+                            Bag of Words treats every word in the vocabulary as a mutually independent, orthogonal basis vector in an $N$-dimensional space. 
+                            If we take the words "car" and "automobile", they occupy completely separate coordinate axes:
+                            $$\\mathbf{e}_{\\text{car}} = \\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}, \\quad \\mathbf{e}_{\\text{automobile}} = \\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}$$
+                            Evaluating their directional similarity using the dot product yields:
+                            $$\\mathbf{e}_{\\text{car}} \\cdot \\mathbf{e}_{\\text{automobile}} = 0 \\implies \\theta = 90^\\circ$$
+                            To a Bag of Words model, "car" and "automobile" are as completely unrelated as "car" and "banana". The model has no mechanism to recognize that two distinct strings share near-identical semantic meanings.
+                        </p>`,
+                        `<p class="brutalist-text-body">
+                            To overcome these limitations, Tomas Mikolov and his colleagues at Google introduced <a href="https://en.wikipedia.org/wiki/Word2vec" target="_blank" class="underline underline-offset-4 decoration-indigo-600 decoration-2"><strong>Word2Vec</strong></a> in 2013. Word2Vec is based on a simple idea: words that appear in similar contexts tend to have similar meanings.
+                        </p>`,
+                        `<p class="brutalist-text-body">
+    For example, consider the words <strong>King</strong>, <strong>Queen</strong>, <strong>Man</strong>, and <strong>Woman</strong>. Word2Vec learns that the relationship between King and Queen is analogous to the relationship between Man and Woman. As a result, we can perform vector arithmetic directly on their embeddings:
+    $$\\vec{v}_{\\text{King}} - \\vec{v}_{\\text{Man}} + \\vec{v}_{\\text{Woman}} \\approx \\vec{v}_{\\text{Queen}}$$
+</p>`,
+                        // --- TRADITIONAL NLP & ONE-HOT ENCODING ---
+                        `<h3><strong>So, How Does Word2Vec Actually Work?</strong></h3>`,
+                        "Word2Vec addresses the limitations of one-hot vectors by constructing a shallow 2-layer neural network trained on a sliding context window of size $c$ over a text corpus.",
+                        // --- WORD2VEC: CBOW ARCHITECTURE ---
+                        `<img src='../../../static/llm-baseline-prerequisites/cbow-%26-skipgram-architecture.png' alt='CBOW Architecture Diagram' class='blog-image'>`,
+                        "<h3><strong>1. Continuous Bag-of-Words (CBOW) Architecture</strong></h3>",
+                        "The <strong>CBOW</strong> architecture predicts a target word $w_t$ based on its surrounding context words $\{w_{t-c}, \\dots, w_{t-1}, w_{t+1}, \\dots, w_{t+c}\}$.",
+
+                        `<ul class="list-disc list-inside space-y-2 my-3 brutalist-text-body">
+                            <li><strong>Input Layer:</strong> Takes one-hot encoded vectors for $2c$ surrounding context words.</li>
+                            <li><strong>Projection Layer:</strong> Averages the context embeddings retrieved from the input weight matrix $W \\in \\mathbb{R}^{|V| \\times d}$:</li>
+                        </ul>`,
+
+                        "$$\\mathbf{h} = \\frac{1}{2c} \\sum_{-c \\le j \\le c, j \\neq 0} \\mathbf{v}_{w_{t+j}}$$",
+
+                        "<strong>Output Layer:</strong> Multiplies $\\mathbf{h}$ by the hidden-to-output matrix $W' \\in \\mathbb{R}^{d \\times |V|}$ and applies Softmax to compute the probability of target word $w_t$:",
+
+                        "$$P(w_t \\mid \\text{context}) = \\frac{\\exp(\\mathbf{v}'_{w_t}{}^T \\mathbf{h})}{\\sum_{k=1}^{|V|} \\exp(\\mathbf{v}'_{w_k}{}^T \\mathbf{h})}$$",
+
+                        // --- WORD2VEC: SKIP-GRAM ARCHITECTURE ---
+                        "<h3><strong>2. Skip-gram Architecture</strong></h3>",
+                        "The <strong>Skip-gram</strong> architecture flips CBOW: given a single central target word $w_t$, it predicts the probability distribution of surrounding context words within window $c$.",
+
+                        `<ul class="list-disc list-inside space-y-2 my-3 brutalist-text-body">
+                            <li><strong>Input Layer:</strong> One-hot vector of the single central target word $w_t$.</li>
+                            <li><strong>Projection Layer:</strong> Directly selects the target word's embedding vector from matrix $W$:</li>
+                        </ul>`,
+
+                        "$$\\mathbf{h} = \\mathbf{v}_{w_t}$$",
+                        "<strong>Output Layer:</strong> Computes independent Softmax probability distributions for each context position $j \\in [-c, c]$ (where $j \\neq 0$):",
+                        "$$P(w_{t+j} \\mid w_t) = \\frac{\\exp(\\mathbf{v}'_{w_{t+j}}{}^T \\mathbf{v}_{w_t})}{\\sum_{k=1}^{|V|} \\exp(\\mathbf{v}'_{w_k}{}^T \\mathbf{v}_{w_t})}$$",
+                        "Word2Vec learns word embeddings by looking at a <strong>small context window</strong> around each word. While this works well, it doesn't fully utilize the global statistics of the entire corpus.",
+                        "To address this limitation, researchers at Stanford University introduced <a href=\"https://en.wikipedia.org/wiki/GloVe_(machine_learning)\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\"><strong>GloVe (Global Vectors for Word Representation)</strong></a> in 2014.",
+                        "The key idea behind GloVe is that it's not just how often two words appear together that matters, but how their co-occurrence patterns compare with other words. These patterns reveal meaningful relationships between words.",
+                        `<p class="brutalist-text-body">
+                            Let:
+                            <br />
+                            • $X_{ij}$ be the number of times word $j$ appears in the context of target word $i$.
+                            <br />
+                            • $X_i = \\sum_k X_{ik}$ be the total number of times any word appears in the context of word $i$.
+                            <br />
+                            • $P_{ij} = P(j \\mid i) = \\frac{X_{ij}}{X_i}$ be the probability that word $j$ appears in the context of word $i$.
+                        </p>`,
+                        `<p class="brutalist-text-body">
+    Before model training begins, GloVe constructs a giant $V \\times V$ global co-occurrence matrix $X$, where $V$ is the vocabulary size.
+</p>
+<p class="brutalist-text-body">
+    Consider two target words: $i = \\text{"ice"}$ and $j = \\text{"steam"}$. To analyze their relationship, we inspect their co-occurrence probabilities with various probe words $k$:
+</p>
+
+<!-- Simple Table with Black Borders -->
+<div>
+    <table class="w-full border-collapse border border-black text-left">
+        <thead>
+            <tr>
+                <th class="border border-black px-4 py-2">Probability & Ratio</th>
+                <th class="border border-black px-4 py-2">$k = \\text{"solid"}$</th>
+                <th class="border border-black px-4 py-2">$k = \\text{"gas"}$</th>
+                <th class="border border-black px-4 py-2">$k = \\text{"water"}$</th>
+                <th class="border border-black px-4 py-2">$k = \\text{"fashion"}$</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border border-black px-4 py-2">$P(k \\mid \\text{"ice"})$</td>
+                <td class="border border-black px-4 py-2">Large</td>
+                <td class="border border-black px-4 py-2">Small</td>
+                <td class="border border-black px-4 py-2">Large</td>
+                <td class="border border-black px-4 py-2">Small</td>
+            </tr>
+            <tr>
+                <td class="border border-black px-4 py-2">$P(k \\mid \\text{"steam"})$</td>
+                <td class="border border-black px-4 py-2">Small</td>
+                <td class="border border-black px-4 py-2">Large</td>
+                <td class="border border-black px-4 py-2">Large</td>
+                <td class="border border-black px-4 py-2">Small</td>
+            </tr>
+            <tr>
+    <td class="border-x border-black px-4 py-2 whitespace-nowrap">Ratio: $\\frac{P(k \\mid \\text{"ice"})}{P(k \\mid \\text{"steam"})}$</td>
+    <td class="border-x border-black px-4 py-2">$\\gg 1$</td>
+    <td class="border-x border-black px-4 py-2">$\\ll 1$</td>
+    <td class="border-x border-black px-4 py-2">$\\approx 1$</td>
+    <td class="border-x border-black px-4 py-2">$\\approx 1$</td>
+</tr>
+        </tbody>
+    </table>
+</div>
+
+<ul class="brutalist-text-body">
+    <li>• $k = \\text{"solid"}$ is property-related to ice but not steam $\\rightarrow$ Ratio is very large.</li>
+    <li>• $k = \\text{"gas"}$ is property-related to steam but not ice $\\rightarrow$ Ratio is very small.</li>
+    <li>• $k = \\text{"water"}$ is related to both $\\rightarrow$ Ratio is close to 1.</li>
+    <li>• $k = \\text{"fashion"}$ is related to neither $\\rightarrow$ Ratio is close to 1.</li>
+</ul>
+
+<p class="brutalist-text-body">
+    The ratio $\\frac{P_{ik}}{P_{jk}}$ cleanly isolates relevant semantic features and noise. Therefore, word vector learning should aim to model these probability ratios rather than raw probabilities directly (Pennington et al., 2014).
+</p>`,
+`<h2 class="text-xl font-bold tracking-tight text-black lg:text-2xl mt-8 mb-4">How Does GloVe Work? (Step-by-Step)</h2>
+
+<p class="brutalist-text-body">
+    Unlike Word2Vec, which learns by sliding a window over text to predict nearby words online, GloVe (Global Vectors) learns by analyzing word co-occurrence patterns across an entire corpus all at once.
+</p>
+
+<p class="brutalist-text-body font-semibold mt-3">
+    Key Difference in Perspective:
+</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>Word2Vec asks:</strong> "Can I predict the next word in this sentence?"</li>
+    <li><strong>GloVe asks:</strong> "How often do these two words appear near each other across the entire corpus, and what does that tell us about their relationship?"</li>
+</ul>
+
+<p class="brutalist-text-body">
+    To turn raw text into meaningful vector embeddings, GloVe follows four key steps.
+</p>
+
+<!-- Step 1 -->
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 1: Build the Global Co-Occurrence Matrix</h3>
+
+<p class="brutalist-text-body">
+    First, GloVe scans the entire text dataset with a fixed context window (e.g., 5 words to the left and right) to count how often every pair of words appears together.
+</p>
+
+<p class="brutalist-text-body mt-3">
+    To see this in action, consider a tiny sample corpus:
+</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li>"I like coffee."</li>
+    <li>"I like tea."</li>
+    <li>"Coffee tastes great."</li>
+    <li>"Tea tastes great."</li>
+</ul>
+
+<p class="brutalist-text-body">
+    If we set our context window size to 1 (only looking at immediate neighbors), we can record every pair of adjacent words. After scanning all four sentences, GloVe compiles those counts into a Global Co-Occurrence Matrix ($X$):
+</p>
+
+<!-- Matrix Table -->
+<div class="my-6 overflow-x-auto">
+    <table class="w-full border-collapse border-x border-black text-left text-sm text-black">
+        <thead>
+            <tr class="text-black">
+                <th class="border-x border-black px-4 py-2"></th>
+                <th class="border-x border-black px-4 py-2 font-bold">I</th>
+                <th class="border-x border-black px-4 py-2 font-bold">like</th>
+                <th class="border-x border-black px-4 py-2 font-bold">coffee</th>
+                <th class="border-x border-black px-4 py-2 font-bold">tea</th>
+                <th class="border-x border-black px-4 py-2 font-bold">tastes</th>
+                <th class="border-x border-black px-4 py-2 font-bold">great</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">I</th>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">2</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+            </tr>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">like</th>
+                <td class="border-x border-black px-4 py-2">2</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+            </tr>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">coffee</th>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+            </tr>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">tea</th>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+            </tr>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">tastes</th>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">2</td>
+            </tr>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">great</th>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">2</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="brutalist-text-body">
+    Notice something remarkable here: coffee and tea never appear in the same sentence together (their intersection in the matrix is 0).
+</p>
+
+<p class="brutalist-text-body mt-2">
+    However, look at their neighboring rows:
+</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>coffee</strong> appears next to <em>like</em> (1 time) and <em>tastes</em> (1 time).</li>
+    <li><strong>tea</strong> appears next to <em>like</em> (1 time) and <em>tastes</em> (1 time).</li>
+</ul>
+
+<p class="brutalist-text-body">
+    Because coffee and tea share identical co-occurrence profiles across the corpus, GloVe deduces that they share a very similar semantic meaning. This concept—known as the <strong>Distributional Hypothesis</strong>—is the core engine behind GloVe.
+</p>
+
+<!-- Step 2 -->
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 2: Represent Words as Vectors & Use the Dot Product</h3>
+
+<p class="brutalist-text-body">
+    Next, GloVe assigns every word $i$ in the vocabulary a dense vector of real numbers, $w_i \\in \\mathbb{R}^d$ (typically 50 to 300 dimensions).
+</p>
+
+<p class="brutalist-text-body">
+    To measure how compatible or similar two word vectors are, GloVe calculates their dot product:
+    $$\\text{Similarity}(w_i, w_j) = w_i^T w_j$$
+</p>
+
+<h4 class="text-base font-bold text-black mt-4 mb-2">Quick Dot Product Intuition</h4>
+
+<p class="brutalist-text-body">
+    Suppose our model learns a 2D vector for coffee and tea:
+    $$w_{\\text{coffee}} = \\begin{bmatrix} 0.8 \\\\ 0.3 \\end{bmatrix}, \\quad w_{\\text{tea}} = \\begin{bmatrix} 0.7 \\\\ 0.4 \\end{bmatrix}$$
+</p>
+
+<p class="brutalist-text-body">
+    Their dot product is:
+    $$w_{\\text{coffee}}^T w_{\\text{tea}} = (0.8 \\times 0.7) + (0.3 \\times 0.4) = 0.56 + 0.12 = 0.68$$
+</p>
+
+<p class="brutalist-text-body mt-2">Key interpretations:</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>Large positive dot product:</strong> The vectors point in a similar direction (high compatibility and similarity).</li>
+    <li><strong>Dot product near zero:</strong> The words are completely unrelated or orthogonal in concept space.</li>
+</ul>
+
+<!-- Step 3 -->
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 3: Match Vectors to Log Co-Occurrence Counts</h3>
+
+<p class="brutalist-text-body">
+    Now comes GloVe's main learning objective: Make the dot product of two word vectors reflect how often those words co-occur in real text.
+</p>
+
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li>If word $i$ and word $j$ appear together frequently in the matrix ($X_{ij}$ is large), their vector dot product $w_i^T w_j$ should also be large.</li>
+    <li>Instead of matching raw counts directly (which can range from $1$ to $1,000,000+$), GloVe fits the dot product to the logarithm of the co-occurrence count:</li>
+</ul>
+
+<p class="brutalist-text-body my-2">
+    $$w_i^T \\tilde{w}_j \\approx \\log(X_{ij})$$
+</p>
+
+<p class="brutalist-text-body">
+    To make the system symmetric and account for word frequency baseline offsets, GloVe adds a target bias $b_i$ and context bias $\\tilde{b}_j$:
+    $$w_i^T \\tilde{w}_j + b_i + \\tilde{b}_j = \\log(X_{ij})$$
+</p>
+
+<!-- Step 4 -->
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 4: Fix Real-World Edge Cases with a Weighting Function</h3>
+
+<p class="brutalist-text-body">
+    In practice, fitting $\\log(X_{ij})$ runs into two major problems:
+</p>
+
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>Zero Co-occurrences:</strong> Many word pairs never appear together ($X_{ij} = 0$), but $\\log(0)$ is mathematically undefined ($-\\infty$).</li>
+    <li><strong>Stop Word Domination:</strong> Ultra-common words like "the", "is", and "and" co-occur constantly with almost everything and would drown out meaningful word relationships.</li>
+</ul>
+
+<p class="brutalist-text-body">
+    GloVe solves both problems by wrapping the objective in a weighted least squares loss function using a capped weighting function $f(X_{ij})$:
+    $$f(x) = \\begin{cases} \\left(\\frac{x}{x_{\\max}}\\right)^\\alpha & \\text{if } x < x_{\\max} \\\\ 1 & \\text{otherwise} \\end{cases}$$
+    (Standard values: $x_{\\max} = 100$, $\\alpha = 0.75$)
+</p>
+<!-- Step 5 -->
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 5: Combine Dual Vectors for the Final Output</h3>
+
+<p class="brutalist-text-body">
+    During training, GloVe actually learns two separate vectors for every word:
+</p>
+
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>Target vector ($w_i$):</strong> Used when the word acts as the central target word.</li>
+    <li><strong>Context vector ($\\tilde{w}_i$):</strong> Used when the word appears in another word's context window.</li>
+</ul>
+
+<p class="brutalist-text-body">
+    Because the co-occurrence matrix is symmetric, $w$ and $\\tilde{w}$ learn nearly identical representations—differing only due to random weight initialization.
+</p>
+
+<p class="brutalist-text-body">
+    Once training completes, GloVe simply adds the two vectors together:
+    $$w_{\\text{final}} = w_i + \\tilde{w}_i$$
+</p>
+
+<p class="brutalist-text-body mt-2">
+    This simple addition achieves key practical benefits:
+</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li>Reduces vector noise</li>
+    <li>Stabilizes mathematical representations</li>
+    <li>Yields final high-quality embeddings ready for downstream NLP tasks</li>
+</ul>`,
+`<h2><strong>Mathematical Derivation of the GloVe Objective</strong></h2>
+
+    <p class="brutalist-text-body">
+        To force our word vectors to mirror these probability ratios, the researchers stepped through four logical stages:
+    </p>
+
+    <div class="space-y-4 my-4">
+        <div>
+            <h3><strong>Step 1: Start with the Ratio Goal</strong></h3>
+            <p class="brutalist-text-body">
+                We want some function $F$ that takes the vectors for target words $w_i, w_j$ and context word $\\tilde{w}_k$ to yield the probability ratio:
+                $$F(w_i, w_j, \\tilde{w}_k) = \\frac{P_{ik}}{P_{jk}}$$
+            </p>
+        </div>
+
+        <div>
+            <h3><strong>Step 2: Use Vector Differences</strong></h3>
+            <p class="brutalist-text-body">
+                To encode linear directions (so $w_i - w_j$ represents a concept like "temperature difference"), we feed the difference between word vectors into the dot product with the probe word:
+                $$F\\left((w_i - w_j)^T \\tilde{w}_k\\right) = \\frac{P_{ik}}{P_{jk}}$$
+            </p>
+        </div>
+
+        <div>
+            <h3 ><strong>Step 3: Turn Division into Subtraction</strong></h3>
+            <p class="brutalist-text-body">
+                To solve this cleanly, $F$ needs to turn vector addition into scalar multiplication—a property unique to the exponential function ($\\exp(x)$).
+                Taking the log on both sides simplifies the relationship into straight subtraction:
+                $$w_i^T \\tilde{w}_k = \\log(P_{ik}) = \\log(X_{ik}) - \\log(X_i)$$
+                (where $X_{ik}$ is the co-occurrence count between word $i$ and $k$, and $X_i$ is the total count for word $i$.)
+            </p>
+        </div>
+
+        <div>
+            <h3 ><strong>Step 4: Add Bias Terms for Symmetry</strong></h3>
+            <p class="brutalist-text-body">
+                Because $\\log(X_i)$ depends only on word $i$, we absorb it into a trainable bias term $b_i$. We also add a context bias $\\tilde{b}_k$ so target and context words remain completely symmetric:
+                $$w_i^T \\tilde{w}_k + b_i + \\tilde{b}_k = \\log(X_{ik})$$
+            </p>
+        </div>
+    </div>
+
+    <p class="brutalist-text-body">
+        This elegant formula means: <strong>The dot product of two word vectors plus their biases should equal the log of their co-occurrence count.</strong>
+    </p>
+
+    <!-- Section 4 -->
+    <h2><strong>4. The Loss Function & "The Secret Sauce"</strong></h2>
+
+    <p class="brutalist-text-body">
+        To train these vectors, GloVe uses a weighted least squares loss function:
+        $$J = \\sum_{i,j=1}^V f(X_{ij}) \\left( w_i^T \\tilde{w}_j + b_i + \\tilde{b}_j - \\log X_{ij} \\right)^2$$
+    </p>
+
+    <p class="brutalist-text-body">
+        Why do we need the weighting function $f(X_{ij})$?
+    </p>
+
+    <p class="brutalist-text-body">
+        Raw counts $X_{ij}$ cause two practical problems:
+    </p>
+
+    <ul class="space-y-1 brutalist-text-body">
+        <li>1. Words that never co-occur have $X_{ij} = 0$, and $\\log(0)$ is undefined.</li>
+        <li>2. Ultra-frequent stop words like "the" or "is" co-occur so often they would completely steamroll all other word pairs.</li>
+    </ul>
+
+    <p class="brutalist-text-body">
+        GloVe solves this with a clever weighting curve $f(x)$:
+        $$f(x) = \\begin{cases} \\left(\\frac{x}{x_{\\max}}\\right)^\\alpha & \\text{if } x < x_{\\max} \\\\ 1 & \\text{otherwise} \\end{cases}$$
+    </p>
+
+    <p class="brutalist-text-body">
+        How this weighting trick works:
+    </p>
+
+    <ul class="space-y-2 brutalist-text-body">
+        <li>• If $X_{ij} = 0$, $f(0) = 0$, so zero-count pairs are simply ignored without breaking the log math.</li>
+        <li>• Rare words get small weights so noise doesn't corrupt the embeddings.</li>
+        <li>• Frequent words hit a hard ceiling at $x_{\\max} = 100$ (with power $\\alpha = 0.75$), preventing them from dominating training.</li>
+    </ul>`,
+                        
+
+
                     ],
                     gridItems: [
                         {
