@@ -258,7 +258,7 @@
                         </h3>
                     </div>
                     <div class="mt-8">
-                        <a href="../../topics.html"
+                        <a href="../../archive.html"
                             class="inline-flex items-center justify-between w-full p-4 border brutalist-border brutalist-surface brutalist-text text-xs font-mono font-bold tracking-widest uppercase hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 group">
                             <span>VIEW ALL BLOG TOPICS</span>
                             <span class="group-hover:translate-x-1 transition-transform duration-200">→</span>
@@ -1412,7 +1412,7 @@
                 {
                     id: "doc-methodology",
                     logCode: "// ARCHIVE LOG 02.B",
-                    navTitle: "02.B / SEQUENCE MODELING",
+                    navTitle: "02.B / WORD REPRESENTATION",
                     title: "When Order Matters",
                     quote: `<blockquote class="my-8 border-l-4 brutalist-border pl-6 py-4 brutalist-bg">
                         <p class="text-sm lg:text-xl italic font-serif tracking-wide leading-relaxed brutalist-text">
@@ -1470,9 +1470,9 @@
                             To overcome these limitations, Tomas Mikolov and his colleagues at Google introduced <a href="https://en.wikipedia.org/wiki/Word2vec" target="_blank" class="underline underline-offset-4 decoration-indigo-600 decoration-2"><strong>Word2Vec</strong></a> in 2013. Word2Vec is based on a simple idea: words that appear in similar contexts tend to have similar meanings.
                         </p>`,
                         `<p class="brutalist-text-body">
-    For example, consider the words <strong>King</strong>, <strong>Queen</strong>, <strong>Man</strong>, and <strong>Woman</strong>. Word2Vec learns that the relationship between King and Queen is analogous to the relationship between Man and Woman. As a result, we can perform vector arithmetic directly on their embeddings:
-    $$\\vec{v}_{\\text{King}} - \\vec{v}_{\\text{Man}} + \\vec{v}_{\\text{Woman}} \\approx \\vec{v}_{\\text{Queen}}$$
-</p>`,
+                            For example, consider the words <strong>King</strong>, <strong>Queen</strong>, <strong>Man</strong>, and <strong>Woman</strong>. Word2Vec learns that the relationship between King and Queen is analogous to the relationship between Man and Woman. As a result, we can perform vector arithmetic directly on their embeddings:
+                            $$\\vec{v}_{\\text{King}} - \\vec{v}_{\\text{Man}} + \\vec{v}_{\\text{Woman}} \\approx \\vec{v}_{\\text{Queen}}$$
+                        </p>`,
                         // --- TRADITIONAL NLP & ONE-HOT ENCODING ---
                         `<h3><strong>So, How Does Word2Vec Actually Work?</strong></h3>`,
                         "Word2Vec addresses the limitations of one-hot vectors by constructing a shallow 2-layer neural network trained on a sliding context window of size $c$ over a text corpus.",
@@ -1517,400 +1517,469 @@
                             • $P_{ij} = P(j \\mid i) = \\frac{X_{ij}}{X_i}$ be the probability that word $j$ appears in the context of word $i$.
                         </p>`,
                         `<p class="brutalist-text-body">
-    Before model training begins, GloVe constructs a giant $V \\times V$ global co-occurrence matrix $X$, where $V$ is the vocabulary size.
+                            Before model training begins, GloVe constructs a giant $V \\times V$ global co-occurrence matrix $X$, where $V$ is the vocabulary size.
+                        </p>
+                        <p class="brutalist-text-body">
+                            Consider two target words: $i = \\text{"ice"}$ and $j = \\text{"steam"}$. To analyze their relationship, we inspect their co-occurrence probabilities with various probe words $k$:
+                        </p>
+
+                        <!-- Simple Table with Black Borders -->
+                        <div>
+                            <table class="w-full border-collapse border border-black text-left">
+                                <thead>
+                                    <tr>
+                                        <th class="border border-black px-4 py-2">Probability & Ratio</th>
+                                        <th class="border border-black px-4 py-2">$k = \\text{"solid"}$</th>
+                                        <th class="border border-black px-4 py-2">$k = \\text{"gas"}$</th>
+                                        <th class="border border-black px-4 py-2">$k = \\text{"water"}$</th>
+                                        <th class="border border-black px-4 py-2">$k = \\text{"fashion"}$</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-black px-4 py-2">$P(k \\mid \\text{"ice"})$</td>
+                                        <td class="border border-black px-4 py-2">Large</td>
+                                        <td class="border border-black px-4 py-2">Small</td>
+                                        <td class="border border-black px-4 py-2">Large</td>
+                                        <td class="border border-black px-4 py-2">Small</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-black px-4 py-2">$P(k \\mid \\text{"steam"})$</td>
+                                        <td class="border border-black px-4 py-2">Small</td>
+                                        <td class="border border-black px-4 py-2">Large</td>
+                                        <td class="border border-black px-4 py-2">Large</td>
+                                        <td class="border border-black px-4 py-2">Small</td>
+                                    </tr>
+                                    <tr>
+                            <td class="border-x border-black px-4 py-2 whitespace-nowrap">Ratio: $\\frac{P(k \\mid \\text{"ice"})}{P(k \\mid \\text{"steam"})}$</td>
+                            <td class="border-x border-black px-4 py-2">$\\gg 1$</td>
+                            <td class="border-x border-black px-4 py-2">$\\ll 1$</td>
+                            <td class="border-x border-black px-4 py-2">$\\approx 1$</td>
+                            <td class="border-x border-black px-4 py-2">$\\approx 1$</td>
+                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <ul class="brutalist-text-body">
+                            <li>• $k = \\text{"solid"}$ is property-related to ice but not steam $\\rightarrow$ Ratio is very large.</li>
+                            <li>• $k = \\text{"gas"}$ is property-related to steam but not ice $\\rightarrow$ Ratio is very small.</li>
+                            <li>• $k = \\text{"water"}$ is related to both $\\rightarrow$ Ratio is close to 1.</li>
+                            <li>• $k = \\text{"fashion"}$ is related to neither $\\rightarrow$ Ratio is close to 1.</li>
+                        </ul>
+
+                        <p class="brutalist-text-body">
+                            The ratio $\\frac{P_{ik}}{P_{jk}}$ cleanly isolates relevant semantic features and noise. Therefore, word vector learning should aim to model these probability ratios rather than raw probabilities directly (Pennington et al., 2014).
+                        </p>`,
+                                                `<h2 class="text-xl font-bold tracking-tight text-black lg:text-2xl mt-8 mb-4">How Does GloVe Work? (Step-by-Step)</h2>
+
+                        <p class="brutalist-text-body">
+                            Unlike Word2Vec, which learns by sliding a window over text to predict nearby words online, GloVe (Global Vectors) learns by analyzing word co-occurrence patterns across an entire corpus all at once.
+                        </p>
+
+                        <p class="brutalist-text-body font-semibold mt-3">
+                            Key Difference in Perspective:
+                        </p>
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li><strong>Word2Vec asks:</strong> "Can I predict the next word in this sentence?"</li>
+                            <li><strong>GloVe asks:</strong> "How often do these two words appear near each other across the entire corpus, and what does that tell us about their relationship?"</li>
+                        </ul>
+
+                        <p class="brutalist-text-body">
+                            To turn raw text into meaningful vector embeddings, GloVe follows four key steps.
+                        </p>
+
+                        <!-- Step 1 -->
+                        <h3 class="text-lg font-bold text-black mt-6 mb-2">Step 1: Build the Global Co-Occurrence Matrix</h3>
+
+                        <p class="brutalist-text-body">
+                            First, GloVe scans the entire text dataset with a fixed context window (e.g., 5 words to the left and right) to count how often every pair of words appears together.
+                        </p>
+
+                        <p class="brutalist-text-body mt-3">
+                            To see this in action, consider a tiny sample corpus:
+                        </p>
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li>"I like coffee."</li>
+                            <li>"I like tea."</li>
+                            <li>"Coffee tastes great."</li>
+                            <li>"Tea tastes great."</li>
+                        </ul>
+
+                        <p class="brutalist-text-body">
+                            If we set our context window size to 1 (only looking at immediate neighbors), we can record every pair of adjacent words. After scanning all four sentences, GloVe compiles those counts into a Global Co-Occurrence Matrix ($X$):
+                        </p>
+
+                        <!-- Matrix Table -->
+                        <div class="my-6 overflow-x-auto">
+                            <table class="w-full border-collapse border-x text-center text-sm">
+                                <thead>
+                                    <tr>
+                                        <th class="border-x px-4 py-2"></th>
+                                        <th class="border-x px-4 py-2 font-bold">I</th>
+                                        <th class="border-x px-4 py-2 font-bold">like</th>
+                                        <th class="border-x px-4 py-2 font-bold">coffee</th>
+                                        <th class="border-x px-4 py-2 font-bold">tea</th>
+                                        <th class="border-x px-4 py-2 font-bold">tastes</th>
+                                        <th class="border-x px-4 py-2 font-bold">great</th>
+                                    </tr>
+                                </thead>
+                                    <tr>
+                                        <th class="border-x px-4 py-2 font-bold">I</th>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">2</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-x px-4 py-2 font-bold">like</th>
+                                        <td class="border-x px-4 py-2">2</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">1</td>
+                                        <td class="border-x px-4 py-2">1</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-x px-4 py-2 font-bold">coffee</th>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">1</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">1</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-x px-4 py-2 font-bold">tea</th>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">1</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">1</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-x px-4 py-2 font-bold">tastes</th>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">1</td>
+                                        <td class="border-x px-4 py-2">1</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">2</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="border-x px-4 py-2 font-bold">great</th>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                        <td class="border-x px-4 py-2">2</td>
+                                        <td class="border-x px-4 py-2">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p class="brutalist-text-body">
+                            Notice something remarkable here: coffee and tea never appear in the same sentence together (their intersection in the matrix is 0).
+                        </p>
+
+                        <p class="brutalist-text-body mt-2">
+                            However, look at their neighboring rows:
+                        </p>
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li><strong>coffee</strong> appears next to <em>like</em> (1 time) and <em>tastes</em> (1 time).</li>
+                            <li><strong>tea</strong> appears next to <em>like</em> (1 time) and <em>tastes</em> (1 time).</li>
+                        </ul>
+
+                        <p class="brutalist-text-body">
+                            Because coffee and tea share identical co-occurrence profiles across the corpus, GloVe deduces that they share a very similar semantic meaning. This concept—known as the <strong>Distributional Hypothesis</strong>—is the core engine behind GloVe.
+                        </p>
+
+                        <!-- Step 2 -->
+                        <h3 class="text-lg font-bold text-black mt-6 mb-2">Step 2: Represent Words as Vectors & Use the Dot Product</h3>
+
+                        <p class="brutalist-text-body">
+                            Next, GloVe assigns every word $i$ in the vocabulary a dense vector of real numbers, $w_i \\in \\mathbb{R}^d$ (typically 50 to 300 dimensions).
+                        </p>
+
+                        <p class="brutalist-text-body">
+                            To measure how compatible or similar two word vectors are, GloVe calculates their dot product:
+                            $$\\text{Similarity}(w_i, w_j) = w_i^T w_j$$
+                        </p>
+
+                        <h4 class="text-base font-bold text-black mt-4 mb-2">Quick Dot Product Intuition</h4>
+
+                        <p class="brutalist-text-body">
+                            Suppose our model learns a 2D vector for coffee and tea:
+                            $$w_{\\text{coffee}} = \\begin{bmatrix} 0.8 \\\\ 0.3 \\end{bmatrix}, \\quad w_{\\text{tea}} = \\begin{bmatrix} 0.7 \\\\ 0.4 \\end{bmatrix}$$
+                        </p>
+
+                        <p class="brutalist-text-body">
+                            Their dot product is:
+                            $$w_{\\text{coffee}}^T w_{\\text{tea}} = (0.8 \\times 0.7) + (0.3 \\times 0.4) = 0.56 + 0.12 = 0.68$$
+                        </p>
+
+                        <p class="brutalist-text-body mt-2">Key interpretations:</p>
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li><strong>Large positive dot product:</strong> The vectors point in a similar direction (high compatibility and similarity).</li>
+                            <li><strong>Dot product near zero:</strong> The words are completely unrelated or orthogonal in concept space.</li>
+                        </ul>
+
+                        <!-- Step 3 -->
+                        <h3 class="text-lg font-bold text-black mt-6 mb-2">Step 3: Match Vectors to Log Co-Occurrence Counts</h3>
+
+                        <p class="brutalist-text-body">
+                            Now comes GloVe's main learning objective: Make the dot product of two word vectors reflect how often those words co-occur in real text.
+                        </p>
+
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li>If word $i$ and word $j$ appear together frequently in the matrix ($X_{ij}$ is large), their vector dot product $w_i^T w_j$ should also be large.</li>
+                            <li>Instead of matching raw counts directly (which can range from $1$ to $1,000,000+$), GloVe fits the dot product to the logarithm of the co-occurrence count:</li>
+                        </ul>
+
+                        <p class="brutalist-text-body my-2">
+                            $$w_i^T \\tilde{w}_j \\approx \\log(X_{ij})$$
+                        </p>
+
+                        <p class="brutalist-text-body">
+                            To make the system symmetric and account for word frequency baseline offsets, GloVe adds a target bias $b_i$ and context bias $\\tilde{b}_j$:
+                            $$w_i^T \\tilde{w}_j + b_i + \\tilde{b}_j = \\log(X_{ij})$$
+                        </p>
+
+                        <!-- Step 4 -->
+                        <h3 class="text-lg font-bold text-black mt-6 mb-2">Step 4: Fix Real-World Edge Cases with a Weighting Function</h3>
+
+                        <p class="brutalist-text-body">
+                            In practice, fitting $\\log(X_{ij})$ runs into two major problems:
+                        </p>
+
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li><strong>Zero Co-occurrences:</strong> Many word pairs never appear together ($X_{ij} = 0$), but $\\log(0)$ is mathematically undefined ($-\\infty$).</li>
+                            <li><strong>Stop Word Domination:</strong> Ultra-common words like "the", "is", and "and" co-occur constantly with almost everything and would drown out meaningful word relationships.</li>
+                        </ul>
+
+                        <p class="brutalist-text-body">
+                            GloVe solves both problems by wrapping the objective in a weighted least squares loss function using a capped weighting function $f(X_{ij})$:
+                            $$f(x) = \\begin{cases} \\left(\\frac{x}{x_{\\max}}\\right)^\\alpha & \\text{if } x < x_{\\max} \\\\ 1 & \\text{otherwise} \\end{cases}$$
+                            (Standard values: $x_{\\max} = 100$, $\\alpha = 0.75$)
+                        </p>
+                        <!-- Step 5 -->
+                        <h3 class="text-lg font-bold text-black mt-6 mb-2">Step 5: Combine Dual Vectors for the Final Output</h3>
+
+                        <p class="brutalist-text-body">
+                            During training, GloVe actually learns two separate vectors for every word:
+                        </p>
+
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li><strong>Target vector ($w_i$):</strong> Used when the word acts as the central target word.</li>
+                            <li><strong>Context vector ($\\tilde{w}_i$):</strong> Used when the word appears in another word's context window.</li>
+                        </ul>
+
+                        <p class="brutalist-text-body">
+                            Because the co-occurrence matrix is symmetric, $w$ and $\\tilde{w}$ learn nearly identical representations—differing only due to random weight initialization.
+                        </p>
+
+                        <p class="brutalist-text-body">
+                            Once training completes, GloVe simply adds the two vectors together:
+                            $$w_{\\text{final}} = w_i + \\tilde{w}_i$$
+                        </p>
+
+                        <p class="brutalist-text-body mt-2">
+                            This simple addition achieves key practical benefits:
+                        </p>
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li>Reduces vector noise</li>
+                            <li>Stabilizes mathematical representations</li>
+                            <li>Yields final high-quality embeddings ready for downstream NLP tasks</li>
+                        </ul>`,
+                    ],
+                },
+                {
+                    id: "doc-methodology",
+                    logCode: "// ARCHIVE LOG 03",
+                    navTitle: "03 / SEQUENCE MODELING",
+                    title: "Introduction to Sequence Modeling",
+                    
+                    paragraphs: [
+                        `<p class="brutalist-text-body">
+                                Before modern language models, one of the simplest approaches to sequence modeling was the First-Order Markov Chain. Markov Models are probabilistic frameworks used to model systems that change over time across a sequence of discrete states ($X_1, X_2, X_3, \\dots, X_t$).
+                            </p>
+
+                            <p class="brutalist-text-body">
+                                What defines any Markov model is the <strong>Markov Property</strong> (often called "memorylessness"): the assumption that the probability of transitioning to the next state depends only on a limited history of preceding states, rather than the entire past history.
+                            </p>
+
+                            <h3 class="text-lg font-bold text-black mt-6 mb-2">First-Order Markov Chains</h3>
+
+                            <p class="brutalist-text-body">
+                                A First-Order Markov Chain has a memory depth of 1 step. It assumes that the probability of moving to the next state $X_t$ depends exclusively on the current state $X_{t-1}$. Everything that happened prior to time $t-1$ is completely forgotten.
+                            </p>
+
+                            <p class="brutalist-text-body">
+                                Formally, for a sequence of random variables $X_1, X_2, \\dots, X_t$ taking values in a state space $S$:
+                                $$P(X_t \\mid X_1, X_2, \\dots, X_{t-1}) \\approx P(X_t \\mid X_{t-1})$$
+                            </p>
+
+                            <h3 class="text-lg font-bold text-black mt-6 mb-2">The Transition Matrix ($P$)</h3>
+
+                            <p class="brutalist-text-body">
+                                Because transitions only depend on one preceding state, all transition probabilities can be represented in a 2D Transition Probability Matrix $P$ of size $N \\times N$ (where $N = \\vert S \\vert$ is the total number of unique states):
+                                $$P = \\begin{bmatrix} p_{11} & p_{12} & \\dots & p_{1N} \\\\ p_{21} & p_{22} & \\dots & p_{2N} \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ p_{N1} & p_{N2} & \\dots & p_{NN} \\end{bmatrix}$$
+                            </p>
+
+                            <p class="brutalist-text-body">
+                                Where $p_{ij} = P(X_t = j \\mid X_{t-1} = i)$, and the sum of probabilities across each row must equal $1$ ($\\sum_{j=1}^N p_{ij} = 1$).
+                            </p>`,
+                            `
+<p class="brutalist-text-body">
+    Consider the sentence: "I love machine learning". Suppose we want to predict the next word after <strong>machine</strong>.
 </p>
 <p class="brutalist-text-body">
-    Consider two target words: $i = \\text{"ice"}$ and $j = \\text{"steam"}$. To analyze their relationship, we inspect their co-occurrence probabilities with various probe words $k$:
+    A First-Order Markov Model only considers the preceding word: $\\text{machine} \\rightarrow \\text{learning}$
+</p>
+<p class="brutalist-text-body">
+    It completely ignores prior context: $\\text{I love}$
+</p>
+<p class="brutalist-text-body">
+    As a result, it estimates: $P(\\text{learning} \\mid \\text{machine})$
 </p>
 
-<!-- Simple Table with Black Borders -->
-<div>
-    <table class="w-full border-collapse border border-black text-left">
-        <thead>
-            <tr>
-                <th class="border border-black px-4 py-2">Probability & Ratio</th>
-                <th class="border border-black px-4 py-2">$k = \\text{"solid"}$</th>
-                <th class="border border-black px-4 py-2">$k = \\text{"gas"}$</th>
-                <th class="border border-black px-4 py-2">$k = \\text{"water"}$</th>
-                <th class="border border-black px-4 py-2">$k = \\text{"fashion"}$</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="border border-black px-4 py-2">$P(k \\mid \\text{"ice"})$</td>
-                <td class="border border-black px-4 py-2">Large</td>
-                <td class="border border-black px-4 py-2">Small</td>
-                <td class="border border-black px-4 py-2">Large</td>
-                <td class="border border-black px-4 py-2">Small</td>
-            </tr>
-            <tr>
-                <td class="border border-black px-4 py-2">$P(k \\mid \\text{"steam"})$</td>
-                <td class="border border-black px-4 py-2">Small</td>
-                <td class="border border-black px-4 py-2">Large</td>
-                <td class="border border-black px-4 py-2">Large</td>
-                <td class="border border-black px-4 py-2">Small</td>
-            </tr>
-            <tr>
-    <td class="border-x border-black px-4 py-2 whitespace-nowrap">Ratio: $\\frac{P(k \\mid \\text{"ice"})}{P(k \\mid \\text{"steam"})}$</td>
-    <td class="border-x border-black px-4 py-2">$\\gg 1$</td>
-    <td class="border-x border-black px-4 py-2">$\\ll 1$</td>
-    <td class="border-x border-black px-4 py-2">$\\approx 1$</td>
-    <td class="border-x border-black px-4 py-2">$\\approx 1$</td>
-</tr>
-        </tbody>
-    </table>
-</div>
+<p class="brutalist-text-body">
+    instead of considering the full context: $P(\\text{learning} \\mid \\text{I, love, machine})$
+</p>
 
-<ul class="brutalist-text-body">
-    <li>• $k = \\text{"solid"}$ is property-related to ice but not steam $\\rightarrow$ Ratio is very large.</li>
-    <li>• $k = \\text{"gas"}$ is property-related to steam but not ice $\\rightarrow$ Ratio is very small.</li>
-    <li>• $k = \\text{"water"}$ is related to both $\\rightarrow$ Ratio is close to 1.</li>
-    <li>• $k = \\text{"fashion"}$ is related to neither $\\rightarrow$ Ratio is close to 1.</li>
-</ul>
+<h3 class="text-lg font-bold text-black mt-6 mb-2">However it cannot capture long-range dependencies, what do I mean by that?</h3>
 
 <p class="brutalist-text-body">
-    The ratio $\\frac{P_{ik}}{P_{jk}}$ cleanly isolates relevant semantic features and noise. Therefore, word vector learning should aim to model these probability ratios rather than raw probabilities directly (Pennington et al., 2014).
+    Consider another example: <em>"The movie was not very good."</em>
+</p>
+
+<p class="brutalist-text-body">
+    To accurately understand the sentiment of <strong>good</strong>, the model must consider the negating word <strong>not</strong>. However, a First-Order Markov Model only looks at the immediately preceding word: $\\text{very} \\rightarrow \\text{good}$
+</p>
+
+<p class="brutalist-text-body">
+    Because it completely ignores <strong>not</strong>, the model fails to capture context that drastically alters the sentence's meaning.
 </p>`,
-`<h2 class="text-xl font-bold tracking-tight text-black lg:text-2xl mt-8 mb-4">How Does GloVe Work? (Step-by-Step)</h2>
+`<h3 class="text-lg font-bold text-black mt-6 mb-2">Second-Order Markov Models</h3>
 
 <p class="brutalist-text-body">
-    Unlike Word2Vec, which learns by sliding a window over text to predict nearby words online, GloVe (Global Vectors) learns by analyzing word co-occurrence patterns across an entire corpus all at once.
+    A Second-Order Markov Model increases the memory depth to 2 steps. It assumes that the probability of transitioning to the next state $X_t$ depends on both the current state $X_{t-1}$ <strong>AND</strong> the immediately preceding state $X_{t-2}$.
 </p>
 
-<p class="brutalist-text-body font-semibold mt-3">
-    Key Difference in Perspective:
+<p class="brutalist-text-body">
+    Formally, for a sequence of states: $P(X_t \\mid X_1, \\dots, X_{t-1}) \\approx P(X_t \\mid X_{t-2}, X_{t-1})$
 </p>
+
+<h3><strong>Transition Structure</strong></h3>
+
+<p class="brutalist-text-body">
+    Because transitions depend on a pair of previous states, transition probabilities can no longer be stored in a simple 2D matrix. Instead, they require:
+</p>
+
 <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li><strong>Word2Vec asks:</strong> "Can I predict the next word in this sentence?"</li>
-    <li><strong>GloVe asks:</strong> "How often do these two words appear near each other across the entire corpus, and what does that tell us about their relationship?"</li>
+    <li><strong>A 3D Tensor</strong> of size $N \\times N \\times N$, where $p_{ijk} = P(X_t = k \\mid X_{t-1} = j, X_{t-2} = i)$, OR</li>
+    <li><strong>A 2D Matrix</strong> of size $N^2 \\times N$, where each row represents a state-pair context $(s_{t-2}, s_{t-1})$.</li>
 </ul>
 
 <p class="brutalist-text-body">
-    To turn raw text into meaningful vector embeddings, GloVe follows four key steps.
-</p>
-
-<!-- Step 1 -->
-<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 1: Build the Global Co-Occurrence Matrix</h3>
-
-<p class="brutalist-text-body">
-    First, GloVe scans the entire text dataset with a fixed context window (e.g., 5 words to the left and right) to count how often every pair of words appears together.
-</p>
-
-<p class="brutalist-text-body mt-3">
-    To see this in action, consider a tiny sample corpus:
-</p>
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li>"I like coffee."</li>
-    <li>"I like tea."</li>
-    <li>"Coffee tastes great."</li>
-    <li>"Tea tastes great."</li>
-</ul>
-
-<p class="brutalist-text-body">
-    If we set our context window size to 1 (only looking at immediate neighbors), we can record every pair of adjacent words. After scanning all four sentences, GloVe compiles those counts into a Global Co-Occurrence Matrix ($X$):
-</p>
-
-<!-- Matrix Table -->
-<div class="my-6 overflow-x-auto">
-    <table class="w-full border-collapse border-x border-black text-left text-sm text-black">
-        <thead>
-            <tr class="text-black">
-                <th class="border-x border-black px-4 py-2"></th>
-                <th class="border-x border-black px-4 py-2 font-bold">I</th>
-                <th class="border-x border-black px-4 py-2 font-bold">like</th>
-                <th class="border-x border-black px-4 py-2 font-bold">coffee</th>
-                <th class="border-x border-black px-4 py-2 font-bold">tea</th>
-                <th class="border-x border-black px-4 py-2 font-bold">tastes</th>
-                <th class="border-x border-black px-4 py-2 font-bold">great</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th class="border-x border-black px-4 py-2 font-bold text-black">I</th>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">2</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-            </tr>
-            <tr>
-                <th class="border-x border-black px-4 py-2 font-bold text-black">like</th>
-                <td class="border-x border-black px-4 py-2">2</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">1</td>
-                <td class="border-x border-black px-4 py-2">1</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-            </tr>
-            <tr>
-                <th class="border-x border-black px-4 py-2 font-bold text-black">coffee</th>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">1</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">1</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-            </tr>
-            <tr>
-                <th class="border-x border-black px-4 py-2 font-bold text-black">tea</th>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">1</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">1</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-            </tr>
-            <tr>
-                <th class="border-x border-black px-4 py-2 font-bold text-black">tastes</th>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">1</td>
-                <td class="border-x border-black px-4 py-2">1</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">2</td>
-            </tr>
-            <tr>
-                <th class="border-x border-black px-4 py-2 font-bold text-black">great</th>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-                <td class="border-x border-black px-4 py-2">2</td>
-                <td class="border-x border-black px-4 py-2">0</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<p class="brutalist-text-body">
-    Notice something remarkable here: coffee and tea never appear in the same sentence together (their intersection in the matrix is 0).
-</p>
-
-<p class="brutalist-text-body mt-2">
-    However, look at their neighboring rows:
-</p>
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li><strong>coffee</strong> appears next to <em>like</em> (1 time) and <em>tastes</em> (1 time).</li>
-    <li><strong>tea</strong> appears next to <em>like</em> (1 time) and <em>tastes</em> (1 time).</li>
-</ul>
-
-<p class="brutalist-text-body">
-    Because coffee and tea share identical co-occurrence profiles across the corpus, GloVe deduces that they share a very similar semantic meaning. This concept—known as the <strong>Distributional Hypothesis</strong>—is the core engine behind GloVe.
-</p>
-
-<!-- Step 2 -->
-<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 2: Represent Words as Vectors & Use the Dot Product</h3>
-
-<p class="brutalist-text-body">
-    Next, GloVe assigns every word $i$ in the vocabulary a dense vector of real numbers, $w_i \\in \\mathbb{R}^d$ (typically 50 to 300 dimensions).
+    Consider again the same sentence: "I love machine learning".
 </p>
 
 <p class="brutalist-text-body">
-    To measure how compatible or similar two word vectors are, GloVe calculates their dot product:
-    $$\\text{Similarity}(w_i, w_j) = w_i^T w_j$$
-</p>
-
-<h4 class="text-base font-bold text-black mt-4 mb-2">Quick Dot Product Intuition</h4>
-
-<p class="brutalist-text-body">
-    Suppose our model learns a 2D vector for coffee and tea:
-    $$w_{\\text{coffee}} = \\begin{bmatrix} 0.8 \\\\ 0.3 \\end{bmatrix}, \\quad w_{\\text{tea}} = \\begin{bmatrix} 0.7 \\\\ 0.4 \\end{bmatrix}$$
+    To predict <strong>learning</strong>, the model now considers both <strong>love</strong> and <strong>machine</strong> instead of just <strong>machine</strong>.
 </p>
 
 <p class="brutalist-text-body">
-    Their dot product is:
-    $$w_{\\text{coffee}}^T w_{\\text{tea}} = (0.8 \\times 0.7) + (0.3 \\times 0.4) = 0.56 + 0.12 = 0.68$$
+    It estimates: $P(\\text{learning} \\mid \\text{love, machine})$
 </p>
 
-<p class="brutalist-text-body mt-2">Key interpretations:</p>
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li><strong>Large positive dot product:</strong> The vectors point in a similar direction (high compatibility and similarity).</li>
-    <li><strong>Dot product near zero:</strong> The words are completely unrelated or orthogonal in concept space.</li>
-</ul>
 
-<!-- Step 3 -->
-<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 3: Match Vectors to Log Co-Occurrence Counts</h3>
+
+<h3 class="text-lg font-bold text-black mt-6 mb-2">However, even a Second-Order Markov Model can only look at the two previous words, making it unable to capture long-range dependencies in a sentence.</h3>
 
 <p class="brutalist-text-body">
-    Now comes GloVe's main learning objective: Make the dot product of two word vectors reflect how often those words co-occur in real text.
+    Although a Second-Order Markov Model captures more context than a First-Order model, it still suffers from severe context limitations.
+</p>
+
+<p class="brutalist-text-body">
+    Consider the sentence: <em>"The food at the new restaurant near my office was absolutely delicious."</em>
 </p>
 
 <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li>If word $i$ and word $j$ appear together frequently in the matrix ($X_{ij}$ is large), their vector dot product $w_i^T w_j$ should also be large.</li>
-    <li>Instead of matching raw counts directly (which can range from $1$ to $1,000,000+$), GloVe fits the dot product to the logarithm of the co-occurrence count:</li>
-</ul>
-
-<p class="brutalist-text-body my-2">
-    $$w_i^T \\tilde{w}_j \\approx \\log(X_{ij})$$
-</p>
-
-<p class="brutalist-text-body">
-    To make the system symmetric and account for word frequency baseline offsets, GloVe adds a target bias $b_i$ and context bias $\\tilde{b}_j$:
-    $$w_i^T \\tilde{w}_j + b_i + \\tilde{b}_j = \\log(X_{ij})$$
-</p>
-
-<!-- Step 4 -->
-<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 4: Fix Real-World Edge Cases with a Weighting Function</h3>
-
-<p class="brutalist-text-body">
-    In practice, fitting $\\log(X_{ij})$ runs into two major problems:
-</p>
-
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li><strong>Zero Co-occurrences:</strong> Many word pairs never appear together ($X_{ij} = 0$), but $\\log(0)$ is mathematically undefined ($-\\infty$).</li>
-    <li><strong>Stop Word Domination:</strong> Ultra-common words like "the", "is", and "and" co-occur constantly with almost everything and would drown out meaningful word relationships.</li>
-</ul>
-
-<p class="brutalist-text-body">
-    GloVe solves both problems by wrapping the objective in a weighted least squares loss function using a capped weighting function $f(X_{ij})$:
-    $$f(x) = \\begin{cases} \\left(\\frac{x}{x_{\\max}}\\right)^\\alpha & \\text{if } x < x_{\\max} \\\\ 1 & \\text{otherwise} \\end{cases}$$
-    (Standard values: $x_{\\max} = 100$, $\\alpha = 0.75$)
-</p>
-<!-- Step 5 -->
-<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 5: Combine Dual Vectors for the Final Output</h3>
-
-<p class="brutalist-text-body">
-    During training, GloVe actually learns two separate vectors for every word:
-</p>
-
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li><strong>Target vector ($w_i$):</strong> Used when the word acts as the central target word.</li>
-    <li><strong>Context vector ($\\tilde{w}_i$):</strong> Used when the word appears in another word's context window.</li>
-</ul>
-
-<p class="brutalist-text-body">
-    Because the co-occurrence matrix is symmetric, $w$ and $\\tilde{w}$ learn nearly identical representations—differing only due to random weight initialization.
-</p>
-
-<p class="brutalist-text-body">
-    Once training completes, GloVe simply adds the two vectors together:
-    $$w_{\\text{final}} = w_i + \\tilde{w}_i$$
-</p>
-
-<p class="brutalist-text-body mt-2">
-    This simple addition achieves key practical benefits:
-</p>
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li>Reduces vector noise</li>
-    <li>Stabilizes mathematical representations</li>
-    <li>Yields final high-quality embeddings ready for downstream NLP tasks</li>
+    <li>To accurately predict <strong>delicious</strong>, the model needs crucial information from much earlier in the sentence, such as <strong>food</strong> or <strong>restaurant</strong>.</li>
+    <li>However, a Second-Order model only looks at the preceding 2 words: <strong>was</strong> $\\rightarrow$ <strong>absolutely</strong>.</li>
+    <li>Everything prior to those two words is completely ignored.</li>
 </ul>`,
-`<h2><strong>Mathematical Derivation of the GloVe Objective</strong></h2>
 
-    <p class="brutalist-text-body">
-        To force our word vectors to mirror these probability ratios, the researchers stepped through four logical stages:
-    </p>
+`<p class="brutalist-text-body">
+    As language models became larger, processing one word at a time became highly inefficient. To solve this, researchers realized that an entire sequence of words could be represented as vectors and processed simultaneously using matrix operations.
+</p>
 
-    <div class="space-y-4 my-4">
-        <div>
-            <h3><strong>Step 1: Start with the Ratio Goal</strong></h3>
-            <p class="brutalist-text-body">
-                We want some function $F$ that takes the vectors for target words $w_i, w_j$ and context word $\\tilde{w}_k$ to yield the probability ratio:
-                $$F(w_i, w_j, \\tilde{w}_k) = \\frac{P_{ik}}{P_{jk}}$$
-            </p>
-        </div>
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Building the Embedding Matrix</h3>
 
-        <div>
-            <h3><strong>Step 2: Use Vector Differences</strong></h3>
-            <p class="brutalist-text-body">
-                To encode linear directions (so $w_i - w_j$ represents a concept like "temperature difference"), we feed the difference between word vectors into the dot product with the probe word:
-                $$F\\left((w_i - w_j)^T \\tilde{w}_k\\right) = \\frac{P_{ik}}{P_{jk}}$$
-            </p>
-        </div>
+<p class="brutalist-text-body">
+    Instead of processing each word individually, every word is first converted into a dense embedding vector, and these vectors are stacked together into a single <a  href="https://en.wikipedia.org/wiki/Embedding_(machine_learning)" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">embedding matrix</a>.
+</p>
 
-        <div>
-            <h3 ><strong>Step 3: Turn Division into Subtraction</strong></h3>
-            <p class="brutalist-text-body">
-                To solve this cleanly, $F$ needs to turn vector addition into scalar multiplication—a property unique to the exponential function ($\\exp(x)$).
-                Taking the log on both sides simplifies the relationship into straight subtraction:
-                $$w_i^T \\tilde{w}_k = \\log(P_{ik}) = \\log(X_{ik}) - \\log(X_i)$$
-                (where $X_{ik}$ is the co-occurrence count between word $i$ and $k$, and $X_i$ is the total count for word $i$.)
-            </p>
-        </div>
+<p class="brutalist-text-body font-semibold mt-3">Example Vector Embeddings:</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>"I"</strong> $\\rightarrow [0.2, 0.8, 0.1, 0.4]$</li>
+    <li><strong>"love"</strong> $\\rightarrow [0.9, 0.1, 0.6, 0.2]$</li>
+    <li><strong>"AI"</strong> $\\rightarrow [0.7, 0.5, 0.3, 0.9]$</li>
+</ul>
 
-        <div>
-            <h3 ><strong>Step 4: Add Bias Terms for Symmetry</strong></h3>
-            <p class="brutalist-text-body">
-                Because $\\log(X_i)$ depends only on word $i$, we absorb it into a trainable bias term $b_i$. We also add a context bias $\\tilde{b}_k$ so target and context words remain completely symmetric:
-                $$w_i^T \\tilde{w}_k + b_i + \\tilde{b}_k = \\log(X_{ik})$$
-            </p>
-        </div>
-    </div>
+<p class="brutalist-text-body">
+    Stacking these token vectors creates the input embedding matrix $X$:
+    $$ X =
+\\begin{bmatrix}
+0.2 & 0.8 & 0.1 & 0.4 \\\\
+0.9 & 0.1 & 0.6 & 0.2 \\\\
+0.7 & 0.5 & 0.3 & 0.9
+\\end{bmatrix}
+$$
+</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>Each row:</strong> Represents one token in the sequence.</li>
+    <li><strong>Each column:</strong> Represents one embedding dimension.</li>
+</ul>
 
-    <p class="brutalist-text-body">
-        This elegant formula means: <strong>The dot product of two word vectors plus their biases should equal the log of their co-occurrence count.</strong>
-    </p>
-
-    <!-- Section 4 -->
-    <h2><strong>4. The Loss Function & "The Secret Sauce"</strong></h2>
-
-    <p class="brutalist-text-body">
-        To train these vectors, GloVe uses a weighted least squares loss function:
-        $$J = \\sum_{i,j=1}^V f(X_{ij}) \\left( w_i^T \\tilde{w}_j + b_i + \\tilde{b}_j - \\log X_{ij} \\right)^2$$
-    </p>
-
-    <p class="brutalist-text-body">
-        Why do we need the weighting function $f(X_{ij})$?
-    </p>
-
-    <p class="brutalist-text-body">
-        Raw counts $X_{ij}$ cause two practical problems:
-    </p>
-
-    <ul class="space-y-1 brutalist-text-body">
-        <li>1. Words that never co-occur have $X_{ij} = 0$, and $\\log(0)$ is undefined.</li>
-        <li>2. Ultra-frequent stop words like "the" or "is" co-occur so often they would completely steamroll all other word pairs.</li>
-    </ul>
-
-    <p class="brutalist-text-body">
-        GloVe solves this with a clever weighting curve $f(x)$:
-        $$f(x) = \\begin{cases} \\left(\\frac{x}{x_{\\max}}\\right)^\\alpha & \\text{if } x < x_{\\max} \\\\ 1 & \\text{otherwise} \\end{cases}$$
-    </p>
-
-    <p class="brutalist-text-body">
-        How this weighting trick works:
-    </p>
-
-    <ul class="space-y-2 brutalist-text-body">
-        <li>• If $X_{ij} = 0$, $f(0) = 0$, so zero-count pairs are simply ignored without breaking the log math.</li>
-        <li>• Rare words get small weights so noise doesn't corrupt the embeddings.</li>
-        <li>• Frequent words hit a hard ceiling at $x_{\\max} = 100$ (with power $\\alpha = 0.75$), preventing them from dominating training.</li>
-    </ul>`,
-                        
+<p class="brutalist-text-body">
+    Instead of applying operations to each word sequentially, neural networks multiply the entire matrix by a weight matrix: $$Y = XW$$
+</p>
 
 
-                    ],
-                    gridItems: [
-                        {
-                            title: "01 / MICRO-FLUIDIZATION",
-                            text: "Raw carbon substrates are mechanically optimized down to standardized granular structures ($\\le 4\\text{mm}$) to ensure uniform fluid movement underneath soft marine layers without clumping."
-                        },
-                        {
-                            title: "02 / ACOUSTIC GRAIN DISPLACEMENT",
-                            text: "Low-frequency acoustic resonance drivers create brief, clean interstitial pathways through sea mud arrays, removing the need for traditional heavy sub-surface digging."
-                        }
-                    ],
-                    footerParagraph: "Real-time telemetry tags track continuous reading matrices across every staging point—analyzing structural gas changes and visual tracking telemetry layers to maintain the continuous security of the upper containment barrier seal."
+
+<p class="brutalist-text-body mt-2">Where:</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li>$X$: Input embedding matrix</li>
+    <li>$W$: Learned weight matrix</li>
+    <li>$Y$: Transformed representations matrix</li>
+</ul>
+
+<p class="brutalist-text-body">
+    This simple matrix multiplication transforms every token in the sequence simultaneously.
+</p>
+
+<h3 class="text-lg font-bold text-black mt-6 mb-2">So, How Does This Apply to Transformers?</h3>
+
+<p class="brutalist-text-body">
+    Many core Transformer computations rely directly on matrix multiplications, such as calculating the <strong>Query ($Q$)</strong>, <strong>Key ($K$)</strong>, and <strong>Value ($V$)</strong> projections: $$Q = X W_Q, \\quad K = X W_K, \\quad V = X W_V$$
+</p>
+
+
+
+<p class="brutalist-text-body">
+    Here, the input embedding matrix $X$ is multiplied by three separate weight matrices ($W_Q, W_K, W_V$) to produce the $Q$, $K$, and $V$ matrices used directly in the self-attention mechanism: $$\\text{Attention}(Q, K, V) = \\text{softmax}\\left(\\frac{Q K^T}{\\sqrt{d_k}}\\right) V$$
+</p>`,
+                    ]
                 }
             ],
 
-            references: [
-                {
-                    id: "DEEP-SEA.2025.09",
-                    journal: "JOURNAL OF MARINE GEOLOGY",
-                    title: "Anoxic Carbon Sequestration Horizons in Benthic Sub-layers: Decomposition Velocity Ratios",
-                    authors: "Babin, D., Dr. Thorne, E., et al. Evaluating decay behavior of complex raw carbon vectors under elevated lithostatic pressures across continental shelves.",
-                    link: "https://example.org/paper-1"
-                },
-                {
-                    id: "ECO-INFRA.2026.02",
-                    journal: "COASTAL ENGINEERING QUARTERLY",
-                    title: "Organic Slurry Aggregates as Dynamic Barriers Countering Tidal Margin Transgression",
-                    authors: "Vance, S. R. Morphological tracking models of micro-fluidized sub-surface layers under high-energy incoming wave profiles.",
-                    link: "https://example.org/paper-2"
-                }
-            ]
+            references: []
         };
 
         // -----------------------------------------------------------------

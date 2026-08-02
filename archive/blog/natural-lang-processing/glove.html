@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="doc-page-title">Loading Research Paper...</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load the shared web component footer -->
+    <script src="../../../components.js" defer></script>
+    <!-- MathJax for rendering LaTeX math in HTML -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                packages: ['base', 'ams'] // Ensures \aligned works
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* Theme Color Maps */
+        .theme-light {
+            --bg-main: #F6F6F6;
+            --bg-surface: #FFFFFF;
+            --bg-strip: #FAFAFA;
+            --text-main: #000000;
+            --text-body: #1F2937;
+            --text-muted: #9CA3AF;
+            --border-main: #000000;
+        }
+
+        .theme-dark {
+            --bg-main: #0C0C0C;
+            --bg-surface: #121212;
+            --bg-strip: #181818;
+            --text-main: #FFFFFF;
+            --text-body: #D1D5DB;
+            --text-muted: #4B5563;
+            --border-main: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.038'/%3E%3C/svg%3E");
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .brutalist-border {
+            border-color: var(--border-main) !important;
+        }
+
+        .brutalist-bg {
+            background-color: var(--bg-main) !important;
+        }
+
+        .brutalist-surface {
+            background-color: var(--bg-surface) !important;
+        }
+
+        .brutalist-strip {
+            background-color: var(--bg-strip) !important;
+        }
+
+        .brutalist-text {
+            color: var(--text-main) !important;
+        }
+
+        .brutalist-text-body {
+            color: var(--text-body) !important;
+        }
+
+        .brutalist-text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        .brutalist-divide>*+* {
+            border-color: var(--border-main) !important;
+        }
+
+        /* Custom Inverting Magic Cursor */
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 140px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate3d(calc(var(--cursor-x, 0px) - 50%), calc(var(--cursor-y, 0px) - 50%), 0) scale(var(--cursor-scale, 1));
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s cubic-bezier(0.215, 0.610, 0.355, 1);
+            will-change: transform;
+        }
+
+        @media (max-width: 1024px) {
+            #custom-cursor {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+        }
+
+        /* Sidebar Nav Styling */
+        .editorial-nav-item.active {
+            color: var(--text-main) !important;
+            border-left-color: var(--text-main) !important;
+            padding-left: 1.25rem;
+        }
+
+        .editorial-nav-item {
+            transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+        }
+    </style>
+</head>
+
+<body
+    class="antialiased overflow-x-hidden selection:bg-black selection:text-white lg:cursor-none brutalist-bg brutalist-text">
+
+    <div id="custom-cursor"></div>
+
+    <div class="border-x brutalist-border mx-auto max-w-[1800px] min-h-screen flex flex-col">
+
+        <!-- Navigation Header -->
+        <nav
+            class="border-b brutalist-border px-8 py-5 flex justify-between items-center text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
+            <div class="brutalist-text" id="bind-posted-date">POSTED ON: -- // ARCHIVE MATRIX</div>
+
+            <div class="flex items-center gap-3 cursor-pointer group" id="theme-toggle">
+                <a href="../../../index.html"
+                    class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">RESEARCH</a>
+                <div class="w-px h-6 brutalist-border border-l"></div>
+                <a href="../../../projects.html"
+                    class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">PROJECTS</a>
+                <div class="w-px h-6 brutalist-border border-l"></div>
+                <a href="../../../blog.html"
+                    class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">BLOG</a>
+                <div class="w-px h-6 brutalist-border border-l"></div>
+
+                <span id="theme-text" class="brutalist-text">LIGHT</span>
+                <div class="relative w-5 h-5 flex items-center justify-center">
+                    <svg id="theme-sun" class="w-5 h-5 brutalist-text hidden" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path
+                            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41">
+                        </path>
+                    </svg>
+                    <svg id="theme-moon" class="w-5 h-5 brutalist-text block" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border group">
+            <div
+                class="lg:col-span-7 border-b lg:border-b-0 lg:border-r brutalist-border relative overflow-hidden bg-emerald-950 min-h-[500px] lg:min-h-[650px]">
+                <div id="bind-hero-bg"
+                    class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                    style="opacity: 0.8; filter: hue-rotate(35deg) saturate(1.4);"></div>
+            </div>
+
+            <a id="bind-pdf-link" href="#" target="_blank"
+                class="lg:col-span-5 p-8 lg:p-16 flex flex-col justify-center brutalist-bg hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors duration-300 relative">
+
+                <h2 id="bind-hero-title"
+                    class="text-5xl lg:text-[4.5rem] font-normal tracking-tight leading-[1.02] brutalist-text mb-8">
+                </h2>
+                <p id="bind-hero-summary"
+                    class="text-base lg:text-lg brutalist-text-body font-normal leading-relaxed max-w-xl"></p>
+            </a>
+        </section>
+
+        <!-- Challenge Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border">
+            <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border">
+                <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted select-none">THE
+                    CHALLENGE</span>
+            </div>
+            <div class="lg:col-span-8 p-8 lg:p-12">
+                <h3 id="bind-challenge-title"
+                    class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight max-w-4xl mb-6 brutalist-text">
+                </h3>
+                <p id="bind-challenge-body" class="text-base lg:text-lg brutalist-text-body leading-relaxed max-w-3xl">
+                </p>
+            </div>
+        </section>
+
+        <!-- Dynamic Content Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border relative">
+
+            <!-- Sidebar Matrix -->
+            <div
+                class="lg:col-span-4 border-b lg:border-b-0 lg:border-r brutalist-border p-8 lg:p-12 brutalist-bg lg:sticky lg:top-0 lg:h-screen flex flex-col justify-between select-none z-20">
+                <div class="pt-4">
+                    <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-8">//
+                        LITIGATION & EVIDENCE MATRIX</span>
+                    <nav id="bind-sidebar-nav" class="flex flex-col space-y-4">
+                        <!-- Rendered via JS -->
+                    </nav>
+                </div>
+                <div id="bind-sidebar-footer"
+                    class="hidden lg:block border-t brutalist-border pt-6 text-[10px] font-bold brutalist-text-muted tracking-widest leading-relaxed">
+                    <!-- Rendered via JS -->
+                </div>
+            </div>
+
+            <!-- Main Dynamic Articles Container -->
+            <div id="bind-articles-container" class="lg:col-span-8 brutalist-surface brutalist-divide divide-y">
+                <!-- Rendered via JS -->
+            </div>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border">
+            <div class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border">
+                <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted select-none">THE
+                    CONCLUSION</span>
+            </div>
+            <div class="lg:col-span-8 p-8 lg:p-12">
+                <h3 id="bind-conclusion-title"
+                    class="text-3xl lg:text-5xl font-normal tracking-tight leading-tight max-w-4xl mb-6 brutalist-text">
+                </h3>
+                <p id="bind-conclusion-body" class="text-base lg:text-lg brutalist-text-body leading-relaxed max-w-3xl">
+                </p>
+            </div>
+        </section>
+
+        <!-- References Section -->
+        <section class="border-b brutalist-border brutalist-surface">
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                <div
+                    class="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r brutalist-border flex flex-col justify-between brutalist-bg select-none">
+                    <div>
+                        <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-4">//
+                            EXTERNAL COMPENDIUM</span>
+                        <h3 class="text-2xl font-black tracking-tight uppercase leading-none brutalist-text">Academic
+                            <br>Cross-References
+                        </h3>
+                    </div>
+                    <div class="mt-8">
+                        <a href="../../archive.html"
+                            class="inline-flex items-center justify-between w-full p-4 border brutalist-border brutalist-surface brutalist-text text-xs font-mono font-bold tracking-widest uppercase hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 group">
+                            <span>VIEW ALL BLOG TOPICS</span>
+                            <span class="group-hover:translate-x-1 transition-transform duration-200">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="bind-references-list" class="lg:col-span-8 brutalist-divide divide-y brutalist-surface">
+                    <!-- Rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Option 2 Custom Footer Web Component -->
+        <site-footer></site-footer>
+
+    </div>
+
+    <!-- Embedded Data Object & Dynamic Renderer -->
+    <script>
+        // -----------------------------------------------------------------
+        // 1. DATA OBJECT (Edit this section to change page content)
+        // -----------------------------------------------------------------
+        const pageData = {
+            metadata: {
+                title: "Research - Permanent Carbon Dioxide Removal",
+                date: "MAY 31st 2026",
+                registryCode: "SL-2026-REV4"
+            },
+            hero: {
+                bgImage: "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                pdfUrl: "https://example.org/documents/current-research-paper.pdf",
+                title: "Glove (Global Vectors for Word Representation)",
+                summary: "Research Labs' novel approach injects biomass into marine sediments, elevating the seabed to counter coastal erosion and achieve durable carbon storage."
+            },
+            challenge: {
+                title: "Our coastlines are disappearing – faster than we can rebuild them.",
+                body: "Rising seas, sinking land, stronger storms, and resource extraction are accelerating erosion, threatening ecosystems, displacing communities, and risking trillions in infrastructure. Conventional defenses are costly, slow, and often harm marine life. As climate threats grow, scalable, sustainable solutions are urgently needed."
+            },
+            conclusion: {
+                title: "A practical path forward is to store carbon where it also strengthens the coast.",
+                body: "By combining sediment-based carbon storage with seabed elevation, the method turns agricultural waste into a durable climate intervention. The result is a single system that addresses emissions, erosion, and long-term coastal resilience at the same time."
+            },
+            sections: [
+                {
+                    id: "doc-math-foundations",
+                    logCode: "// ARCHIVE LOG 01.A",
+                    navTitle: "01 / MATHEMATICAL FOUNDATIONS",
+                    title: "Numbers, Vectors & Similarity",
+                    quote: `<blockquote class="my-8 border-l-4 brutalist-border pl-6 py-4 brutalist-bg">
+                        <p class="text-sm lg:text-xl italic font-serif tracking-wide leading-relaxed brutalist-text">
+                            “A scalar tells you how much. A vector tells you how much and which way.”
+                        </p>
+                    </blockquote>`,
+                    paragraphs: [
+                        "Word2Vec learns word embeddings by looking at a <strong>small context window</strong> around each word. While this works well, it doesn't fully utilize the global statistics of the entire corpus.",
+                        "To address this limitation, researchers at Stanford University introduced <a href=\"https://en.wikipedia.org/wiki/GloVe_(machine_learning)\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2\"><strong>GloVe (Global Vectors for Word Representation)</strong></a> in 2014.",
+                        "The key idea behind GloVe is that it's not just how often two words appear together that matters, but how their co-occurrence patterns compare with other words. These patterns reveal meaningful relationships between words.",
+                        `<p class="brutalist-text-body">
+                            Let:
+                            <br />
+                            • $X_{ij}$ be the number of times word $j$ appears in the context of target word $i$.
+                            <br />
+                            • $X_i = \\sum_k X_{ik}$ be the total number of times any word appears in the context of word $i$.
+                            <br />
+                            • $P_{ij} = P(j \\mid i) = \\frac{X_{ij}}{X_i}$ be the probability that word $j$ appears in the context of word $i$.
+                        </p>`,
+                        `<p class="brutalist-text-body">
+    Before model training begins, GloVe constructs a giant $V \\times V$ global co-occurrence matrix $X$, where $V$ is the vocabulary size.
+</p>
+<p class="brutalist-text-body">
+    Consider two target words: $i = \\text{"ice"}$ and $j = \\text{"steam"}$. To analyze their relationship, we inspect their co-occurrence probabilities with various probe words $k$:
+</p>
+
+<!-- Simple Table with Black Borders -->
+<div>
+    <table class="w-full border-collapse border border-black text-left">
+        <thead>
+            <tr>
+                <th class="border border-black px-4 py-2">Probability & Ratio</th>
+                <th class="border border-black px-4 py-2">$k = \\text{"solid"}$</th>
+                <th class="border border-black px-4 py-2">$k = \\text{"gas"}$</th>
+                <th class="border border-black px-4 py-2">$k = \\text{"water"}$</th>
+                <th class="border border-black px-4 py-2">$k = \\text{"fashion"}$</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border border-black px-4 py-2">$P(k \\mid \\text{"ice"})$</td>
+                <td class="border border-black px-4 py-2">Large</td>
+                <td class="border border-black px-4 py-2">Small</td>
+                <td class="border border-black px-4 py-2">Large</td>
+                <td class="border border-black px-4 py-2">Small</td>
+            </tr>
+            <tr>
+                <td class="border border-black px-4 py-2">$P(k \\mid \\text{"steam"})$</td>
+                <td class="border border-black px-4 py-2">Small</td>
+                <td class="border border-black px-4 py-2">Large</td>
+                <td class="border border-black px-4 py-2">Large</td>
+                <td class="border border-black px-4 py-2">Small</td>
+            </tr>
+            <tr>
+    <td class="border-x border-black px-4 py-2 whitespace-nowrap">Ratio: $\\frac{P(k \\mid \\text{"ice"})}{P(k \\mid \\text{"steam"})}$</td>
+    <td class="border-x border-black px-4 py-2">$\\gg 1$</td>
+    <td class="border-x border-black px-4 py-2">$\\ll 1$</td>
+    <td class="border-x border-black px-4 py-2">$\\approx 1$</td>
+    <td class="border-x border-black px-4 py-2">$\\approx 1$</td>
+</tr>
+        </tbody>
+    </table>
+</div>
+
+<ul class="brutalist-text-body">
+    <li>• $k = \\text{"solid"}$ is property-related to ice but not steam $\\rightarrow$ Ratio is very large.</li>
+    <li>• $k = \\text{"gas"}$ is property-related to steam but not ice $\\rightarrow$ Ratio is very small.</li>
+    <li>• $k = \\text{"water"}$ is related to both $\\rightarrow$ Ratio is close to 1.</li>
+    <li>• $k = \\text{"fashion"}$ is related to neither $\\rightarrow$ Ratio is close to 1.</li>
+</ul>
+
+<p class="brutalist-text-body">
+    The ratio $\\frac{P_{ik}}{P_{jk}}$ cleanly isolates relevant semantic features and noise. Therefore, word vector learning should aim to model these probability ratios rather than raw probabilities directly (Pennington et al., 2014).
+</p>`,
+`<h2 class="text-xl font-bold tracking-tight text-black lg:text-2xl mt-8 mb-4">How Does GloVe Work? (Step-by-Step)</h2>
+
+<p class="brutalist-text-body">
+    Unlike Word2Vec, which learns by sliding a window over text to predict nearby words online, GloVe (Global Vectors) learns by analyzing word co-occurrence patterns across an entire corpus all at once.
+</p>
+
+<p class="brutalist-text-body font-semibold mt-3">
+    Key Difference in Perspective:
+</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>Word2Vec asks:</strong> "Can I predict the next word in this sentence?"</li>
+    <li><strong>GloVe asks:</strong> "How often do these two words appear near each other across the entire corpus, and what does that tell us about their relationship?"</li>
+</ul>
+
+<p class="brutalist-text-body">
+    To turn raw text into meaningful vector embeddings, GloVe follows four key steps.
+</p>
+
+<!-- Step 1 -->
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 1: Build the Global Co-Occurrence Matrix</h3>
+
+<p class="brutalist-text-body">
+    First, GloVe scans the entire text dataset with a fixed context window (e.g., 5 words to the left and right) to count how often every pair of words appears together.
+</p>
+
+<p class="brutalist-text-body mt-3">
+    To see this in action, consider a tiny sample corpus:
+</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li>"I like coffee."</li>
+    <li>"I like tea."</li>
+    <li>"Coffee tastes great."</li>
+    <li>"Tea tastes great."</li>
+</ul>
+
+<p class="brutalist-text-body">
+    If we set our context window size to 1 (only looking at immediate neighbors), we can record every pair of adjacent words. After scanning all four sentences, GloVe compiles those counts into a Global Co-Occurrence Matrix ($X$):
+</p>
+
+<!-- Matrix Table -->
+<div class="my-6 overflow-x-auto">
+    <table class="w-full border-collapse border-x border-black text-left text-sm text-black">
+        <thead>
+            <tr class="text-black">
+                <th class="border-x border-black px-4 py-2"></th>
+                <th class="border-x border-black px-4 py-2 font-bold">I</th>
+                <th class="border-x border-black px-4 py-2 font-bold">like</th>
+                <th class="border-x border-black px-4 py-2 font-bold">coffee</th>
+                <th class="border-x border-black px-4 py-2 font-bold">tea</th>
+                <th class="border-x border-black px-4 py-2 font-bold">tastes</th>
+                <th class="border-x border-black px-4 py-2 font-bold">great</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">I</th>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">2</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+            </tr>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">like</th>
+                <td class="border-x border-black px-4 py-2">2</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+            </tr>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">coffee</th>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+            </tr>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">tea</th>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+            </tr>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">tastes</th>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">1</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">2</td>
+            </tr>
+            <tr>
+                <th class="border-x border-black px-4 py-2 font-bold text-black">great</th>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+                <td class="border-x border-black px-4 py-2">2</td>
+                <td class="border-x border-black px-4 py-2">0</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="brutalist-text-body">
+    Notice something remarkable here: coffee and tea never appear in the same sentence together (their intersection in the matrix is 0).
+</p>
+
+<p class="brutalist-text-body mt-2">
+    However, look at their neighboring rows:
+</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>coffee</strong> appears next to <em>like</em> (1 time) and <em>tastes</em> (1 time).</li>
+    <li><strong>tea</strong> appears next to <em>like</em> (1 time) and <em>tastes</em> (1 time).</li>
+</ul>
+
+<p class="brutalist-text-body">
+    Because coffee and tea share identical co-occurrence profiles across the corpus, GloVe deduces that they share a very similar semantic meaning. This concept—known as the <strong>Distributional Hypothesis</strong>—is the core engine behind GloVe.
+</p>
+
+<!-- Step 2 -->
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 2: Represent Words as Vectors & Use the Dot Product</h3>
+
+<p class="brutalist-text-body">
+    Next, GloVe assigns every word $i$ in the vocabulary a dense vector of real numbers, $w_i \\in \\mathbb{R}^d$ (typically 50 to 300 dimensions).
+</p>
+
+<p class="brutalist-text-body">
+    To measure how compatible or similar two word vectors are, GloVe calculates their dot product:
+    $$\\text{Similarity}(w_i, w_j) = w_i^T w_j$$
+</p>
+
+<h4 class="text-base font-bold text-black mt-4 mb-2">Quick Dot Product Intuition</h4>
+
+<p class="brutalist-text-body">
+    Suppose our model learns a 2D vector for coffee and tea:
+    $$w_{\\text{coffee}} = \\begin{bmatrix} 0.8 \\\\ 0.3 \\end{bmatrix}, \\quad w_{\\text{tea}} = \\begin{bmatrix} 0.7 \\\\ 0.4 \\end{bmatrix}$$
+</p>
+
+<p class="brutalist-text-body">
+    Their dot product is:
+    $$w_{\\text{coffee}}^T w_{\\text{tea}} = (0.8 \\times 0.7) + (0.3 \\times 0.4) = 0.56 + 0.12 = 0.68$$
+</p>
+
+<p class="brutalist-text-body mt-2">Key interpretations:</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>Large positive dot product:</strong> The vectors point in a similar direction (high compatibility and similarity).</li>
+    <li><strong>Dot product near zero:</strong> The words are completely unrelated or orthogonal in concept space.</li>
+</ul>
+
+<!-- Step 3 -->
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 3: Match Vectors to Log Co-Occurrence Counts</h3>
+
+<p class="brutalist-text-body">
+    Now comes GloVe's main learning objective: Make the dot product of two word vectors reflect how often those words co-occur in real text.
+</p>
+
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li>If word $i$ and word $j$ appear together frequently in the matrix ($X_{ij}$ is large), their vector dot product $w_i^T w_j$ should also be large.</li>
+    <li>Instead of matching raw counts directly (which can range from $1$ to $1,000,000+$), GloVe fits the dot product to the logarithm of the co-occurrence count:</li>
+</ul>
+
+<p class="brutalist-text-body my-2">
+    $$w_i^T \\tilde{w}_j \\approx \\log(X_{ij})$$
+</p>
+
+<p class="brutalist-text-body">
+    To make the system symmetric and account for word frequency baseline offsets, GloVe adds a target bias $b_i$ and context bias $\\tilde{b}_j$:
+    $$w_i^T \\tilde{w}_j + b_i + \\tilde{b}_j = \\log(X_{ij})$$
+</p>
+
+<!-- Step 4 -->
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 4: Fix Real-World Edge Cases with a Weighting Function</h3>
+
+<p class="brutalist-text-body">
+    In practice, fitting $\\log(X_{ij})$ runs into two major problems:
+</p>
+
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>Zero Co-occurrences:</strong> Many word pairs never appear together ($X_{ij} = 0$), but $\\log(0)$ is mathematically undefined ($-\\infty$).</li>
+    <li><strong>Stop Word Domination:</strong> Ultra-common words like "the", "is", and "and" co-occur constantly with almost everything and would drown out meaningful word relationships.</li>
+</ul>
+
+<p class="brutalist-text-body">
+    GloVe solves both problems by wrapping the objective in a weighted least squares loss function using a capped weighting function $f(X_{ij})$:
+    $$f(x) = \\begin{cases} \\left(\\frac{x}{x_{\\max}}\\right)^\\alpha & \\text{if } x < x_{\\max} \\\\ 1 & \\text{otherwise} \\end{cases}$$
+    (Standard values: $x_{\\max} = 100$, $\\alpha = 0.75$)
+</p>
+<!-- Step 5 -->
+<h3 class="text-lg font-bold text-black mt-6 mb-2">Step 5: Combine Dual Vectors for the Final Output</h3>
+
+<p class="brutalist-text-body">
+    During training, GloVe actually learns two separate vectors for every word:
+</p>
+
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li><strong>Target vector ($w_i$):</strong> Used when the word acts as the central target word.</li>
+    <li><strong>Context vector ($\\tilde{w}_i$):</strong> Used when the word appears in another word's context window.</li>
+</ul>
+
+<p class="brutalist-text-body">
+    Because the co-occurrence matrix is symmetric, $w$ and $\\tilde{w}$ learn nearly identical representations—differing only due to random weight initialization.
+</p>
+
+<p class="brutalist-text-body">
+    Once training completes, GloVe simply adds the two vectors together:
+    $$w_{\\text{final}} = w_i + \\tilde{w}_i$$
+</p>
+
+<p class="brutalist-text-body mt-2">
+    This simple addition achieves key practical benefits:
+</p>
+<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+    <li>Reduces vector noise</li>
+    <li>Stabilizes mathematical representations</li>
+    <li>Yields final high-quality embeddings ready for downstream NLP tasks</li>
+</ul>`,
+`<h2><strong>Mathematical Derivation of the GloVe Objective</strong></h2>
+
+    <p class="brutalist-text-body">
+        To force our word vectors to mirror these probability ratios, the researchers stepped through four logical stages:
+    </p>
+
+    <div class="space-y-4 my-4">
+        <div>
+            <h3><strong>Step 1: Start with the Ratio Goal</strong></h3>
+            <p class="brutalist-text-body">
+                We want some function $F$ that takes the vectors for target words $w_i, w_j$ and context word $\\tilde{w}_k$ to yield the probability ratio:
+                $$F(w_i, w_j, \\tilde{w}_k) = \\frac{P_{ik}}{P_{jk}}$$
+            </p>
+        </div>
+
+        <div>
+            <h3><strong>Step 2: Use Vector Differences</strong></h3>
+            <p class="brutalist-text-body">
+                To encode linear directions (so $w_i - w_j$ represents a concept like "temperature difference"), we feed the difference between word vectors into the dot product with the probe word:
+                $$F\\left((w_i - w_j)^T \\tilde{w}_k\\right) = \\frac{P_{ik}}{P_{jk}}$$
+            </p>
+        </div>
+
+        <div>
+            <h3 ><strong>Step 3: Turn Division into Subtraction</strong></h3>
+            <p class="brutalist-text-body">
+                To solve this cleanly, $F$ needs to turn vector addition into scalar multiplication—a property unique to the exponential function ($\\exp(x)$).
+                Taking the log on both sides simplifies the relationship into straight subtraction:
+                $$w_i^T \\tilde{w}_k = \\log(P_{ik}) = \\log(X_{ik}) - \\log(X_i)$$
+                (where $X_{ik}$ is the co-occurrence count between word $i$ and $k$, and $X_i$ is the total count for word $i$.)
+            </p>
+        </div>
+
+        <div>
+            <h3 ><strong>Step 4: Add Bias Terms for Symmetry</strong></h3>
+            <p class="brutalist-text-body">
+                Because $\\log(X_i)$ depends only on word $i$, we absorb it into a trainable bias term $b_i$. We also add a context bias $\\tilde{b}_k$ so target and context words remain completely symmetric:
+                $$w_i^T \\tilde{w}_k + b_i + \\tilde{b}_k = \\log(X_{ik})$$
+            </p>
+        </div>
+    </div>
+
+    <p class="brutalist-text-body">
+        This elegant formula means: <strong>The dot product of two word vectors plus their biases should equal the log of their co-occurrence count.</strong>
+    </p>
+
+    <!-- Section 4 -->
+    <h2><strong>4. The Loss Function & "The Secret Sauce"</strong></h2>
+
+    <p class="brutalist-text-body">
+        To train these vectors, GloVe uses a weighted least squares loss function:
+        $$J = \\sum_{i,j=1}^V f(X_{ij}) \\left( w_i^T \\tilde{w}_j + b_i + \\tilde{b}_j - \\log X_{ij} \\right)^2$$
+    </p>
+
+    <p class="brutalist-text-body">
+        Why do we need the weighting function $f(X_{ij})$?
+    </p>
+
+    <p class="brutalist-text-body">
+        Raw counts $X_{ij}$ cause two practical problems:
+    </p>
+
+    <ul class="space-y-1 brutalist-text-body">
+        <li>1. Words that never co-occur have $X_{ij} = 0$, and $\\log(0)$ is undefined.</li>
+        <li>2. Ultra-frequent stop words like "the" or "is" co-occur so often they would completely steamroll all other word pairs.</li>
+    </ul>
+
+    <p class="brutalist-text-body">
+        GloVe solves this with a clever weighting curve $f(x)$:
+        $$f(x) = \\begin{cases} \\left(\\frac{x}{x_{\\max}}\\right)^\\alpha & \\text{if } x < x_{\\max} \\\\ 1 & \\text{otherwise} \\end{cases}$$
+    </p>
+
+    <p class="brutalist-text-body">
+        How this weighting trick works:
+    </p>
+
+    <ul class="space-y-2 brutalist-text-body">
+        <li>• If $X_{ij} = 0$, $f(0) = 0$, so zero-count pairs are simply ignored without breaking the log math.</li>
+        <li>• Rare words get small weights so noise doesn't corrupt the embeddings.</li>
+        <li>• Frequent words hit a hard ceiling at $x_{\\max} = 100$ (with power $\\alpha = 0.75$), preventing them from dominating training.</li>
+    </ul>`,
+                        
+
+
+                    ],
+                    gridItems: [
+                        {
+                            title: "01 / MICRO-FLUIDIZATION",
+                            text: "Raw carbon substrates are mechanically optimized down to standardized granular structures ($\\le 4\\text{mm}$) to ensure uniform fluid movement underneath soft marine layers without clumping."
+                        },
+                        {
+                            title: "02 / ACOUSTIC GRAIN DISPLACEMENT",
+                            text: "Low-frequency acoustic resonance drivers create brief, clean interstitial pathways through sea mud arrays, removing the need for traditional heavy sub-surface digging."
+                        }
+                    ],
+                    footerParagraph: "Real-time telemetry tags track continuous reading matrices across every staging point—analyzing structural gas changes and visual tracking telemetry layers to maintain the continuous security of the upper containment barrier seal."
+                }
+            ],
+
+            references: [
+                {
+                    id: "DEEP-SEA.2025.09",
+                    journal: "JOURNAL OF MARINE GEOLOGY",
+                    title: "Anoxic Carbon Sequestration Horizons in Benthic Sub-layers: Decomposition Velocity Ratios",
+                    authors: "Babin, D., Dr. Thorne, E., et al. Evaluating decay behavior of complex raw carbon vectors under elevated lithostatic pressures across continental shelves.",
+                    link: "https://example.org/paper-1"
+                },
+                {
+                    id: "ECO-INFRA.2026.02",
+                    journal: "COASTAL ENGINEERING QUARTERLY",
+                    title: "Organic Slurry Aggregates as Dynamic Barriers Countering Tidal Margin Transgression",
+                    authors: "Vance, S. R. Morphological tracking models of micro-fluidized sub-surface layers under high-energy incoming wave profiles.",
+                    link: "https://example.org/paper-2"
+                }
+            ]
+        };
+
+        // -----------------------------------------------------------------
+        // 2. DYNAMIC RENDER ENGINE
+        // -----------------------------------------------------------------
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bind Header & Meta
+            document.getElementById('doc-page-title').innerText = pageData.metadata.title;
+            document.getElementById('bind-posted-date').innerText = `POSTED ON: ${pageData.metadata.date} // ARCHIVE MATRIX`;
+
+            // Bind Hero
+            document.getElementById('bind-hero-bg').style.backgroundImage = `url('${pageData.hero.bgImage}')`;
+            document.getElementById('bind-pdf-link').href = pageData.hero.pdfUrl;
+            document.getElementById('bind-hero-title').innerHTML = pageData.hero.title;
+            document.getElementById('bind-hero-summary').innerText = pageData.hero.summary;
+
+            // Bind Challenge
+            document.getElementById('bind-challenge-title').innerText = pageData.challenge.title;
+            document.getElementById('bind-challenge-body').innerText = pageData.challenge.body;
+
+            // Bind Conclusion
+            document.getElementById('bind-conclusion-title').innerText = pageData.conclusion.title;
+            document.getElementById('bind-conclusion-body').innerText = pageData.conclusion.body;
+
+            // Bind Sidebar Metadata Footer
+            document.getElementById('bind-sidebar-footer').innerHTML = `
+                DATA CLASSIFICATION: UNRESTRICTED CORE DISTRIBUTION<br>
+                SYSTEM REGISTRY CODE: ${pageData.metadata.registryCode}<br>
+                SUBTERRANEAN STATUS: STABLE CONTAINMENT
+            `;
+
+            // Bind Navigation & Main Sections Loop
+            const sidebarNav = document.getElementById('bind-sidebar-nav');
+            const articlesContainer = document.getElementById('bind-articles-container');
+
+            pageData.sections.forEach((sec, idx) => {
+                // Build Sidebar Navigation Link
+                const navLink = document.createElement('a');
+                navLink.href = `#${sec.id}`;
+                navLink.className = `editorial-nav-item ${idx === 0 ? 'active' : ''} text-xs font-bold tracking-wider brutalist-text-muted border-l border-transparent pl-0 hover:text-black dark:hover:text-white block py-1`;
+                navLink.innerText = sec.navTitle;
+                sidebarNav.appendChild(navLink);
+
+                // Build Article Element
+                const article = document.createElement('article');
+                article.id = sec.id;
+                article.className = `editorial-section p-8 lg:p-20 scroll-mt-0 ${sec.isStriped ? 'brutalist-strip' : ''}`;
+
+                const quoteHTML = sec.quote ? sec.quote : '';
+
+                const contentHTML = (sec.paragraphs || []).map(item => {
+                    if (typeof item === 'string') {
+                        return `<p>${item}</p>`;
+                    }
+
+                    if (item && item.type === 'grid' && Array.isArray(item.items) && item.items.length > 0) {
+                        return `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12 border-t border-b brutalist-border py-8">
+                                ${item.items.map(g => `
+                                    <div class="space-y-2">
+                                        <div class="text-xs font-black tracking-wider uppercase brutalist-text">${g.title}</div>
+                                        <p class="text-sm leading-relaxed">${g.text}</p>
+                                    </div>
+                                `).join('')}
+                            </div>`;
+                    }
+
+                    return '';
+                }).join('');
+
+                article.innerHTML = `
+                    <div class="max-w-3xl space-y-8">
+                        <span class="text-[11px] font-bold tracking-widest uppercase text-indigo-600 block">${sec.logCode}</span>
+                        <h2 class="text-4xl lg:text-6xl font-normal tracking-tight leading-[1.02] brutalist-text">${sec.title}</h2>
+                        <div class="w-16 h-[1px] my-8" style="background-color: var(--border-main);"></div>
+                        <div class="text-base lg:text-lg brutalist-text-body space-y-6 leading-relaxed font-normal">
+                            ${quoteHTML}
+                            ${contentHTML}
+                            ${sec.footerParagraph ? `<p>${sec.footerParagraph}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+                articlesContainer.appendChild(article);
+            });
+
+            // Bind References Section
+            const refContainer = document.getElementById('bind-references-list');
+            refContainer.innerHTML = pageData.references.map(r => `
+                <a href="${r.link}" target="_blank" class="group block p-8 transition-colors duration-300 hover:bg-neutral-900 dark:hover:bg-neutral-100 relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <span class="text-xs font-mono font-bold tracking-widest text-indigo-600 mb-2 md:mb-0">[ ${r.id} ]</span>
+                        <div class="flex items-center gap-4 text-xs font-bold tracking-wider brutalist-text-muted uppercase group-hover:!text-neutral-400 dark:group-hover:!text-neutral-500">
+                            <span>${r.journal}</span>
+                            <span class="hidden md:inline group-hover:translate-x-2 transition-transform duration-300">→</span>
+                        </div>
+                    </div>
+                    <h4 class="text-lg lg:text-xl font-bold tracking-tight mb-2 brutalist-text group-hover:!text-white dark:group-hover:!text-black transition-colors">
+                        ${r.title}
+                    </h4>
+                    <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
+                        ${r.authors}
+                    </p>
+                </a>
+            `).join('');
+
+            // At the very end of your DOMContentLoaded event listener script block:
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+
+            // Initialize Intersection Observer for Dynamic Sidebar Highlighting
+            initScrollObserver();
+        });
+
+        // -----------------------------------------------------------------
+        // 3. UI CONTROLLERS (Theme Switcher, Cursor, Intersection Observer)
+        // -----------------------------------------------------------------
+        const root = document.documentElement;
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('theme-sun');
+        const moonIcon = document.getElementById('theme-moon');
+        const themeText = document.getElementById('theme-text');
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                root.classList.remove('theme-light');
+                root.classList.add('theme-dark');
+                if (themeText) themeText.textContent = 'DARK';
+                if (sunIcon && moonIcon) {
+                    sunIcon.classList.remove('hidden');
+                    sunIcon.classList.add('block');
+                    moonIcon.classList.remove('block');
+                    moonIcon.classList.add('hidden');
+                }
+                localStorage.setItem('research-theme', 'dark');
+            } else {
+                root.classList.remove('theme-dark');
+                root.classList.add('theme-light');
+                if (themeText) themeText.textContent = 'LIGHT';
+                if (sunIcon && moonIcon) {
+                    sunIcon.classList.remove('block');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                    moonIcon.classList.add('block');
+                }
+                localStorage.setItem('research-theme', 'light');
+            }
+        }
+
+        const cachedTheme = localStorage.getItem('research-theme');
+        setTheme(cachedTheme || 'light');
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                const isDarkActive = root.classList.contains('theme-dark');
+                setTheme(isDarkActive ? 'light' : 'dark');
+            });
+        }
+
+        // Custom Mouse Tracker Pipeline
+        if (window.innerWidth > 1024) {
+            let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }, { passive: true });
+
+            function renderCursor() {
+                currentX += (mouseX - currentX) * 0.18;
+                currentY += (mouseY - currentY) * 0.18;
+                root.style.setProperty('--cursor-x', `${currentX}px`);
+                root.style.setProperty('--cursor-y', `${currentY}px`);
+                requestAnimationFrame(renderCursor);
+            }
+            requestAnimationFrame(renderCursor);
+        }
+
+        // Sidebar Intersection Observer function
+        function initScrollObserver() {
+            const editorialSections = document.querySelectorAll('.editorial-section');
+            const sidebarLinks = document.querySelectorAll('.editorial-nav-item');
+
+            if (editorialSections.length > 0 && sidebarLinks.length > 0) {
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const activeID = entry.target.getAttribute('id');
+                            sidebarLinks.forEach(link => link.classList.remove('active'));
+                            const targetingLink = document.querySelector(`.editorial-nav-item[href="#${activeID}"]`);
+                            if (targetingLink) targetingLink.classList.add('active');
+                        }
+                    });
+                }, { root: null, rootMargin: '-25% 0px -45% 0px', threshold: 0 });
+
+                editorialSections.forEach(section => sectionObserver.observe(section));
+            }
+        }
+    </script>
+</body>
+
+</html>
