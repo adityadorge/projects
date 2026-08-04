@@ -127,6 +127,98 @@
         .editorial-nav-item {
             transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
         }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        img,
+        svg,
+        video,
+        iframe,
+        table {
+            max-width: 100%;
+        }
+
+        img {
+            height: auto;
+        }
+
+        table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-collapse: collapse;
+        }
+
+        .mathjax-wrapper,
+        .MathJax,
+        .MathJax_Display,
+        .mjx-chtml {
+            max-width: 100% !important;
+            overflow-x: auto !important;
+        }
+
+        .editorial-section *,
+        .editorial-section p,
+        .editorial-section li,
+        .editorial-section h2,
+        .editorial-section h3,
+        .editorial-section h4,
+        .editorial-section blockquote {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+
+            .border-x {
+                border-left: 0 !important;
+                border-right: 0 !important;
+            }
+
+            nav {
+                padding: 1rem 1rem 1.1rem;
+            }
+
+            #theme-toggle {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 0.4rem 0.75rem;
+            }
+
+            #theme-toggle>a,
+            #theme-toggle>span {
+                padding: 0.25rem 0;
+            }
+
+            #theme-toggle>.w-px {
+                display: none;
+            }
+
+            .editorial-section {
+                padding: 1.25rem !important;
+            }
+
+            .editorial-section .max-w-3xl {
+                max-width: 100% !important;
+            }
+
+            .editorial-section blockquote {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            .editorial-section ul,
+            .editorial-section ol {
+                padding-left: 1.1rem;
+            }
+        }
     </style>
 </head>
 
@@ -139,19 +231,19 @@
 
         <!-- Navigation Header -->
         <nav
-            class="border-b brutalist-border px-8 py-5 flex justify-between items-center text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
+            class="border-b brutalist-border px-4 py-4 sm:px-8 sm:py-5 flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
             <div class="brutalist-text" id="bind-posted-date">POSTED ON: -- // ARCHIVE MATRIX</div>
 
-            <div class="flex items-center gap-3 cursor-pointer group" id="theme-toggle">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3 cursor-pointer group" id="theme-toggle">
                 <a href="../../../index.html"
-                    class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">RESEARCH</a>
-                <div class="w-px h-6 brutalist-border border-l"></div>
+                    class="px-3 py-1 sm:px-5 sm:py-1 text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">RESEARCH</a>
+                <div class="w-px h-6 brutalist-border border-l hidden sm:block"></div>
                 <a href="../../../projects.html"
-                    class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">PROJECTS</a>
-                <div class="w-px h-6 brutalist-border border-l"></div>
+                    class="px-3 py-1 sm:px-5 sm:py-1 text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">PROJECTS</a>
+                <div class="w-px h-6 brutalist-border border-l hidden sm:block"></div>
                 <a href="../../../blog.html"
-                    class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">BLOG</a>
-                <div class="w-px h-6 brutalist-border border-l"></div>
+                    class="px-3 py-1 sm:px-5 sm:py-1 text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">BLOG</a>
+                <div class="w-px h-6 brutalist-border border-l hidden sm:block"></div>
 
                 <span id="theme-text" class="brutalist-text">LIGHT</span>
                 <div class="relative w-5 h-5 flex items-center justify-center">
@@ -299,8 +391,8 @@
                 body: "Rising seas, sinking land, stronger storms, and resource extraction are accelerating erosion, threatening ecosystems, displacing communities, and risking trillions in infrastructure. Conventional defenses are costly, slow, and often harm marine life. As climate threats grow, scalable, sustainable solutions are urgently needed."
             },
             conclusion: {
-                title: "A practical path forward is to store carbon where it also strengthens the coast.",
-                body: "By combining sediment-based carbon storage with seabed elevation, the method turns agricultural waste into a durable climate intervention. The result is a single system that addresses emissions, erosion, and long-term coastal resilience at the same time."
+                title: "The next step is to bring all these ideas together through the Transformer architecture.",
+                body: "We've covered a lot of ground in this chapter. We started by exploring simple text representations, learned how models transform words into meaningful embeddings, and discovered why understanding sequences is essential for processing language. In the next blog, We'll dive into self-attention, positional embeddings, multi-head attention, and uncover how modern language models like GPT, BERT, and Llama understand and generate human language. "
             },
             sections: [
                 {
@@ -1571,7 +1663,7 @@
                         <p class="brutalist-text-body">
                             The ratio $\\frac{P_{ik}}{P_{jk}}$ cleanly isolates relevant semantic features and noise. Therefore, word vector learning should aim to model these probability ratios rather than raw probabilities directly (Pennington et al., 2014).
                         </p>`,
-                                                `<h2 class="text-xl font-bold tracking-tight text-black lg:text-2xl mt-8 mb-4">How Does GloVe Work? (Step-by-Step)</h2>
+                        `<h2 class="text-xl font-bold tracking-tight lg:text-2xl mt-8 mb-4">How Does GloVe Work? (Step-by-Step)</h2>
 
                         <p class="brutalist-text-body">
                             Unlike Word2Vec, which learns by sliding a window over text to predict nearby words online, GloVe (Global Vectors) learns by analyzing word co-occurrence patterns across an entire corpus all at once.
@@ -1590,7 +1682,7 @@
                         </p>
 
                         <!-- Step 1 -->
-                        <h3 class="text-lg font-bold text-black mt-6 mb-2">Step 1: Build the Global Co-Occurrence Matrix</h3>
+                        <h3 class="text-lg font-bold mt-6 mb-2">Step 1: Build the Global Co-Occurrence Matrix</h3>
 
                         <p class="brutalist-text-body">
                             First, GloVe scans the entire text dataset with a fixed context window (e.g., 5 words to the left and right) to count how often every pair of words appears together.
@@ -1699,7 +1791,7 @@
                         </p>
 
                         <!-- Step 2 -->
-                        <h3 class="text-lg font-bold text-black mt-6 mb-2">Step 2: Represent Words as Vectors & Use the Dot Product</h3>
+                        <h3 class="text-lg font-bold mt-6 mb-2">Step 2: Represent Words as Vectors & Use the Dot Product</h3>
 
                         <p class="brutalist-text-body">
                             Next, GloVe assigns every word $i$ in the vocabulary a dense vector of real numbers, $w_i \\in \\mathbb{R}^d$ (typically 50 to 300 dimensions).
@@ -1710,7 +1802,7 @@
                             $$\\text{Similarity}(w_i, w_j) = w_i^T w_j$$
                         </p>
 
-                        <h4 class="text-base font-bold text-black mt-4 mb-2">Quick Dot Product Intuition</h4>
+                        <h4 class="text-base font-bold mt-4 mb-2">Quick Dot Product Intuition</h4>
 
                         <p class="brutalist-text-body">
                             Suppose our model learns a 2D vector for coffee and tea:
@@ -1729,7 +1821,7 @@
                         </ul>
 
                         <!-- Step 3 -->
-                        <h3 class="text-lg font-bold text-black mt-6 mb-2">Step 3: Match Vectors to Log Co-Occurrence Counts</h3>
+                        <h3 class="text-lg font-bold mt-6 mb-2">Step 3: Match Vectors to Log Co-Occurrence Counts</h3>
 
                         <p class="brutalist-text-body">
                             Now comes GloVe's main learning objective: Make the dot product of two word vectors reflect how often those words co-occur in real text.
@@ -1750,7 +1842,7 @@
                         </p>
 
                         <!-- Step 4 -->
-                        <h3 class="text-lg font-bold text-black mt-6 mb-2">Step 4: Fix Real-World Edge Cases with a Weighting Function</h3>
+                        <h3 class="text-lg font-bold mt-6 mb-2">Step 4: Fix Real-World Edge Cases with a Weighting Function</h3>
 
                         <p class="brutalist-text-body">
                             In practice, fitting $\\log(X_{ij})$ runs into two major problems:
@@ -1767,7 +1859,7 @@
                             (Standard values: $x_{\\max} = 100$, $\\alpha = 0.75$)
                         </p>
                         <!-- Step 5 -->
-                        <h3 class="text-lg font-bold text-black mt-6 mb-2">Step 5: Combine Dual Vectors for the Final Output</h3>
+                        <h3 class="text-lg font-bold mt-6 mb-2">Step 5: Combine Dual Vectors for the Final Output</h3>
 
                         <p class="brutalist-text-body">
                             During training, GloVe actually learns two separate vectors for every word:
@@ -1802,7 +1894,7 @@
                     logCode: "// ARCHIVE LOG 03",
                     navTitle: "03 / SEQUENCE MODELING",
                     title: "Introduction to Sequence Modeling",
-                    
+
                     paragraphs: [
                         `<p class="brutalist-text-body">
                                 Before modern language models, one of the simplest approaches to sequence modeling was the First-Order Markov Chain. Markov Models are probabilistic frameworks used to model systems that change over time across a sequence of discrete states ($X_1, X_2, X_3, \\dots, X_t$).
@@ -1812,7 +1904,7 @@
                                 What defines any Markov model is the <strong>Markov Property</strong> (often called "memorylessness"): the assumption that the probability of transitioning to the next state depends only on a limited history of preceding states, rather than the entire past history.
                             </p>
 
-                            <h3 class="text-lg font-bold text-black mt-6 mb-2">First-Order Markov Chains</h3>
+                            <h3 class="text-lg font-bold mt-6 mb-2">First-Order Markov Chains</h3>
 
                             <p class="brutalist-text-body">
                                 A First-Order Markov Chain has a memory depth of 1 step. It assumes that the probability of moving to the next state $X_t$ depends exclusively on the current state $X_{t-1}$. Everything that happened prior to time $t-1$ is completely forgotten.
@@ -1823,7 +1915,7 @@
                                 $$P(X_t \\mid X_1, X_2, \\dots, X_{t-1}) \\approx P(X_t \\mid X_{t-1})$$
                             </p>
 
-                            <h3 class="text-lg font-bold text-black mt-6 mb-2">The Transition Matrix ($P$)</h3>
+                            <h3 class="text-lg font-bold mt-6 mb-2">The Transition Matrix ($P$)</h3>
 
                             <p class="brutalist-text-body">
                                 Because transitions only depend on one preceding state, all transition probabilities can be represented in a 2D Transition Probability Matrix $P$ of size $N \\times N$ (where $N = \\vert S \\vert$ is the total number of unique states):
@@ -1833,153 +1925,167 @@
                             <p class="brutalist-text-body">
                                 Where $p_{ij} = P(X_t = j \\mid X_{t-1} = i)$, and the sum of probabilities across each row must equal $1$ ($\\sum_{j=1}^N p_{ij} = 1$).
                             </p>`,
-                            `
-<p class="brutalist-text-body">
-    Consider the sentence: "I love machine learning". Suppose we want to predict the next word after <strong>machine</strong>.
-</p>
-<p class="brutalist-text-body">
-    A First-Order Markov Model only considers the preceding word: $\\text{machine} \\rightarrow \\text{learning}$
-</p>
-<p class="brutalist-text-body">
-    It completely ignores prior context: $\\text{I love}$
-</p>
-<p class="brutalist-text-body">
-    As a result, it estimates: $P(\\text{learning} \\mid \\text{machine})$
-</p>
+                        `
+                        <p class="brutalist-text-body">
+                            Consider the sentence: "I love machine learning". Suppose we want to predict the next word after <strong>machine</strong>.
+                        </p>
+                        <p class="brutalist-text-body">
+                            A First-Order Markov Model only considers the preceding word: $\\text{machine} \\rightarrow \\text{learning}$
+                        </p>
+                        <p class="brutalist-text-body">
+                            It completely ignores prior context: $\\text{I love}$
+                        </p>
+                        <p class="brutalist-text-body">
+                            As a result, it estimates: $P(\\text{learning} \\mid \\text{machine})$
+                        </p>
 
-<p class="brutalist-text-body">
-    instead of considering the full context: $P(\\text{learning} \\mid \\text{I, love, machine})$
-</p>
+                        <p class="brutalist-text-body">
+                            instead of considering the full context: $P(\\text{learning} \\mid \\text{I, love, machine})$
+                        </p>
 
-<h3 class="text-lg font-bold text-black mt-6 mb-2">However it cannot capture long-range dependencies, what do I mean by that?</h3>
+                        <h3 class="text-lg font-bold mt-6 mb-2">However it cannot capture long-range dependencies, what do I mean by that?</h3>
 
-<p class="brutalist-text-body">
-    Consider another example: <em>"The movie was not very good."</em>
-</p>
+                        <p class="brutalist-text-body">
+                            Consider another example: <em>"The movie was not very good."</em>
+                        </p>
 
-<p class="brutalist-text-body">
-    To accurately understand the sentiment of <strong>good</strong>, the model must consider the negating word <strong>not</strong>. However, a First-Order Markov Model only looks at the immediately preceding word: $\\text{very} \\rightarrow \\text{good}$
-</p>
+                        <p class="brutalist-text-body">
+                            To accurately understand the sentiment of <strong>good</strong>, the model must consider the negating word <strong>not</strong>. However, a First-Order Markov Model only looks at the immediately preceding word: $\\text{very} \\rightarrow \\text{good}$
+                        </p>
 
-<p class="brutalist-text-body">
-    Because it completely ignores <strong>not</strong>, the model fails to capture context that drastically alters the sentence's meaning.
-</p>`,
-`<h3 class="text-lg font-bold text-black mt-6 mb-2">Second-Order Markov Models</h3>
+                        <p class="brutalist-text-body">
+                            Because it completely ignores <strong>not</strong>, the model fails to capture context that drastically alters the sentence's meaning.
+                        </p>`,
+                                                `<h3 class="text-lg font-bold mt-6 mb-2">Second-Order Markov Models</h3>
 
-<p class="brutalist-text-body">
-    A Second-Order Markov Model increases the memory depth to 2 steps. It assumes that the probability of transitioning to the next state $X_t$ depends on both the current state $X_{t-1}$ <strong>AND</strong> the immediately preceding state $X_{t-2}$.
-</p>
+                        <p class="brutalist-text-body">
+                            A Second-Order Markov Model increases the memory depth to 2 steps. It assumes that the probability of transitioning to the next state $X_t$ depends on both the current state $X_{t-1}$ <strong>AND</strong> the immediately preceding state $X_{t-2}$.
+                        </p>
 
-<p class="brutalist-text-body">
-    Formally, for a sequence of states: $P(X_t \\mid X_1, \\dots, X_{t-1}) \\approx P(X_t \\mid X_{t-2}, X_{t-1})$
-</p>
+                        <p class="brutalist-text-body">
+                            Formally, for a sequence of states: $P(X_t \\mid X_1, \\dots, X_{t-1}) \\approx P(X_t \\mid X_{t-2}, X_{t-1})$
+                        </p>
 
-<h3><strong>Transition Structure</strong></h3>
+                        <h3><strong>Transition Structure</strong></h3>
 
-<p class="brutalist-text-body">
-    Because transitions depend on a pair of previous states, transition probabilities can no longer be stored in a simple 2D matrix. Instead, they require:
-</p>
+                        <p class="brutalist-text-body">
+                            Because transitions depend on a pair of previous states, transition probabilities can no longer be stored in a simple 2D matrix. Instead, they require:
+                        </p>
 
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li><strong>A 3D Tensor</strong> of size $N \\times N \\times N$, where $p_{ijk} = P(X_t = k \\mid X_{t-1} = j, X_{t-2} = i)$, OR</li>
-    <li><strong>A 2D Matrix</strong> of size $N^2 \\times N$, where each row represents a state-pair context $(s_{t-2}, s_{t-1})$.</li>
-</ul>
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li><strong>A 3D Tensor</strong> of size $N \\times N \\times N$, where $p_{ijk} = P(X_t = k \\mid X_{t-1} = j, X_{t-2} = i)$, OR</li>
+                            <li><strong>A 2D Matrix</strong> of size $N^2 \\times N$, where each row represents a state-pair context $(s_{t-2}, s_{t-1})$.</li>
+                        </ul>
 
-<p class="brutalist-text-body">
-    Consider again the same sentence: "I love machine learning".
-</p>
+                        <p class="brutalist-text-body">
+                            Consider again the same sentence: "I love machine learning".
+                        </p>
 
-<p class="brutalist-text-body">
-    To predict <strong>learning</strong>, the model now considers both <strong>love</strong> and <strong>machine</strong> instead of just <strong>machine</strong>.
-</p>
+                        <p class="brutalist-text-body">
+                            To predict <strong>learning</strong>, the model now considers both <strong>love</strong> and <strong>machine</strong> instead of just <strong>machine</strong>.
+                        </p>
 
-<p class="brutalist-text-body">
-    It estimates: $P(\\text{learning} \\mid \\text{love, machine})$
-</p>
-
-
-
-<h3 class="text-lg font-bold text-black mt-6 mb-2">However, even a Second-Order Markov Model can only look at the two previous words, making it unable to capture long-range dependencies in a sentence.</h3>
-
-<p class="brutalist-text-body">
-    Although a Second-Order Markov Model captures more context than a First-Order model, it still suffers from severe context limitations.
-</p>
-
-<p class="brutalist-text-body">
-    Consider the sentence: <em>"The food at the new restaurant near my office was absolutely delicious."</em>
-</p>
-
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li>To accurately predict <strong>delicious</strong>, the model needs crucial information from much earlier in the sentence, such as <strong>food</strong> or <strong>restaurant</strong>.</li>
-    <li>However, a Second-Order model only looks at the preceding 2 words: <strong>was</strong> $\\rightarrow$ <strong>absolutely</strong>.</li>
-    <li>Everything prior to those two words is completely ignored.</li>
-</ul>`,
-
-`<p class="brutalist-text-body">
-    As language models became larger, processing one word at a time became highly inefficient. To solve this, researchers realized that an entire sequence of words could be represented as vectors and processed simultaneously using matrix operations.
-</p>
-
-<h3 class="text-lg font-bold text-black mt-6 mb-2">Building the Embedding Matrix</h3>
-
-<p class="brutalist-text-body">
-    Instead of processing each word individually, every word is first converted into a dense embedding vector, and these vectors are stacked together into a single <a  href="https://en.wikipedia.org/wiki/Embedding_(machine_learning)" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">embedding matrix</a>.
-</p>
-
-<p class="brutalist-text-body font-semibold mt-3">Example Vector Embeddings:</p>
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li><strong>"I"</strong> $\\rightarrow [0.2, 0.8, 0.1, 0.4]$</li>
-    <li><strong>"love"</strong> $\\rightarrow [0.9, 0.1, 0.6, 0.2]$</li>
-    <li><strong>"AI"</strong> $\\rightarrow [0.7, 0.5, 0.3, 0.9]$</li>
-</ul>
-
-<p class="brutalist-text-body">
-    Stacking these token vectors creates the input embedding matrix $X$:
-    $$ X =
-\\begin{bmatrix}
-0.2 & 0.8 & 0.1 & 0.4 \\\\
-0.9 & 0.1 & 0.6 & 0.2 \\\\
-0.7 & 0.5 & 0.3 & 0.9
-\\end{bmatrix}
-$$
-</p>
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li><strong>Each row:</strong> Represents one token in the sequence.</li>
-    <li><strong>Each column:</strong> Represents one embedding dimension.</li>
-</ul>
-
-<p class="brutalist-text-body">
-    Instead of applying operations to each word sequentially, neural networks multiply the entire matrix by a weight matrix: $$Y = XW$$
-</p>
+                        <p class="brutalist-text-body">
+                            It estimates: $P(\\text{learning} \\mid \\text{love, machine})$
+                        </p>
 
 
 
-<p class="brutalist-text-body mt-2">Where:</p>
-<ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
-    <li>$X$: Input embedding matrix</li>
-    <li>$W$: Learned weight matrix</li>
-    <li>$Y$: Transformed representations matrix</li>
-</ul>
+                        <h3 class="text-lg font-bold mt-6 mb-2">However, even a Second-Order Markov Model can only look at the two previous words, making it unable to capture long-range dependencies in a sentence.</h3>
 
-<p class="brutalist-text-body">
-    This simple matrix multiplication transforms every token in the sequence simultaneously.
-</p>
+                        <p class="brutalist-text-body">
+                            Although a Second-Order Markov Model captures more context than a First-Order model, it still suffers from severe context limitations.
+                        </p>
 
-<h3 class="text-lg font-bold text-black mt-6 mb-2">So, How Does This Apply to Transformers?</h3>
+                        <p class="brutalist-text-body">
+                            Consider the sentence: <em>"The food at the new restaurant near my office was absolutely delicious."</em>
+                        </p>
 
-<p class="brutalist-text-body">
-    Many core Transformer computations rely directly on matrix multiplications, such as calculating the <strong>Query ($Q$)</strong>, <strong>Key ($K$)</strong>, and <strong>Value ($V$)</strong> projections: $$Q = X W_Q, \\quad K = X W_K, \\quad V = X W_V$$
-</p>
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li>To accurately predict <strong>delicious</strong>, the model needs crucial information from much earlier in the sentence, such as <strong>food</strong> or <strong>restaurant</strong>.</li>
+                            <li>However, a Second-Order model only looks at the preceding 2 words: <strong>was</strong> $\\rightarrow$ <strong>absolutely</strong>.</li>
+                            <li>Everything prior to those two words is completely ignored.</li>
+                        </ul>`,
+
+                                                `<p class="brutalist-text-body">
+                            As language models became larger, processing one word at a time became highly inefficient. To solve this, researchers realized that an entire sequence of words could be represented as vectors and processed simultaneously using matrix operations.
+                        </p>
+
+                        <h3 class="text-lg font-bold mt-6 mb-2">Building the Embedding Matrix</h3>
+
+                        <p class="brutalist-text-body">
+                            Instead of processing each word individually, every word is first converted into a dense embedding vector, and these vectors are stacked together into a single <a  href="https://en.wikipedia.org/wiki/Embedding_(machine_learning)" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">embedding matrix</a>.
+                        </p>
+
+                        <p class="brutalist-text-body font-semibold mt-3">Example Vector Embeddings:</p>
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li><strong>"I"</strong> $\\rightarrow [0.2, 0.8, 0.1, 0.4]$</li>
+                            <li><strong>"love"</strong> $\\rightarrow [0.9, 0.1, 0.6, 0.2]$</li>
+                            <li><strong>"AI"</strong> $\\rightarrow [0.7, 0.5, 0.3, 0.9]$</li>
+                        </ul>
+
+                        <p class="brutalist-text-body">
+                            Stacking these token vectors creates the input embedding matrix $X$:
+                            $$ X =
+                        \\begin{bmatrix}
+                        0.2 & 0.8 & 0.1 & 0.4 \\\\
+                        0.9 & 0.1 & 0.6 & 0.2 \\\\
+                        0.7 & 0.5 & 0.3 & 0.9
+                        \\end{bmatrix}
+                        $$
+                        </p>
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li><strong>Each row:</strong> Represents one token in the sequence.</li>
+                            <li><strong>Each column:</strong> Represents one embedding dimension.</li>
+                        </ul>
+
+                        <p class="brutalist-text-body">
+                            Instead of applying operations to each word sequentially, neural networks multiply the entire matrix by a weight matrix: $$Y = XW$$
+                        </p>
 
 
 
-<p class="brutalist-text-body">
-    Here, the input embedding matrix $X$ is multiplied by three separate weight matrices ($W_Q, W_K, W_V$) to produce the $Q$, $K$, and $V$ matrices used directly in the self-attention mechanism: $$\\text{Attention}(Q, K, V) = \\text{softmax}\\left(\\frac{Q K^T}{\\sqrt{d_k}}\\right) V$$
-</p>`,
+                        <p class="brutalist-text-body mt-2">Where:</p>
+                        <ul class="list-disc pl-6 space-y-1 brutalist-text-body my-2">
+                            <li>$X$: Input embedding matrix</li>
+                            <li>$W$: Learned weight matrix</li>
+                            <li>$Y$: Transformed representations matrix</li>
+                        </ul>
+
+                        <p class="brutalist-text-body">
+                            This simple matrix multiplication transforms every token in the sequence simultaneously.
+                        </p>
+
+                        <h3 class="text-lg font-bold mt-6 mb-2">So, How Does This Apply to Transformers?</h3>
+
+                        <p class="brutalist-text-body">
+                            Many core Transformer computations rely directly on matrix multiplications, such as calculating the <strong>Query ($Q$)</strong>, <strong>Key ($K$)</strong>, and <strong>Value ($V$)</strong> projections: $$Q = X W_Q, \\quad K = X W_K, \\quad V = X W_V$$
+                        </p>
+                        <p class="brutalist-text-body">
+                            Here, the input embedding matrix $X$ is multiplied by three separate weight matrices ($W_Q, W_K, W_V$) to produce the $Q$, $K$, and $V$ matrices used directly in the self-attention mechanism: $$\\text{Attention}(Q, K, V) = \\text{softmax}\\left(\\frac{Q K^T}{\\sqrt{d_k}}\\right) V$$
+                        </p>`,
                     ]
-                }
+                },
             ],
 
-            references: []
+            references: [
+                {
+                    id: "PROTOCOL-01",
+                    journal: "TRANSFORMER MECHANICS",
+                    title: "Natural Language Processing in Large Language Models",
+                    description: "Tokenization, embeddings, and sequence modeling—that power modern Large Language Models.",
+                    link: "natural-language-processing-large-language-models.html"
+                },
+                {
+                    id: "PROTOCOL-03",
+                    journal: "TRANSFORMER MECHANICS",
+                    title: "Transformer Architecture Demystified: Encoders, Decoders, and Attention",
+                    description: "Babin, D., Dr. Thorne, E., et al. Evaluating decay behavior of complex raw carbon vectors under elevated lithostatic pressures across continental shelves.",
+                    link: "transformer-architecture-demystified.html"
+                },
+
+
+            ]
         };
 
         // -----------------------------------------------------------------
@@ -2080,7 +2186,7 @@ $$
                         ${r.title}
                     </h4>
                     <p class="text-xs brutalist-text-muted max-w-2xl leading-relaxed group-hover:!text-neutral-300 dark:group-hover:!text-neutral-600">
-                        ${r.authors}
+                        ${r.description}
                     </p>
                 </a>
             `).join('');
