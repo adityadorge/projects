@@ -84,33 +84,126 @@
         .editorial-nav-item {
             transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
         }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        img,
+        svg,
+        video,
+        iframe,
+        table {
+            max-width: 100%;
+        }
+
+        img {
+            height: auto;
+        }
+
+        table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-collapse: collapse;
+        }
+
+        .editorial-section *,
+        .editorial-section p,
+        .editorial-section li,
+        .editorial-section h2,
+        .editorial-section h3,
+        .editorial-section h4,
+        .editorial-section blockquote {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+
+            .border-x {
+                border-left: 0 !important;
+                border-right: 0 !important;
+            }
+
+            nav {
+                padding: 1rem 1rem 1.1rem;
+            }
+
+            #theme-toggle {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: 0.4rem 0.75rem;
+            }
+
+            #theme-toggle > a,
+            #theme-toggle > span {
+                padding: 0.25rem 0;
+            }
+
+            #theme-toggle > .w-px {
+                display: none;
+            }
+
+            .editorial-section {
+                padding: 1.25rem !important;
+            }
+
+            .editorial-section .max-w-3xl {
+                max-width: 100% !important;
+            }
+
+            .editorial-section blockquote {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            .editorial-section ul,
+            .editorial-section ol {
+                padding-left: 1.1rem;
+            }
+        }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden selection:bg-black selection:text-white lg:cursor-none brutalist-bg brutalist-text">
+<body
+    class="antialiased overflow-x-hidden selection:bg-black selection:text-white lg:cursor-none brutalist-bg brutalist-text">
 
     <div id="custom-cursor"></div>
 
     <div class="border-x brutalist-border mx-auto max-w-[1800px] min-h-screen flex flex-col">
         
         <!-- Navigation Header -->
-        <nav class="border-b brutalist-border px-8 py-5 flex justify-between items-center text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
+        <nav
+            class="border-b brutalist-border px-4 py-4 sm:px-8 sm:py-5 flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-bg select-none">
             <div class="brutalist-text" id="bind-posted-date">POSTED ON: -- // ARCHIVE MATRIX</div>
             
-            <div class="flex items-center gap-3 cursor-pointer group" id="theme-toggle">
-                <a href="../../../index.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">RESEARCH</a>
-                <div class="w-px h-6 brutalist-border border-l"></div>
-                <a href="../../../projects.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">PROJECTS</a>
-                <div class="w-px h-6 brutalist-border border-l"></div>
-                <a href="../../../blog.html" class="px-5 py-1 text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">BLOG</a>
-                <div class="w-px h-6 brutalist-border border-l"></div>
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3 cursor-pointer group" id="theme-toggle">
+                <a href="../../../index.html"
+                    class="px-3 py-1 sm:px-5 sm:py-1 text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">RESEARCH</a>
+                <div class="w-px h-6 brutalist-border border-l hidden sm:block"></div>
+                <a href="../../../projects.html"
+                    class="px-3 py-1 sm:px-5 sm:py-1 text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">PROJECTS</a>
+                <div class="w-px h-6 brutalist-border border-l hidden sm:block"></div>
+                <a href="../../../blog.html"
+                    class="px-3 py-1 sm:px-5 sm:py-1 text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-text hover:opacity-60 transition-opacity duration-200">BLOG</a>
+                <div class="w-px h-6 brutalist-border border-l hidden sm:block"></div>
 
                 <span id="theme-text" class="brutalist-text">LIGHT</span>
                 <div class="relative w-5 h-5 flex items-center justify-center">
-                    <svg id="theme-sun" class="w-5 h-5 brutalist-text hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg id="theme-sun" class="w-5 h-5 brutalist-text hidden" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="4"></circle>
-                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        <path
+                            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41">
+                        </path>
                     </svg>
-                    <svg id="theme-moon" class="w-5 h-5 brutalist-text block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg id="theme-moon" class="w-5 h-5 brutalist-text block" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 </div>
@@ -145,8 +238,8 @@
         <section class="grid grid-cols-1 lg:grid-cols-12 border-b brutalist-border relative">
             
             <!-- Sidebar Matrix -->
-            <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r brutalist-border p-8 lg:p-12 brutalist-bg lg:sticky lg:top-0 lg:h-screen flex flex-col justify-between select-none z-20">
-                <div class="pt-4">
+            <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r brutalist-border p-8 lg:p-12 brutalist-bg lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto flex flex-col justify-between select-none z-20">
+                <div class="pt-4 pr-2">
                     <span class="text-xs font-bold tracking-widest uppercase brutalist-text-muted block mb-8">// LITIGATION & EVIDENCE MATRIX</span>
                     <nav id="bind-sidebar-nav" class="flex flex-col space-y-4">
                         <!-- Rendered via JS -->
@@ -213,7 +306,7 @@
                 registryCode: "SL-2026-REV4"
             },
             hero: {
-                bgImage: "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                bgImage: "https://images.unsplash.com/photo-1738107445898-2ea37e291bca?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 pdfUrl: "https://example.org/documents/current-research-paper.pdf",
                 title: "Transformer Architecture Demystified: Encoders, Decoders, and Attention",
                 summary: "Research Labs' novel approach injects biomass into marine sediments, elevating the seabed to counter coastal erosion and achieve durable carbon storage."
@@ -227,38 +320,35 @@
                 body: "By combining sediment-based carbon storage with seabed elevation, the method turns agricultural waste into a durable climate intervention. The result is a single system that addresses emissions, erosion, and long-term coastal resilience at the same time."
             },
             sections: [
-                {
-                    id: "doc-abstract",
-                    logCode: "// ARCHIVE LOG 01.A",
-                    navTitle: "01 / RESEARCH ABSTRACT & ANCHOR THESIS",
-                    title: "Research Abstract &<br>Anchor Thesis",
-                    quote: "By depositing dense agricultural biomass derivatives within specialized anoxic sub-layers of marine shelves, degradation rates drop below standard decay baselines by a factor of $10^4$.",
-                    paragraphs: [
-                        "Our long-term research establishes that deep-sediment carbon storage works concurrently as a physical stabilization medium for eroding coastal margins. Traditional techniques prioritize storage in deep open-ocean columns; however, our lab prioritizes the shallow continental margins, turning raw carbon vectors into active geological engineering infrastructure.",
-                        "By preventing atmospheric methane and carbon gas discharge through immediate sediment encapsulation, the process establishes a highly predictable, verifiable structural carbon net-negative balance zone that addresses structural earth decay and gas containment simultaneously."
-                    ]
-                },
-                {
-                    id: "doc-methodology",
-                    logCode: "// ARCHIVE LOG 02.B",
-                    navTitle: "02 / ANCHOR INJECTION METHODOLOGY",
-                    title: "Anchor Injection<br>Methodology",
-                    isStriped: true,
-                    paragraphs: [
-                        "The operational framework requires rigorous phase alignment to execute safely without displacing local benthic microclimates. The strategy relies on bypassing standard open-air storage limitations completely."
-                    ],
-                    gridItems: [
-                        { 
-                            title: "01 / MICRO-FLUIDIZATION", 
-                            text: "Raw carbon substrates are mechanically optimized down to standardized granular structures ($\\le 4\\text{mm}$) to ensure uniform fluid movement underneath soft marine layers without clumping." 
-                        },
-                        { 
-                            title: "02 / ACOUSTIC GRAIN DISPLACEMENT", 
-                            text: "Low-frequency acoustic resonance drivers create brief, clean interstitial pathways through sea mud arrays, removing the need for traditional heavy sub-surface digging." 
-                        }
-                    ],
-                    footerParagraph: "Real-time telemetry tags track continuous reading matrices across every staging point—analyzing structural gas changes and visual tracking telemetry layers to maintain the continuous security of the upper containment barrier seal."
-                }
+                { id: "prerequisites", logCode: "// ARCHIVE LOG 01", navTitle: "Prerequisites", title: "Prerequisites", paragraphs: [] },
+                { id: "birth-of-the-transformer", logCode: "// ARCHIVE LOG 02", navTitle: "Birth of the Transformer", title: "Birth of the Transformer", paragraphs: [] },
+                { id: "tokenization", logCode: "// ARCHIVE LOG 03", navTitle: "Tokenization", title: "Tokenization", paragraphs: [] },
+                { id: "embedding-layer", logCode: "// ARCHIVE LOG 04", navTitle: "Embedding Layer", title: "Embedding Layer", paragraphs: [] },
+                { id: "positional-encoding", logCode: "// ARCHIVE LOG 05", navTitle: "Positional Encoding", title: "Positional Encoding", paragraphs: [] },
+                { id: "attention", logCode: "// ARCHIVE LOG 06", navTitle: "Attention", title: "Attention", paragraphs: [] },
+                { id: "masking", logCode: "// ARCHIVE LOG 07", navTitle: "Masking", title: "Masking", paragraphs: [] },
+                { id: "multi-head-attention", logCode: "// ARCHIVE LOG 08", navTitle: "Multi-Head Attention", title: "Multi-Head Attention", paragraphs: [] },
+                { id: "feed-forward-networks", logCode: "// ARCHIVE LOG 09", navTitle: "Feed Forward Networks", title: "Feed Forward Networks", paragraphs: [] },
+                { id: "residual-learning", logCode: "// ARCHIVE LOG 10", navTitle: "Residual Learning", title: "Residual Learning", paragraphs: [] },
+                { id: "layernorm", logCode: "// ARCHIVE LOG 11", navTitle: "LayerNorm", title: "LayerNorm", paragraphs: [] },
+                { id: "dropout", logCode: "// ARCHIVE LOG 12", navTitle: "Dropout", title: "Dropout", paragraphs: [] },
+                { id: "transformer-encoder", logCode: "// ARCHIVE LOG 13", navTitle: "Transformer Encoder", title: "Transformer Encoder", paragraphs: [] },
+                { id: "transformer-decoder", logCode: "// ARCHIVE LOG 14", navTitle: "Transformer Decoder", title: "Transformer Decoder", paragraphs: [] },
+                { id: "cross-attention", logCode: "// ARCHIVE LOG 15", navTitle: "Cross Attention", title: "Cross Attention", paragraphs: [] },
+                { id: "output-layer", logCode: "// ARCHIVE LOG 16", navTitle: "Output Layer", title: "Output Layer", paragraphs: [] },
+                { id: "softmax", logCode: "// ARCHIVE LOG 17", navTitle: "Softmax", title: "Softmax", paragraphs: [] },
+                { id: "training", logCode: "// ARCHIVE LOG 18", navTitle: "Training", title: "Training", paragraphs: [] },
+                { id: "cross-entropy", logCode: "// ARCHIVE LOG 19", navTitle: "Cross Entropy", title: "Cross Entropy", paragraphs: [] },
+                { id: "backpropagation", logCode: "// ARCHIVE LOG 20", navTitle: "Backpropagation", title: "Backpropagation", paragraphs: [] },
+                { id: "optimization", logCode: "// ARCHIVE LOG 21", navTitle: "Optimization", title: "Optimization", paragraphs: [] },
+                { id: "complete-architecture", logCode: "// ARCHIVE LOG 22", navTitle: "Complete Architecture", title: "Complete Architecture", paragraphs: [] },
+                { id: "modern-variants", logCode: "// ARCHIVE LOG 23", navTitle: "Modern Variants", title: "Modern Variants", paragraphs: [] },
+                { id: "decoder-only-models-llms", logCode: "// ARCHIVE LOG 24", navTitle: "Decoder-Only Models (LLMs)", title: "Decoder-Only Models (LLMs)", paragraphs: [] },
+                { id: "encoder-decoder-models", logCode: "// ARCHIVE LOG 25", navTitle: "Encoder–Decoder Models", title: "Encoder–Decoder Models", paragraphs: [] },
+                { id: "inference-decoding-strategies", logCode: "// ARCHIVE LOG 26", navTitle: "Inference & Decoding Strategies", title: "Inference & Decoding Strategies", paragraphs: [] },
+                { id: "scaling-transformers", logCode: "// ARCHIVE LOG 27", navTitle: "Scaling Transformers", title: "Scaling Transformers", paragraphs: [] },
+                { id: "modern-evolutions-enhancements", logCode: "// ARCHIVE LOG 28", navTitle: "Modern Evolutions & Enhancements", title: "Modern Evolutions & Enhancements", paragraphs: [] },
+                { id: "mathematical-appendix", logCode: "// ARCHIVE LOG 29", navTitle: "Mathematical Appendix", title: "Mathematical Appendix", paragraphs: [] }
             ],
             
             references: [
