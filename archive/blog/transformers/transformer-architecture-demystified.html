@@ -85,6 +85,21 @@
             transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
         }
 
+        .hero-cta {
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .hero-cta:hover {
+            background-color: var(--text-main);
+            color: var(--bg-main) !important;
+        }
+
+        .hero-cta svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -216,11 +231,33 @@
                 <div id="bind-hero-bg" class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="opacity: 0.8; filter: hue-rotate(35deg) saturate(1.4);"></div>
             </div>
             
-            <a id="bind-pdf-link" href="#" target="_blank" class="lg:col-span-5 p-8 lg:p-16 flex flex-col justify-center brutalist-bg hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors duration-300 relative">
+            <div class="lg:col-span-5 p-8 lg:p-16 flex flex-col justify-center brutalist-bg hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors duration-300 relative">
 
                 <h2 id="bind-hero-title" class="text-5xl lg:text-[4.5rem] font-normal tracking-tight leading-[1.02] brutalist-text mb-8"></h2>
                 <p id="bind-hero-summary" class="text-base lg:text-lg brutalist-text-body font-normal leading-relaxed max-w-xl"></p>
-            </a>
+                <div class="mt-8 flex flex-wrap items-center gap-3">
+                    <a id="bind-pdf-link" href="#" target="_blank" rel="noopener noreferrer" class="hero-cta inline-flex w-fit items-center gap-2 border brutalist-border px-4 py-2 text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-text">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <path d="M14 2v6h6"></path>
+                        </svg>
+                        Open PDF
+                        <span aria-hidden="true">→</span>
+                    </a>
+                    <a id="bind-github-link" href="#" target="_blank" rel="noopener noreferrer" class="hero-cta inline-flex w-fit items-center gap-2 border brutalist-border px-4 py-2 text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-text">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.34-1.75-1.34-1.75-1.1-.74.09-.72.09-.72 1.21.09 1.85 1.25 1.85 1.25 1.08 1.85 2.82 1.31 3.5 1 .11-.78.42-1.31.77-1.61-2.67-.31-5.47-1.33-5.47-5.9 0-1.3.46-2.36 1.23-3.2-.13-.3-.53-1.53.11-3.19 0 0 1-.32 3.3 1.22a11.4 11.4 0 0 1 6 0c2.29-1.54 3.29-1.22 3.29-1.22.64 1.66.24 2.89.12 3.19.76.84 1.22 1.9 1.22 3.2 0 4.58-2.81 5.59-5.49 5.89.43.37.82 1.1.82 2.22v3.29c0 .32.21.69.83.58A12 12 0 0 0 12 .5z"></path>
+                        </svg>
+                        GitHub
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                    <a id="bind-colab-link" href="#" target="_blank" rel="noopener noreferrer" class="hero-cta inline-flex w-fit items-center gap-2 border brutalist-border px-4 py-2 text-[10px] sm:text-xs font-bold tracking-widest uppercase brutalist-text">
+                        <span class="font-mono text-xs leading-none" aria-hidden="true">&lt;&gt;</span>
+                        Google Colab
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                </div>
+            </div>
         </section>
 
         <!-- Challenge Section -->
@@ -307,7 +344,9 @@
             },
             hero: {
                 bgImage: "https://images.unsplash.com/photo-1738107445898-2ea37e291bca?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                pdfUrl: "https://example.org/documents/current-research-paper.pdf",
+                pdfUrl: "https://arxiv.org/pdf/1706.03762.pdf",
+                githubUrl: "https://github.com/adityadorge/Transformer-Implementation",
+                colabUrl: "https://colab.research.google.com/drive/1pBR4_CElgssmKH3r0XBmGB7nDiCJFilU?usp=sharing",
                 title: "Transformer Architecture Demystified: Encoders, Decoders, and Attention",
                 summary: "Research Labs' novel approach injects biomass into marine sediments, elevating the seabed to counter coastal erosion and achieve durable carbon storage."
             },
@@ -320,8 +359,24 @@
                 body: "By combining sediment-based carbon storage with seabed elevation, the method turns agricultural waste into a durable climate intervention. The result is a single system that addresses emissions, erosion, and long-term coastal resilience at the same time."
             },
             sections: [
-                { id: "prerequisites", logCode: "// ARCHIVE LOG 01", navTitle: "Prerequisites", title: "Prerequisites", paragraphs: [] },
-                { id: "birth-of-the-transformer", logCode: "// ARCHIVE LOG 02", navTitle: "Birth of the Transformer", title: "Birth of the Transformer", paragraphs: [] },
+                { id: "prerequisites", logCode: "// ARCHIVE LOG 01", navTitle: "Prerequisites", title: "Prerequisites", 
+                    paragraphs: [
+                        "Before diving into the Transformer architecture, I highly recommend reading my earlier blog, <a href=\"llm-baseline-prerequisites.html\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">The LLM Baseline: Prerequisites for Transformer Mechanics.</a> It covers the essential mathematical foundations, core NLP concepts, and fundamental building blocks needed to understand Transformers with confidence. These prerequisites will help you follow the concepts in this guide more intuitively, so nothing feels unfamiliar or left unexplained as we explore the architecture step by step.",
+
+                    ] },
+                { 
+                    id: "birth-of-the-transformer", 
+                    logCode: "// ARCHIVE LOG 02", 
+                    navTitle: "Birth of the Transformer", 
+                    title: "Birth of the Transformer", 
+                    paragraphs: [
+                        "Ever since <strong>Vaswani et al.</strong> introduced the Transformer architecture in 2017 in their seminal paper <a href=\"https://arxiv.org/abs/1706.03762\" target=\"_blank\" class=\"underline underline-offset-4 decoration-indigo-600 decoration-2 font-bold\">Attention is All You Need</a>, natural language processing has changed completely. Older models, such as Recurrent Neural Networks (RNNs) and Long Short-Term Memory networks (LSTMs), processed text step-by-step, which made training slow and limited their ability to handle long passages. Transformers solved this by using self-attention, allowing the model to look at an entire sequence at once and instantly connect related words regardless of where they appear.",
+                        "Today, deep learning libraries make it easy to deploy a Transformer with just a line or two of code, but these shortcuts hide how the model actually works. Building a Transformer completely from scratch bridges that gap. This paper breaks down the architecture into its core building blocks including Multi-Head Attention, positional encodings, and residual connections offering a clear, step-by-step guide to how each component works and take a deep dive into the Transformer architecture.",
+                        "<a href=\"https://commons.wikimedia.org/wiki/File:Transformer,_full_architecture.png\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"block my-6\"><span class=\"block bg-white p-2 lg:p-3 border brutalist-border\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Transformer%2C_full_architecture.png/1280px-Transformer%2C_full_architecture.png?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail\" alt=\"Full Transformer architecture diagram showing encoder and decoder stacks\" loading=\"lazy\" class=\"w-full h-auto\"></span></a>",
+                        "<span class=\"block text-sm  text-center lg:text-base brutalist-text-muted\">Image credit: dvgodoy - <a rel=\"nofollow\" class=\"external free underline underline-offset-4\" href=\"https://github.com/dvgodoy/dl-visuals/?tab=readme-ov-file\" target=\"_blank\">dl-visuals</a>, licensed under <a href=\"https://creativecommons.org/licenses/by/4.0\" title=\"Creative Commons Attribution 4.0\" target=\"_blank\" class=\"underline underline-offset-4\">CC BY 4.0</a>. Source on <a href=\"https://commons.wikimedia.org/w/index.php?curid=151216016\" target=\"_blank\" class=\"underline underline-offset-4\">Wikimedia Commons</a>.</span>",
+                        
+                    ] 
+                },
                 { id: "tokenization", logCode: "// ARCHIVE LOG 03", navTitle: "Tokenization", title: "Tokenization", paragraphs: [] },
                 { id: "embedding-layer", logCode: "// ARCHIVE LOG 04", navTitle: "Embedding Layer", title: "Embedding Layer", paragraphs: [] },
                 { id: "positional-encoding", logCode: "// ARCHIVE LOG 05", navTitle: "Positional Encoding", title: "Positional Encoding", paragraphs: [] },
@@ -348,7 +403,8 @@
                 { id: "inference-decoding-strategies", logCode: "// ARCHIVE LOG 26", navTitle: "Inference & Decoding Strategies", title: "Inference & Decoding Strategies", paragraphs: [] },
                 { id: "scaling-transformers", logCode: "// ARCHIVE LOG 27", navTitle: "Scaling Transformers", title: "Scaling Transformers", paragraphs: [] },
                 { id: "modern-evolutions-enhancements", logCode: "// ARCHIVE LOG 28", navTitle: "Modern Evolutions & Enhancements", title: "Modern Evolutions & Enhancements", paragraphs: [] },
-                { id: "mathematical-appendix", logCode: "// ARCHIVE LOG 29", navTitle: "Mathematical Appendix", title: "Mathematical Appendix", paragraphs: [] }
+                { id: "mathematical-appendix", logCode: "// ARCHIVE LOG 29", navTitle: "Mathematical Appendix", title: "Mathematical Appendix", paragraphs: [] },
+                { id: "reference & bibliography", logCode: "// ARCHIVE LOG 29", navTitle: "Reference & Bibliography", title: "Reference & Bibliography", paragraphs: [] }
             ],
             
             references: [
@@ -380,6 +436,8 @@
             // Bind Hero
             document.getElementById('bind-hero-bg').style.backgroundImage = `url('${pageData.hero.bgImage}')`;
             document.getElementById('bind-pdf-link').href = pageData.hero.pdfUrl;
+            document.getElementById('bind-github-link').href = pageData.hero.githubUrl;
+            document.getElementById('bind-colab-link').href = pageData.hero.colabUrl;
             document.getElementById('bind-hero-title').innerHTML = pageData.hero.title;
             document.getElementById('bind-hero-summary').innerText = pageData.hero.summary;
 
